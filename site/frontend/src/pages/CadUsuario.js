@@ -9,7 +9,6 @@ const SUPABASE_URL = 'https://tjymhvpxlogvqimokytv.supabase.co'
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 
-
 const CadUsuario = () => {
 
     // function validarCPF() {
@@ -212,11 +211,12 @@ const CadUsuario = () => {
 
     return (
         <div>
-            <Header />
+            <Header/>
 
             <div class="cadastro">
-                <h2>Cadastrar Usuário</h2>
                 <form action="POST" class="campos-cadastro" onSubmit={handleSubmit}>
+
+                    <h1>Cadastrar Usuário</h1>
 
                     <div class="box-nome">
                         <label for="nome">Nome</label>

@@ -1,7 +1,3 @@
-h2 {
-    color: black;
-}
-
 .link {
     color: black;
 }
@@ -14,22 +10,18 @@ h2 {
     color: white;
 }
 
-.cadastro > h2 {
-    font-size: 1.2em;
-}
-
-.cadastro > h3 {
-    font-style: italic;
-    font-size: 1em;
-    font-weight: lighter;
-}
-
 .campos-cadastro {    
     width: 680px;
     padding: 40px;
     margin: 20px;
     border-radius: 10px;
     background-color: #3069719d;
+}
+
+.campos-cadastro > h1 {
+    display: flex; 
+    justify-content: center;
+    font-size: 1.5em;
 }
 
 .box-nome, 
