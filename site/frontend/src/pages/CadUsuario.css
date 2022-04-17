@@ -35,7 +35,7 @@ h2 {
 .box-nome, 
 .box-senha,
 .box-email, 
-.box-idade,
+.box-dtNasc,
 .box-telefone,
 .box-endereco,
 .box-tipoUsuario,
@@ -61,7 +61,7 @@ h2 {
 .box-nome > input,
 .box-senha > input,
 .box-email > input,
-.box-idade > input,
+.box-dtNasc > input,
 .box-cpf > input,
 .box-endereco > input,
 .box-telefone > input {
