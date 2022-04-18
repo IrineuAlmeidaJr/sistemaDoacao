@@ -57,7 +57,7 @@ const ListaUsuario = () => {
             <Header />
             <div class="boxPrincipal">
                 <div class="campo-exibicao">
-                    <h1>Lista de Usuários</h1>
+                    <h1>Tipo de Usuários</h1>
                     
                     <div class="opcoes">
                         <div class="legenda">
