@@ -1,0 +1,43 @@
+.principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    color: white;
+}
+
+.campos-principal { 
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    width: 680px;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #3069719d;
+}
+
+.campos-principal > h1 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: white;
+}
+
+.link {
+    margin-top: 5px;
+    padding: 5px;
+    text-decoration: none;
+    background-color: #5fd073;
+    border-radius: 7px;
+}
+
+.link:hover {
+    transition: 400ms;
+    background-color: #3d974e;
+    border-radius: 7px;
+    color: white;
+}
+
+.link:active {
+    transform: translateY(3px);
+}
