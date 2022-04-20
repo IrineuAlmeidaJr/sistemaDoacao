@@ -1,0 +1,97 @@
+.link {
+    color: black;
+}
+
+.cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    color: white;
+}
+
+.campos-cadastro {    
+    width: 680px;
+    padding: 40px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #3069719d;
+}
+
+.campos-cadastro > h1 {
+    display: flex; 
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.box-nome, 
+.box-senha,
+.box-email, 
+.box-dtNasc,
+.box-telefone,
+.box-endereco,
+.box-tipoUsuario,
+.box-cpf {
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+.box-telefone > label,
+.box-email > label {
+    display: flex;
+    padding: 4px; 
+}
+
+.box-telefone > label > p,
+.box-email > label > p {
+    margin-left: 4px;
+    font-size: 0.7em;
+}
+
+.box-nome > input,
+.box-senha > input,
+.box-email > input,
+.box-dtNasc > input,
+.box-cpf > input,
+.box-endereco > input,
+.box-telefone > input {
+    color: gray;
+    margin-top: 2px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 7px;
+    font-size: 0.9em;
+    font-weight:lighter;
+}
+
+.box-tipoUsuario > select {
+    margin-top: 2px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 7px;
+    background: white;    
+    color: gray;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+form > button {
+    background-color: #5fd073;
+    border-style: none;
+    width: 100%;
+    height: 45px;
+    color: black;
+    font-size: 1.1em;
+}
+
+form > button:hover {
+    transition: 400ms;
+    background-color: #3d974e;
+    color: white;
+}
+
+form > button:active {
+    transform: translateY(4px);
+}
