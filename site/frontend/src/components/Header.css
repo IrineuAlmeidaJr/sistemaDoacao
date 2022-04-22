@@ -7,7 +7,7 @@
 nav {
     display: flex; 
     align-items: center;
-    position: fixed;
+    /*position: fixed; -- o header tava ficando em cima de qualquer outro componente, tendo que controlar a posição manualmente*/
     width: 100%;
     background-color: #6C8184;   
 }
