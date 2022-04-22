@@ -1,5 +1,5 @@
 import React from 'react';
-import './CadUsuario.css';
+import '../css/Formularios.css';
 import Header from '../components/Header';
 import swal from 'sweetalert';
 
@@ -268,7 +268,7 @@ const CadUsuario = () => {
                         </select>
                     </div>
 
-                    <button type="submit" onClick={handler}>Enviar</button>
+                    <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
                 </form>
             </div>
         </div>

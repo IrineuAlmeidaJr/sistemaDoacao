@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import './ListaUsuario.css'
+import '../css/ListaUsuario.css'
 
 import supabaseClient from '../config/supabase'
 import Table from '../components/Table';

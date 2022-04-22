@@ -10,7 +10,7 @@ export default function FormCadDoacao(props){
             <Header/>
             <div class="formBox">
                 <form>
-                    <h3 class="titulo-style-1">Cadastrar Doação</h3><br/>
+                    <h3 class="titulo-style-1">Cadastrar Doação (NÃO TERMINADO)</h3><br/>
                     {/* tipo da doacao - brinquedo, roupa etc - combo box */}
                     <label class="label-bold" for="tipoDoacao">Tipo da doação:</label><br/>
                     <select class="cb-tipoDoacao" >
