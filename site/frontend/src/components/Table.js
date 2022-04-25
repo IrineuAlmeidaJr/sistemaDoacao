@@ -24,11 +24,11 @@ const Table = (props) => {
                             <td>{usuario.id_usu}</td>
                             <td>{usuario.nome_usu}</td>
                             <td>{usuario.cpf_usu}</td>
-                            <td>{usuario.dataNasc_usu}</td>
+                            <td>{usuario.datanasc_usu}</td>
                             <td>{usuario.endereco_usu}</td>
                             <td>{usuario.email_usu}</td>
                             <td>{usuario.telefone_usu}</td>
-                            <td>{usuario.tipoUsuario_usu}</td>
+                            <td>{usuario.tipo_usuario}</td>
 
                         </tr>
                     ))

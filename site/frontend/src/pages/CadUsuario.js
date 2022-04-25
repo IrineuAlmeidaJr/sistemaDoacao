@@ -1,69 +1,10 @@
 import React from 'react';
 import './CadUsuario.css';
 import Header from '../components/Header';
-import swal from 'sweetalert';
 
-import { createClient } from '@supabase/supabase-js';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqeW1odnB4bG9ndnFpbW9reXR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDk2MzE1ODUsImV4cCI6MTk2NTIwNzU4NX0.b32YpSZum0hX5rGX6GM_JsNFl8rKn0dirVzvDDTE_qo'
-const SUPABASE_URL = 'https://tjymhvpxlogvqimokytv.supabase.co'
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-
+const localRecursos = 'http://localhost:4000/usuario'
 
 const CadUsuario = () => {
-
-    // function validarCPF() {
-    //     let value_cpf = document.querySelector('#campo_cpf');
-
-    //     value_cpf.addEventListener("keydown", function (e) {
-    //         if (e.key > "a" && e.key < "z") {
-    //             e.preventDefault();
-    //         }
-    //     });
-    //     value_cpf.addEventListener("blur", function (e) {
-    //         //Remove tudo o que não é dígito
-    //         let validar_cpf = this.value.replace(/\D/g, "");
-
-    //         //verificação da quantidade números
-    //         if (validar_cpf.length === 11) {
-
-    //             // verificação de CPF valido
-    //             let Soma;
-    //             let Resto;
-
-    //             Soma = 0;
-    //             for (let i = 1; i <= 9; i++) 
-    //                 Soma = Soma + parseInt(validar_cpf.substring(i - 1, i)) * (11 - i);
-    //             Resto = (Soma * 10) % 11;
-
-    //             if ((Resto === 10) || (Resto === 11)) 
-    //                 Resto = 0;
-    //             if (Resto !== parseInt(validar_cpf.substring(9, 10))) 
-    //                 return alert("CPF Inválido!");;
-
-    //             Soma = 0;
-    //             for (let i = 1; i <= 10; i++) 
-    //                 Soma = Soma + parseInt(validar_cpf.substring(i - 1, i)) * (12 - i);
-    //             Resto = (Soma * 10) % 11;
-
-    //             if ((Resto === 10) || (Resto === 11)) 
-    //                 Resto = 0;
-    //             if (Resto !== parseInt(validar_cpf.substring(10, 11))) 
-    //                 return alert("CPF Inválido!");;
-
-    //             //formatação final
-    //             let cpf_final;
-    //             cpf_final = validar_cpf.replace(/(\d{3})(\d)/, "$1.$2");
-    //             cpf_final = cpf_final.replace(/(\d{3})(\d)/, "$1.$2");
-    //             cpf_final = cpf_final.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-    //             document.getElementById('campo_cpf').value = cpf_final;
-
-    //         } else {
-    //             alert("CPF Inválido! É esperado 11 dígitos numéricos.")
-    //         }
-
-    //     })
-    // }
-
     const [nome, setNome] = React.useState('');
     const [cpf, setCpf] = React.useState('');
     const [senha, setSenha] = React.useState('');
@@ -141,52 +82,46 @@ const CadUsuario = () => {
         const validaEndereco = validaTexto(endereco, 5);
         const validaData = validaDtNasc();
         if (validaNome !== true) {
-            swal("Erro!", "Preencher nome com no mínimo 5 caracter", "error");
+            alert("Erro!", "Preencher nome com no mínimo 5 caracter", "error");
             document.querySelector("#nome").focus();
             // --> não funciona .focus() tem que arrumar
         } else if (validaCpf !== true) {
-            swal("Erro!", "CPF Inválido", "error");
+            alert("Erro!", "CPF Inválido", "error");
             document.querySelector("#cpf").focus();
             // --> não funciona .focus() tem que arrumar
         } else if (validaSenha !== true) {
-            swal("Erro!", "Senha deve conter no mínimo 6 caracter", "error");
+            alert("Erro!", "Senha deve conter no mínimo 6 caracter", "error");
             document.querySelector("#senha").focus();
             // --> não funciona .focus() tem que arrumar
         } else if (validaData !== true) {
-            swal("Erro!", "Data inválida", "error");
+            alert("Erro!", "Data inválida", "error");
             document.querySelector("#dtNasc").focus();
             // --> não funciona .focus() tem que arrumar
         } else if (validaEndereco !== true) {
-            swal("Erro!", "Edereço deve conter no mínimo 10 caracter", "error");
+            alert("Erro!", "Edereço deve conter no mínimo 10 caracter", "error");
             document.querySelector("#endereco").focus();
         } else if (validaTipoUsu() !== true) {
-            swal("Erro!", "Selecione um tipo de usuário", "error");
+            alert("Erro!", "Selecione um tipo de usuário", "error");
             document.querySelector("#tipoUsuario").focus();
         } else {
             const usuario = {
-                // ID gerando no banco de dados (autocomplete/sequence)
-                cpf_usu: cpf,
-                senha_usu: senha,
-                tipoUsuario_usu: tipoUsuario,
-                nome_usu: nome,
-                dataNasc_usu: dtNasc,
-                endereco_usu: endereco,
-                telefone_usu: telefone,
-                email_usu: email
+                cpf: cpf,
+                senha: senha,
+                tipo: tipoUsuario,
+                nome: nome,
+                data: dtNasc,
+                endereco: endereco,
+                telefone: telefone,
+                email: email
             }
 
-            // Colocar essa parte no banco e fazer um try...cath,
-            // essa função o correto é fazer assincrona
-            supabaseClient
-            .from('usuario')
-            .insert([usuario])
-            .then(({ data }) => {
-                // setListaMensagens([
-                //     data[0],
-                //     ...listaMensagens // Espalhamento
-                // ])
-                // console.log('Criando mensagem', data)
+            fetch(localRecursos,{method:"POST",
+                                headers:{'Content-Type':'application/json'},
+                                body:JSON.stringify(usuario)
             })
+            .then(resposta=>alert(resposta.statusText))
+            .catch(e=>alert(e))
+            
 
                   
 
@@ -199,9 +134,6 @@ const CadUsuario = () => {
             setTelefone('');
             setTipoUsuario(0);
 
-            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
-                window.location = '/';
-            });
             
             
         }

@@ -2,14 +2,8 @@ import React from 'react';
 import Header from '../components/Header';
 import './ListaUsuario.css'
 
-import supabaseClient from '../config/supabase'
 import Table from '../components/Table';
-
-
-// import { createClient } from '@supabase/supabase-js';
-// const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqeW1odnB4bG9ndnFpbW9reXR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDk2MzE1ODUsImV4cCI6MTk2NTIwNzU4NX0.b32YpSZum0hX5rGX6GM_JsNFl8rKn0dirVzvDDTE_qo'
-// const SUPABASE_URL = 'https://tjymhvpxlogvqimokytv.supabase.co'
-// const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+const localRecursos = 'http://localhost:4000/usuario'
 
 const ListaUsuario = () => {
 
@@ -20,35 +14,24 @@ const ListaUsuario = () => {
         fetchUsers()
     }, [])
 
-    async function fetchUsers() {
-        const { data } = await supabaseClient
-            .from('usuario')
-            .select()
-
-
-        setListaUsuarios(data)
-
-        // usuario.forEach((usu) => {
-        //     console.log(`\nNome:  ${usu.nome_usu} `)
-        // })
+    function fetchUsers() {
+        fetch(localRecursos,{method:"GET"})
+        .then(resposta=>resposta.json())
+        .then(dados=>{
+            setListaUsuarios(dados);
+        }, 
+        error =>{
+            alert(error)
+        });
     }
-
-    async function deletar() {
-        try {
-            const idExcluir = document.querySelector('#deletarUsu').value;
-            console.log(`ID de Excluir --> ${idExcluir}`);
-            await supabaseClient
-                .from('usuario')
-                .delete()
-                .eq('id_usu', idExcluir);
-            // Faz chamada para atualizar a tabela, pois, depois
-            // que excluir tem que fazer um novo select OU bastava deletar
-            // do array qual seria melhor?? 
-            fetchUsers(); 
-
-        } catch (error) {
-            console.log('error', error);
-        }        
+    
+    function deletar() {
+        const id = {id: document.querySelector('#deletarUsu').value}
+        fetch(localRecursos,{method:"DELETE",
+                                 headers:{'Content-Type':'application/json'},
+                                 body:JSON.stringify(id)
+            })
+            .then(resposta=>alert(resposta.json()))    
     }
 
 
