@@ -16,7 +16,8 @@ const Home = () => {
                     {/*<h1>Página Doação</h1>                  
                     <Link class="link" to="/cadDoacao">Cadastrar Doação</Link>*/}
                     <h1>Página Tipo Doação</h1>                  
-                    <Link class="link" to="/cadTipoDoacao">Cadastrar Tipo de Doação</Link>                   
+                    <Link class="link" to="/cadTipoDoacao">Cadastrar Tipo de Doação</Link>
+                    <Link class="link" to="/listaTipoDoacao">Listar tipo de doação</Link>                   
                 </div>
             </div>
         </div>

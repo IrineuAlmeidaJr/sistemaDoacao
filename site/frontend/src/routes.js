@@ -6,6 +6,7 @@ import ListaUsuario from "./pages/ListaUsuario";
 import CadUsuario from "./pages/CadUsuario";
 //import FormCadDoacao from "./pages/CadDoacao"; SERÁ USADO DEPOIS - NÃO APAGAR
 import FormCadTipoDoacao from "./pages/CadTipoDoacao";
+import ListaTipoDoacao from "./pages/ListaTipoDoacao";
 
 const Routes = () => {
    return(
@@ -15,6 +16,7 @@ const Routes = () => {
            <Route component = { ListaUsuario }  path="/listaUsuario" />
            {/*<Route component = { FormCadDoacao }  path="/cadDoacao" /> ------ SERÁ USADO DEPOIS - NÃO APAGAR*/}
            <Route component = { FormCadTipoDoacao }  path="/cadTipoDoacao" />
+           <Route component = {ListaTipoDoacao} path="/listaTipoDoacao" />
        </BrowserRouter>
    )
 }

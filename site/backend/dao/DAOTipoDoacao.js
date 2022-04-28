@@ -4,7 +4,7 @@ module.exports = app => {
 
     app.get('/tipoDoacao', (req, res) => {
         const client = app.db.connect();
-        const p = client.query('SELECT * from TipoDoacao');
+        const p = client.query('SELECT * from tipo_doacao');
         res.status(200).send(p.rows)
         client.release();
     })
@@ -14,7 +14,7 @@ module.exports = app => {
         console.log(user.tipo);
         let novo = new tipo(user.tipo)
         const client = await app.db.connect();
-        let aux = "INSERT INTO tipoDoacao(tipo_nome) values('#1')"
+        let aux = "INSERT INTO tipo_doacao(tipo_nome) values('#1')"
         let sql = aux.replace('#1', novo.getNome())
         console.log(sql)
         try {
@@ -32,7 +32,7 @@ module.exports = app => {
         const user = { ...req.body }
         console.log(user)
         const client = await app.db.connect();
-        let aux = "DELETE FROM TipoDoacao where tipo_id = "+user.cod
+        let aux = "DELETE FROM tipo_doacao where tipo_id = "+user.cod
         console.log(aux)
         try {
             const p = await client.query(aux)
@@ -48,7 +48,7 @@ module.exports = app => {
         const user = { ...req.body }
         let novo = new tipo(user.cod, user.nome)
         const client = await app.db.connect();
-        let aux = "UPDATE TipoDoacao SET tipo_nome = '#2' WHERE tipo_id = '#1'"
+        let aux = "UPDATE tipo_doacao SET tipo_nome = '#2' WHERE tipo_id = '#1'"
         let sql = aux.replace('#1', novo.getCod())
         sql = sql.replace('#2', novo.getNome())
         console.log(sql)
@@ -64,7 +64,7 @@ module.exports = app => {
 
     app.get('/tipoDoacao/:cod', async (req, res) => {
         const client = await app.db.connect();
-        let aux = "SELECT * FROM TipoDoacao WHERE tipo_id = '#1'"
+        let aux = "SELECT * FROM tipo_doacao WHERE tipo_id = '#1'"
         let sql = aux.replace('#1', req.params.cod)
         console.log(sql)
         try {
