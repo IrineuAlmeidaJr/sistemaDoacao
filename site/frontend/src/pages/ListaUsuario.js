@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import './ListaUsuario.css'
+import '../css/ListaUsuario.css'
 
 import Table from '../components/Table';
 const localRecursos = 'http://localhost:4000/usuario'

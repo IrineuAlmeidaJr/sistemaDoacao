@@ -1,5 +1,5 @@
 import React from 'react';
-import './CadUsuario.css';
+import '../css/Formularios.css';
 import Header from '../components/Header';
 
 const localRecursos = 'http://localhost:4000/usuario'
@@ -200,7 +200,7 @@ const CadUsuario = () => {
                         </select>
                     </div>
 
-                    <button type="submit" onClick={handler}>Enviar</button>
+                    <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
                 </form>
             </div>
         </div>
