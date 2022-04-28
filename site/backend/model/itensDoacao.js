@@ -1,4 +1,4 @@
-modules.exports = class itensDoacao {
+module.exports = class itensDoacao {
 
     constructor (cod,nome,quantidade,codTipo,codUnidade,codTamanho,codGenero,codDoacao){
         this.cod = cod;

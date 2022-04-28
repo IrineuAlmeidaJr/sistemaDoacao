@@ -2,20 +2,20 @@ const tipo = require('../model/TipoDoacao');
 
 module.exports = app => {
 
-    app.get('/tipo', (req, res) => {
+    app.get('/tipoDoacao', (req, res) => {
         const client = app.db.connect();
         const p = client.query('SELECT * from TipoDoacao');
         res.status(200).send(p.rows)
         client.release();
     })
 
-    app.post('/tipo', async (req, res) => {
+    app.post('/tipoDoacao', async (req, res) => {
         const user = { ...req.body }
-        let novo = new tipo(user.cod, user.nome)
+        console.log(user.tipo);
+        let novo = new tipo(user.tipo)
         const client = await app.db.connect();
-        let aux = "INSERT INTO TipoDoacao(tipo_id, tipo_nome) values('#1','#2')"
-        let sql = aux.replace('#1', novo.getCod())
-        sql = sql.replace('#2', novo.getNome())
+        let aux = "INSERT INTO tipoDoacao(tipo_nome) values('#1')"
+        let sql = aux.replace('#1', novo.getNome())
         console.log(sql)
         try {
             const p = await client.query(sql);
@@ -28,7 +28,7 @@ module.exports = app => {
 
     })
 
-    app.delete('/tipo', async (req, res) => {
+    app.delete('/tipoDoacao', async (req, res) => {
         const user = { ...req.body }
         console.log(user)
         const client = await app.db.connect();
@@ -44,7 +44,7 @@ module.exports = app => {
         }
     })
 
-    app.put('/tipo', async (req, res) => {
+    app.put('/tipoDoacao', async (req, res) => {
         const user = { ...req.body }
         let novo = new tipo(user.cod, user.nome)
         const client = await app.db.connect();
@@ -62,7 +62,7 @@ module.exports = app => {
         }
     })
 
-    app.get('/tipo/:cod', async (req, res) => {
+    app.get('/tipoDoacao/:cod', async (req, res) => {
         const client = await app.db.connect();
         let aux = "SELECT * FROM TipoDoacao WHERE tipo_id = '#1'"
         let sql = aux.replace('#1', req.params.cod)

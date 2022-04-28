@@ -1,4 +1,4 @@
-modules.exports =class genero{
+module.exports =class genero{
 
     constructor(cod,nome){
         this.cod = cod;

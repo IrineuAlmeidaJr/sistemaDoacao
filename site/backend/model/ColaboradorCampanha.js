@@ -1,4 +1,4 @@
-module.export = class ColaboradorCamp{
+module.exports = class ColaboradorCamp{
 
     constructor(usuarioId,campanhaId) {
         this.usuarioId = usuarioId;

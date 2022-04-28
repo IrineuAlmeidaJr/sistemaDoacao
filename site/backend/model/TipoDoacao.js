@@ -1,7 +1,6 @@
-modules.exports = class TipoDoacao {
+class TipoDoacao {
 
-    constructor(cod,nome){
-        this.cod = cod;
+    constructor(nome){
         this.nome = nome;
     }
 
@@ -21,3 +20,5 @@ modules.exports = class TipoDoacao {
         this.nome = nome;
     }
 }
+
+module.exports = TipoDoacao

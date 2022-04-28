@@ -4,7 +4,8 @@ import { Route, BrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import ListaUsuario from "./pages/ListaUsuario";
 import CadUsuario from "./pages/CadUsuario";
-import FormCadDoacao from "./pages/CadDoacao";
+//import FormCadDoacao from "./pages/CadDoacao"; SERÁ USADO DEPOIS - NÃO APAGAR
+import FormCadTipoDoacao from "./pages/CadTipoDoacao";
 
 const Routes = () => {
    return(
@@ -12,7 +13,8 @@ const Routes = () => {
            <Route component = { Home }  path="/" exact />
            <Route component = { CadUsuario }  path="/cadUsuario" />
            <Route component = { ListaUsuario }  path="/listaUsuario" />
-           <Route component = { FormCadDoacao }  path="/cadDoacao" />              
+           {/*<Route component = { FormCadDoacao }  path="/cadDoacao" /> ------ SERÁ USADO DEPOIS - NÃO APAGAR*/}
+           <Route component = { FormCadTipoDoacao }  path="/cadTipoDoacao" />
        </BrowserRouter>
    )
 }

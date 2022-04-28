@@ -1,4 +1,4 @@
-module.export = class beneficiaro {
+module.exports = class beneficiaro {
 
     constructor(id,cpf,nome,dataNasc,usuarioId) {
         this.id = id;
