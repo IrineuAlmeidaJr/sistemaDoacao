@@ -1,7 +1,6 @@
 module.exports = class tamanho {
 
-    constructor(cod,nome) {
-        this.cod = cod;
+    constructor(nome) {
         this.nome = nome;
     }
 
