@@ -1,24 +1,24 @@
 const beneficiario = require('../model/beneficiario');
 
-module.export = app => {
+module.exports = app => {
 
-    app.get('/beneficiario', (req, res) => {
+    app.get('/Beneficiario', (req, res) => {
         const client = app.db.connect();
         const p = client.query('SELECT * from beneficiario');
         res.status(200).send(p.rows)
         client.release();
     })
 
-    app.post('/beneficiario', async (req, res) => {
+    app.post('/Beneficiario', async (req, res) => {
+        console.log(req.body)
         const user = { ...req.body }
-        let novo = new beneficiario(user.id, user.cpf, user.nome, user.dataNasc, user.usuarioId)
+        let novo = new beneficiario(user.cpf, user.nome, user.dataNascimento, user.usuarioId)
         const client = await app.db.connect();
-        let aux = "INSERT INTO beneficiario(bene_id, bene_cpf, bene_nome, bene_dataNascimento, usuario_id_usu) values('#1','#2','#3','#4','#5')"
-        let sql = aux.replace('#1', novo.getId())
-        sql = sql.replace('#2', novo.getCpf())
-        sql = sql.replace('#3', novo.getNome())
-        sql = sql.replace('#4', novo.getDataNasc())
-        sql = sql.replace('#5', novo.getUsuarioId())
+        let aux = "INSERT INTO beneficiario(bene_cpf, bene_nome, bene_dataNascimento, usuario_id_usu) values('#1','#2','#3','#4')"
+        let sql = aux.replace('#1', novo.getCpf())
+        sql = sql.replace('#2', novo.getNome())
+        sql = sql.replace('#3', novo.getDataNasc())
+        sql = sql.replace('#4', novo.getUsuarioId())
         console.log(sql)
         try {
             const p = await client.query(sql);
@@ -31,7 +31,7 @@ module.export = app => {
         }   
     })
 
-    app.delete('/beneficiario', async (req, res) => {
+    app.delete('/Beneficiario', async (req, res) => {
         const user = { ...req.body }
         console.log(user)
         const client = await app.db.connect();
@@ -47,7 +47,7 @@ module.export = app => {
         }
     })
 
-    app.put('/beneficiario', async (req, res) => {
+    app.put('/Beneficiario', async (req, res) => {
         const user = { ...req.body }
         let novo = new beneficiario(user.id, user.cpf, user.nome, user.dataNasc, user.usuarioId)
         const client = await app.db.connect();

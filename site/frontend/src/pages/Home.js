@@ -19,7 +19,8 @@ const Home = () => {
                     <Link class="link" to="/cadTipoDoacao">Cadastrar Tipo de Doação</Link>
                     <Link class="link" to="/listaTipoDoacao">Listar tipo de doação</Link>
                     <Link class="link" to="/cadLocalDoacao">Cadastrar local de doação</Link>
-                    <Link class="link" to="/cadCampanha">Cadastrar Capanha de doação</Link> 
+                    <Link class="link" to="/cadCampanha">Cadastrar Capanha de doação</Link>
+                    <Link class="link" to="/cadBeneficiario">Cadastrar Beneficiário</Link>
                     <h1>Página Tamanho</h1> 
                     <Link class="link" to="/cadTamanho">Cadastrar Tamanho</Link>
                     <Link class="link" to="/listaTamanho">Listar tamanho</Link> 

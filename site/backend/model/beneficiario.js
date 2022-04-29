@@ -1,7 +1,6 @@
-module.exports = class beneficiaro {
+class beneficiaro {
 
-    constructor(id,cpf,nome,dataNasc,usuarioId) {
-        this.id = id;
+    constructor(cpf,nome,dataNasc,usuarioId) {
         this.cpf = cpf;
         this.nome = nome;
         this.dataNasc = dataNasc;
@@ -48,3 +47,5 @@ module.exports = class beneficiaro {
         this.usuarioId = usuarioId;
     }
 }
+
+module.exports = beneficiaro;
