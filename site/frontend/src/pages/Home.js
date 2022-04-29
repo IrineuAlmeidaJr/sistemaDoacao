@@ -13,6 +13,9 @@ const Home = () => {
                     <Link class="link" to="/cadUsuario">Cadastrar Usuario</Link>                
                     <Link class="link" to="/ListaUsuario">Lista Usuários</Link>
                     <br/>
+                    <h1>Página Campanha Doação</h1>
+                    <Link class="link" to="/CadCampanhaDoacao"> Gerenciar Campanha de Doação</Link>
+                    <br/>
                     {/*<h1>Página Doação</h1>                  
                     <Link class="link" to="/cadDoacao">Cadastrar Doação</Link>*/}
                     <h1>Página Tipo Doação</h1>                  
