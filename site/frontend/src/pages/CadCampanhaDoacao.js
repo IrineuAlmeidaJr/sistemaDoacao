@@ -5,6 +5,8 @@ import "../css/Gerais.css";
 
 
 const localRecursos = 'http://localhost:4000/campanhaDoacao'
+
+
 export default function FormCadCampanhaDoacao (){
 
     const [nomeCampanha, setNomeCampanha] = React.useState('');
@@ -34,9 +36,11 @@ export default function FormCadCampanhaDoacao (){
         }
 
         fetch(localRecursos,{method:"POST",
+
                                                 headers:{'Content-Type':'application/json'},
                                                 body:JSON.stringify(campanhaJSON)
         })
+
 
         .then(resposta=>alert(resposta.statusText))
         .catch(e=>alert(e))

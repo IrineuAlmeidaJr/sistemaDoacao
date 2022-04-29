@@ -5,6 +5,9 @@
 }
 
 .titulo-style-1{
-    color: forestgreen;
+    color: white;
     font-weight: bold;
+    text-align: center;
 }
+
+.bold{font-weight: bold;}
