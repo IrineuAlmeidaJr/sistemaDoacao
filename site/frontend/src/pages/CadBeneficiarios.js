@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
+import swal from 'sweetalert';
 
 
 const localRecursos = 'http://localhost:4000/Beneficiario'
@@ -49,6 +50,10 @@ export default function FormCadBeneficiario (){
             setCpf('');
             setDataNascimento(new Date());
             setUsuarioId(2);
+
+            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
+                window.location = '/';
+            }); 
 
         }
 

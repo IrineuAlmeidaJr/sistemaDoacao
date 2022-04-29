@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
+import swal from 'sweetalert';
 
 export default function FormCadLocalDoacao (){
 
@@ -59,6 +60,10 @@ export default function FormCadLocalDoacao (){
         setCodCamp(0);
         setNomeRua('');
         setNumero('');
+
+        swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
+            window.location = '/';
+        }); 
 
 
     }

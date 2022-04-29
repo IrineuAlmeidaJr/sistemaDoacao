@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/Formularios.css';
 import Header from '../components/Header';
+import swal from 'sweetalert';
 
 const localRecursos = 'http://localhost:4000/usuario'
 
@@ -134,7 +135,9 @@ const CadUsuario = () => {
             setTelefone('');
             setTipoUsuario(0);
 
-            
+            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
+                window.location = '/';
+            });            
             
         }
 
