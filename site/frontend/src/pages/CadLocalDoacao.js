@@ -11,6 +11,7 @@ export default function FormCadLocalDoacao (){
     const [cidade, setCidade] = React.useState('');
     const [estado, setEstado] = React.useState('');
     const [CodCamp, setCodCamp] = React.useState(0);
+    const [CodUsuario, setCodUsuario] = React.useState(0);
 
     function handler() {
         setNomeRua(document.getElementById('nomeRua').value);
@@ -18,7 +19,8 @@ export default function FormCadLocalDoacao (){
         setBairro(document.getElementById('bairro').value);
         setCidade(document.getElementById('cidade').value);
         setEstado(document.getElementById('estado').value);
-        setCodCamp(document.getElementById('CodCamp').value);              
+        setCodCamp(document.getElementById('CodCamp').value);
+        
     }
 
 
@@ -42,6 +44,7 @@ export default function FormCadLocalDoacao (){
             estado: estado,
             CodCamp: CodCamp
         }
+
 
         fetch('http://localhost:4000/localDoacao',{method:"POST",
                                                     headers:{'Content-Type':'application/json'},
@@ -97,7 +100,7 @@ export default function FormCadLocalDoacao (){
 
                     <div class="box-email">
                         <label for="CodCamp">Codigo da campanha</label>
-                        <input type="email" name="CodCamp" id="CodCamp" placeholder="Informe a qual campanha o local pertence" />
+                        <input type="text" name="CodCamp" id="CodCamp" placeholder="Informe a qual campanha o local pertence" />
                     </div>                
 
                     <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>

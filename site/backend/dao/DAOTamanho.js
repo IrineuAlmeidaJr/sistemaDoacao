@@ -1,11 +1,11 @@
 const tamanho = require('../model/tamanho')
 
-module.export = app => {
+module.exports = app => {
 
     app.get('/tamanho', async (req, res) => {
-        console.log("chama aqui?")
         const client = await app.db.connect();
-        const p = await client.query('SELECT * from tamanho');
+        const sql ="SELECT * from tamanho"
+        const p = await client.query(sql);
         console.log(p.rows)
         res.status(200).send(p.rows)
         client.release();
@@ -13,11 +13,10 @@ module.export = app => {
 
     app.post('/tamanho', async (req, res) => {
         const user = { ...req.body }
-        let novo = new tamanho(user.nome)
+        let novo = new tamanho(user.tipo)
         const client = await app.db.connect();
         let aux = "INSERT INTO tamanho(tamanho_tam) values('#1')"
         let sql = aux.replace('#1', novo.getNome())
-        console.log(sql)
         try {
             const p = await client.query(sql);
             console.log("sucesso")

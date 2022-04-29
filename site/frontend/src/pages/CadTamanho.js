@@ -24,12 +24,8 @@ export default function FormCadTamanho () {
                             headers:{'Content-Type':'application/json'},
                             body:JSON.stringify(tamanhoJSON)
         })
-        .then(resposta=>alert("sucesso"))
-        .catch(e=>alert(e))
-        
-
-                
-
+        .then(resposta=>alert(resposta.statusText))
+        .catch(e=>alert(e))        
         setTamanho('');
         
 
@@ -46,7 +42,7 @@ export default function FormCadTamanho () {
                         <label class="label-bold" for="tipoDoacao">Tamanho:</label><br/>
                         <input class="input-style-1" type="text" id="tamanho" name="tamanho" size="15"/>
                     </div>
-                    
+
 
                     <br/><br/>
                     <button class="btConfirmar" onClick={handler}>Confirmar</button>

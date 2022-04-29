@@ -13,7 +13,8 @@ module.exports = app => {
 
     app.post('/tipoDoacao', async (req, res) => {
         const user = { ...req.body }
-        console.log(user.tipo);
+
+        console.log(req.body);
         let novo = new tipo(user.tipo)
         const client = await app.db.connect();
         let aux = "INSERT INTO tipo_doacao(tipo_nome) values('#1')"
