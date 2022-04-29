@@ -20,8 +20,9 @@ h1 {
     padding: 40px;
     margin: 20px;
     border-radius: 10px;
-    background-color: #3069719d;
+    background-color: rgba(187,18,18,0.6);
 }
+
 
 .opcoes {
     display: flex;
