@@ -1,27 +1,26 @@
 const local = require ('../model/LocalDoacao');
 
-module.export = app => {
+module.exports = app => {
 
     app.get('/LocalDoacao', async (req, res) => {
         const client = await app.db.connect();
-        const p = await client.query('SELECT * from local_doacao');
+        const p = await client.query('SELECT * from localdoacao');
         res.status(200).send(p.rows)
         client.release();
     })
     
     app.post('/LocalDoacao', async (req, res) => {
         const user = { ...req.body }
-        let novo = new local(user.cod, user.nomeRua, user.numero, user.bairro, user.cidade, user.estado, user.campanhaId, user.usuarioId)
+        let novo = new local(user.nomeRua, user.numero, user.bairro, user.cidade, user.estado, user.CodCamp, 2)
         const client = await app.db.connect();
-        let aux = "INSERT INTO LocalDoacao (local_id,local_nomeRua,local_numero,local_bairro,local_cidade,local_estado,campanhaDoacao_id,usuario_id_usu) values('#1','#2','#3','#4','#5','#6','#7','#8')"
-        let sql = aux.replace('#1', novo.getCod())
-        sql = sql.replace('#2', novo.getNomeRua())
-        sql = sql.replace('#3', novo.getNumero())
-        sql = sql.replace('#4', novo.getBairro())
-        sql = sql.replace('#5', novo.getCidade())
-        sql = sql.replace('#6', novo.getEstado())
-        sql = sql.replace('#7', novo.getCampanhaId())
-        sql = sql.replace('#8', novo.getUsuarioId())
+        let aux = "INSERT INTO localdoacao (local_nomerua,local_numero,local_bairro,local_cidade,local_estado,campanhadoacao_id,usuario_id_usu) values('#1','#2','#3','#4','#5','#6','#7')"
+        let sql = aux.replace('#1', novo.getNomeRua())
+        sql = sql.replace('#2', novo.getNumero())
+        sql = sql.replace('#3', novo.getBairro())
+        sql = sql.replace('#4', novo.getCidade())
+        sql = sql.replace('#5', novo.getEstado())
+        sql = sql.replace('#6', novo.getCampanhaId())
+        sql = sql.replace('#7', novo.getUsuarioId())
         console.log(sql)
         try {
             const p = await client.query(sql);

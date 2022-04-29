@@ -1,20 +1,13 @@
-module.exports = class CampanhaDoacao
+class CampanhaDoacao
 {
+    
 
-    constructor(cod, nome, dataInicio, dataFim){
-        this.campanha_cod = cod;
-        this.campanha_nome = nome;
-        this.campanha_dataInicio = dataInicio;
-        this.campanha_dataFim = dataFim;
+    constructor(nome, dataInicio, dataFim){
+        this.nome = nome;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 
-    getCod(){
-        return this.cod;
-    }
-
-    setCod(cod){
-        this.cod = cod;
-    }
 
     getNome(){
         return this.nome;
@@ -38,19 +31,8 @@ module.exports = class CampanhaDoacao
 
     setDataFim(dataFim){
         this.dataFim = dataFim;
-    }
-
-    async save(connection){
-        await DAOCampanhaDoacao.create(connection, this);
-    }
-
-    async update(connection){
-        await DAOCampanhaDoacao.update(connection, this);
-    }
-
-    async delete(connection){
-        await DAOCampanhaDoacao.delete(connection, this);
-    }
-
+    }   
 
 }
+
+module.exports = CampanhaDoacao;

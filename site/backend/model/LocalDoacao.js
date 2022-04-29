@@ -1,7 +1,6 @@
-module.export = class Local{
+class Local{
 
-    constructor(cod,nomeRua,numero,bairro,cidade,estado,campanhaId,usuarioId) {
-        this.cod = cod;
+    constructor(nomeRua,numero,bairro,cidade,estado,campanhaId,usuarioId) {
         this.nomeRua = nomeRua;
         this.numero = numero;
         this.bairro = bairro;
@@ -75,3 +74,5 @@ module.export = class Local{
         this.usuarioId = usuarioId;
     }
 }
+
+module.exports = Local;

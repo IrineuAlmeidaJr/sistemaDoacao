@@ -1,4 +1,5 @@
 const usuario = require('../model/usuario.js')
+
 module.exports = app=>{
 app.get('/usuario',async(req,res)=>{
     const client = await app.db.connect();
@@ -10,7 +11,7 @@ app.post('/usuario',async(req,res)=>{
     const user = {...req.body}
     let novo = new usuario(user.cpf,user.senha,user.nome,user.data,user.endereco,user.telefone,user.email,user.tipo)
     const client = await app.db.connect();
-    let aux = "INSERT INTO usuario(cpf_usu, senha_usu, nome_usu, dataNasc_usu, endereco_usu, telefone_usu, email_usu, tipo_usuario) values('#1','#2','#3','#4','#5','#6','#7',#8)"
+    let aux = "INSERT INTO usuario(cpf_usu, senha_usu, nome_usu, datanasc_usu, endereco_usu, telefone_usu, email_usu, tipo_usuario) values('#1','#2','#3','#4','#5','#6','#7',#8)"
     let sql = aux.replace('#1',novo.getCPF())
     sql = sql.replace('#2',novo.getSenha())
     sql = sql.replace('#3',novo.getNome())

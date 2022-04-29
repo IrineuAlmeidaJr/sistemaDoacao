@@ -1,4 +1,4 @@
-module.exports = class tamanho {
+class tamanho {
 
     constructor(nome) {
         this.nome = nome;
@@ -20,3 +20,5 @@ module.exports = class tamanho {
         this.nome = nome;
     }
 }
+
+module.exports = tamanho;
