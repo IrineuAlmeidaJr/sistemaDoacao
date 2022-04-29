@@ -14,7 +14,7 @@
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
-    background-color: #3069719d;
+    background-color: rgba(187,18,18,0.6); /*ou #D67171*/
 }
 
 .campos-principal > h1 {
@@ -28,13 +28,13 @@
     margin-top: 5px;
     padding: 5px;
     text-decoration: none;
-    background-color: #5fd073;
+    background-color: pink; /*#5fd073*/
     border-radius: 7px;
 }
 
 .link:hover {
     transition: 400ms;
-    background-color: #3d974e;
+    background-color: #BB1212; /*#3d974e*/
     border-radius: 7px;
     color: white;
 }
