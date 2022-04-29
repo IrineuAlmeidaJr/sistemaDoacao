@@ -3,35 +3,34 @@ import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
 
-const localRecursos = 'http://localhost:4000/tipoDoacao'
+const localRecursos = 'http://localhost:4000/tamanho'
 
-export default function FormCadTipoDoacao () {
-    const [tipodoacao, setTipodoacao] = React.useState('');
+export default function FormCadTamanho () {
+    const [tamanho, setTamanho] = React.useState('');
     
     function handler() {
-        setTipodoacao(document.getElementById('tipoDoacao').value);
+        setTamanho(document.getElementById('tamanho').value);
         
     }
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        console.log(tipodoacao);
-        const tipoDoacaoJSON = {
-            tipo: tipodoacao
+        const tamanhoJSON = {
+            tipo: tamanho
         }
 
         fetch(localRecursos,{method:"POST",
                             headers:{'Content-Type':'application/json'},
-                            body:JSON.stringify(tipoDoacaoJSON)
+                            body:JSON.stringify(tamanhoJSON)
         })
-        .then(resposta=>alert(resposta.statusText))
+        .then(resposta=>alert("sucesso"))
         .catch(e=>alert(e))
         
 
                 
 
-        setTipodoacao('');
+        setTamanho('');
         
 
     }
@@ -41,11 +40,11 @@ export default function FormCadTipoDoacao () {
             <Header/>
             <div class="cadastro">
                 <form class="campos-cadastro" onSubmit={handleSubmit}>
-                    <h3 class="titulo-style-1">Cadastrar Tipo de Doação</h3><br/>
+                    <h3 class="titulo-style-1">Cadastrar Tamanho</h3><br/>
 
                     <div class="inputBox">
-                        <label class="label-bold" for="tipoDoacao">Tipo de doação:</label><br/>
-                        <input class="input-style-1" type="text" id="tipoDoacao" name="tipoDoacao" size="15"/>
+                        <label class="label-bold" for="tipoDoacao">Tamanho:</label><br/>
+                        <input class="input-style-1" type="text" id="tamanho" name="tamanho" size="15"/>
                     </div>
                     
 

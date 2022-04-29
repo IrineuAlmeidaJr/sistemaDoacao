@@ -1,16 +1,44 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
+
+#headerMainContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 140px;
+    background-color: white;
 }
 
-nav {
+#headerContainer {
     display: flex; 
     align-items: center;
     /*position: fixed; -- o header tava ficando em cima de qualquer outro componente, tendo que controlar a posição manualmente*/
-    width: 100%;
-    background-color: #6C8184;   
+    width: 95%;
+    background-color: white;
+    height: 120px;
 }
+
+.logoContainer{
+    width: 100px;
+    height: auto;
+}
+.topLogo{width: 100%; height: 100%;}
+
+.loginContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+    width: 120px;
+    margin: 15px;
+    background-color: white;
+}
+.login-userimg {
+    width: 30px;
+    height: auto;
+}
+.login-userimg img{width: 100%; height: 100%;}
+.login-link{color: white;}
 
 .box-logo {
     display: flex;
@@ -30,7 +58,7 @@ nav {
 }
 
 .titulo {
-    color: white;
+    color: red;
     font-size: 16px;
     margin: 0;
 }
@@ -74,6 +102,14 @@ nav {
     color: white;
 }
 
+.bt-login{
+    font-size: 18px;
+    color: red;
+    text-decoration: none;
+}
+.bt-login:visited{color: red;}
+.bt-login:hover{transition: 400ms; color: #DE3B00;}
+
 .botao-login {
     display: flex;
     flex-shrink: 0;
@@ -90,3 +126,21 @@ nav {
     transition: 400ms;
     background-color: #63656b;
 }
+
+#Menu {text-align: center; background-color: #BB1212; width: 100%;}
+#Menu ul {list-style: none; position: relative;} /*ul pai em display flex*/
+#Menu ul li {width: 100px; float: left;}
+#Menu a {
+    padding: 5px;
+    text-decoration: none;
+    display: block;
+    color: white;
+}
+#Menu a:hover {background-color: #DE3B00; color: white;}
+#Menu ul ul{visibility: hidden; position: absolute;} /*ul filho em display block*/
+#Menu ul li:hover {background-color: #BB1212;}
+#Menu ul li:hover ul{visibility: visible; z-index: 20;}
+#Menu ul ul li {float: none; border-top: solid 1px #ccc;}
+#Menu ul ul li a {background-color: #BB1212; color: #fff;}
+/*.homepageBox{width: 100%; height: auto;}
+.home-img{width: 30px;}*/

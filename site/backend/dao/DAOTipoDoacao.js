@@ -2,9 +2,11 @@ const tipo = require('../model/TipoDoacao');
 
 module.exports = app => {
 
-    app.get('/tipoDoacao', (req, res) => {
-        const client = app.db.connect();
-        const p = client.query('SELECT * from tipo_doacao');
+    app.get('/tipoDoacao', async(req, res) => {
+        const client = await app.db.connect();
+        let sql = "SELECT * from tipo_doacao"
+        const p = await client.query(sql);
+        console.log(p.rows)
         res.status(200).send(p.rows)
         client.release();
     })

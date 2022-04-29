@@ -2,23 +2,23 @@ import React from 'react';
 import Header from '../components/Header';
 import '../css/ListaUsuario.css'
 
-import Table from '../components/TableTipoDoacao';
-const localRecursos = 'http://localhost:4000/tipoDoacao'
+import Table from '../components/TableTamanho';
+const localRecursos = 'http://localhost:4000/tamanho'
 
-const ListaTipoDoacao = () => {
+const ListaTamanho = () => {
 
 
-    const [listaTipos, setListaTipos] = React.useState([]);
+    const [listaTamanho, setListaTamanhos] = React.useState([]);
 
     React.useEffect(() => {
-        fetchTipo()
+        fetchTamanho()
     }, [])
 
-    function fetchTipo() {
+    function fetchTamanho() {
         fetch(localRecursos,{method:"GET"})
         .then(resposta=>resposta.json())
         .then(dados=>{
-            setListaTipos(dados);
+            setListaTamanhos(dados);
         }, 
         error =>{
             alert(error)
@@ -26,13 +26,13 @@ const ListaTipoDoacao = () => {
     }
     
     function deletar() { 
-        const cod= {cod: document.querySelector('#deletarTipo').value}
+        const cod= {cod: document.querySelector('#deletarTamanho').value}
         fetch(localRecursos,{method:"DELETE",
                                  headers:{'Content-Type':'application/json'},
                                  body:JSON.stringify(cod)
             })
             .then(resposta=>alert("sucesso"))    
-            fetchTipo()
+            fetchTamanho()
     }
 
 
@@ -41,7 +41,7 @@ const ListaTipoDoacao = () => {
             <Header />
             <div class="boxPrincipal">
                 <div class="campo-exibicao">
-                    <h1>Tipo de Doação</h1>
+                    <h1>Tamanho</h1>
                     
                     <div class="opcoes">
                         <div class="alterar">
@@ -59,7 +59,7 @@ const ListaTipoDoacao = () => {
                             <h3>Deletar</h3>
                             <div class="deletarInterno">
                                 <label for="nome">ID</label>
-                                <input type="number" id="deletarTipo" placeholder="ID que deseja excluir..." />
+                                <input type="number" id="deletarTamanho" placeholder="ID que deseja excluir..." />
                                 <div class="botao">
                                     <button onClick={deletar}>Deletar</button>
                                 </div>
@@ -70,7 +70,7 @@ const ListaTipoDoacao = () => {
 
                     
                     <Table
-                        tipos={listaTipos}
+                        tamanhos={listaTamanho}
                     />
                   
 
@@ -80,4 +80,4 @@ const ListaTipoDoacao = () => {
     );
 }
 
-export default ListaTipoDoacao;
+export default ListaTamanho;
