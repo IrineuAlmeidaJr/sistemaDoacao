@@ -45,6 +45,132 @@ const CadUsuario = () => {
         return true;
     }
 
+    function validaCpfCnpj(val) {
+        if (val.length == 14) { // Entra se for CPF
+            var cpf = val.trim();
+         
+            cpf = cpf.replace(/\./g, '');
+            cpf = cpf.replace('-', '');
+            cpf = cpf.split('');
+            
+            var v1 = 0;
+            var v2 = 0;
+            var aux = false;
+            
+            for (var i = 1; cpf.length > i; i++) {
+                if (cpf[i - 1] != cpf[i]) {
+                    aux = true;   
+                }
+            } 
+            
+            if (aux == false) {
+                return false; 
+            } 
+            
+            for (var i = 0, p = 10; (cpf.length - 2) > i; i++, p--) {
+                v1 += cpf[i] * p; 
+            } 
+            
+            v1 = ((v1 * 10) % 11);
+            
+            if (v1 == 10) {
+                v1 = 0; 
+            }
+            
+            if (v1 != cpf[9]) {
+                return false; 
+            } 
+            
+            for (var i = 0, p = 11; (cpf.length - 1) > i; i++, p--) {
+                v2 += cpf[i] * p; 
+            } 
+            
+            v2 = ((v2 * 10) % 11);
+            
+            if (v2 == 10) {
+                v2 = 0; 
+            }
+            
+            if (v2 != cpf[10]) {
+                return false; 
+            } else {   
+                return true; 
+            }
+        } else if (val.length == 18) { // Entra se for CNPJ
+            var cnpj = val.trim();
+            
+            cnpj = cnpj.replace(/\./g, '');
+            cnpj = cnpj.replace('-', '');
+            cnpj = cnpj.replace('/', ''); 
+            cnpj = cnpj.split(''); 
+            
+            var v1 = 0;
+            var v2 = 0;
+            var aux = false;
+            
+            for (var i = 1; cnpj.length > i; i++) { 
+                if (cnpj[i - 1] != cnpj[i]) {  
+                    aux = true;   
+                } 
+            } 
+            
+            if (aux == false) {  
+                return false; 
+            }
+            
+            for (var i = 0, p1 = 5, p2 = 13; (cnpj.length - 2) > i; i++, p1--, p2--) {
+                if (p1 >= 2) {  
+                    v1 += cnpj[i] * p1;  
+                } else {  
+                    v1 += cnpj[i] * p2;  
+                } 
+            } 
+            
+            v1 = (v1 % 11);
+            
+            if (v1 < 2) { 
+                v1 = 0; 
+            } else { 
+                v1 = (11 - v1); 
+            } 
+            
+            if (v1 != cnpj[12]) {  
+                return false; 
+            } 
+            
+            for (var i = 0, p1 = 6, p2 = 14; (cnpj.length - 1) > i; i++, p1--, p2--) { 
+                if (p1 >= 2) {  
+                    v2 += cnpj[i] * p1;  
+                } else {   
+                    v2 += cnpj[i] * p2; 
+                } 
+            }
+            
+            v2 = (v2 % 11); 
+            
+            if (v2 < 2) {  
+                v2 = 0;
+            } else { 
+                v2 = (11 - v2); 
+            } 
+            
+            if (v2 != cnpj[13]) {   
+                return false; 
+            } else {  
+                return true; 
+            }
+        } else {
+            return false;
+        }
+    }
+
+    // function validarCPF(numCpf) {
+    //     var reg=/^\d{3}.\d{3}.\d{3}-\d{2}$/;
+    //     if(numCpf.match(reg)!=null)
+    //         return true;
+    //     return false;
+    // }
+
     function validaTipoUsu() {
         if (tipoUsuario > 0 && tipoUsuario <= 3) {
             return true;
@@ -78,31 +204,31 @@ const CadUsuario = () => {
         Tipo Usu - ${tipoUsuario} \n\n`);
 
         const validaNome = validaTexto(nome, 5);
-        const validaCpf = validaTexto(cpf, 5);
+        const validaCpf = validaCpfCnpj(cpf);
         const validaSenha = validaTexto(senha, 6);
         const validaEndereco = validaTexto(endereco, 5);
         const validaData = validaDtNasc();
         if (validaNome !== true) {
-            alert("Erro!", "Preencher nome com no mínimo 5 caracter", "error");
+            swal("Erro!", "Preencher nome com no mínimo 5 caracter", "error");
             document.querySelector("#nome").focus();
             // --> não funciona .focus() tem que arrumar
         } else if (validaCpf !== true) {
-            alert("Erro!", "CPF Inválido", "error");
+            swal("Erro!", "CPF Inválido", "error");
             document.querySelector("#cpf").focus();
             // --> não funciona .focus() tem que arrumar
         } else if (validaSenha !== true) {
-            alert("Erro!", "Senha deve conter no mínimo 6 caracter", "error");
+            swal("Erro!", "Senha deve conter no mínimo 6 caracter", "error");
             document.querySelector("#senha").focus();
             // --> não funciona .focus() tem que arrumar
         } else if (validaData !== true) {
-            alert("Erro!", "Data inválida", "error");
+            swal("Erro!", "Data inválida", "error");
             document.querySelector("#dtNasc").focus();
             // --> não funciona .focus() tem que arrumar
         } else if (validaEndereco !== true) {
-            alert("Erro!", "Edereço deve conter no mínimo 10 caracter", "error");
+            swal("Erro!", "Edereço deve conter no mínimo 10 caracter", "error");
             document.querySelector("#endereco").focus();
         } else if (validaTipoUsu() !== true) {
-            alert("Erro!", "Selecione um tipo de usuário", "error");
+            swal("Erro!", "Selecione um tipo de usuário", "error");
             document.querySelector("#tipoUsuario").focus();
         } else {
             const usuario = {
@@ -124,8 +250,6 @@ const CadUsuario = () => {
             .catch(e=>alert(e))
             
 
-                  
-
             setNome('');
             setCpf('');
             setSenha('');
@@ -137,7 +261,12 @@ const CadUsuario = () => {
 
             swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
-            });            
+            }); 
+            
+            /*
+                Não deixar finalizar antes tenho que consultar se o CPF já não está cadastrado,
+                se não estiver, ai sim que irei poder realizar o cadastro.
+            */
             
         }
 
