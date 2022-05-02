@@ -2,6 +2,7 @@ import React from 'react';
 import '../css/Formularios.css';
 import Header from '../components/Header';
 import swal from 'sweetalert';
+import moment from 'moment';
 
 const localRecursos = 'http://localhost:4000/usuario'
 
@@ -24,25 +25,27 @@ const CadUsuario = () => {
 
     function validaDtNasc() {
         // ***OBS --> VER ESTÁ DANDO ERRO
-        // const dtAtual = new Date().toDateString();
-        // let dtUsu = '';
+        const dtAtual =  moment();
 
-        // if(dtNasc !== '') {
-        //     dtUsu = new Date(`${dtNasc.substr(0,4)}/${dtNasc.substr(5,2)}/${dtNasc.substr(8,2)}`).toDateString();
-        // }       
+        if(dtNasc !== '') {
+            let dtUsu = moment(`${dtNasc.substr(0,4)}/${dtNasc.substr(5,2)}/${dtNasc.substr(8,2)}`);
+            if(dtAtual.isAfter(dtUsu, 'day')) {
+                return true;
+            } else {
+                return false;
+            }
+        }  else {
+            return false;
+        }      
 
-        // // Quando dava new e não tinha data dava -> invalid date
-        // // Desta forma fez uma condição antes de dar new
-        // if(dtUsu.length > 0 && dtUsu <= dtAtual) {
-        //     return true;
-        // } else {
+        // Quando dava new e não tinha data dava -> invalid date
+        // Desta forma fez uma condição antes de dar new
+        
+
+        // if (dtNasc === '') {
         //     return false;
         // }
-
-        if (dtNasc === '') {
-            return false;
-        }
-        return true;
+        // return true;
     }
 
     function validaCpfCnpj(val) {
