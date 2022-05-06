@@ -1,12 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer.js'
 import '../css/Home.css';
 
 const Home = () => {
     return (
         <div>
             <Header />
+            <div class="home-info-container">
+
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                
+            </div>
             <div class="principal">                
                 <div class="campos-principal">  
                     <h1>Página Usuario</h1>                  
@@ -32,6 +42,7 @@ const Home = () => {
 
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }
