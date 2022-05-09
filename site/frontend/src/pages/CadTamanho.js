@@ -8,6 +8,7 @@ const localRecursos = 'http://localhost:4000/tamanho'
 
 export default function FormCadTamanho () {
     const [tamanho, setTamanho] = React.useState('');
+    const [estaAtualizando, setEstaAtualizando] = React.useState(false);
     
     function handler() {
         setTamanho(document.getElementById('tamanho').value);
