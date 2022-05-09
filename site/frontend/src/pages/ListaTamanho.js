@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
 import '../css/ListaUsuario.css'
-
+import { useHistory } from 'react-router-dom';
 import Table from '../components/TableTamanho.js';
 const localRecursos = 'http://localhost:4000/tamanho'
 
 const ListaTamanho = () => {
-
+    const history = useHistory();
 
     const [listaTamanho, setListaTamanhos] = React.useState([]);
     
@@ -26,16 +26,22 @@ const ListaTamanho = () => {
         });
     }
     
-    function deletar(veiculo) { 
-        let cod = {cod: veiculo.tamanho_id}
+    function deletar(tamanhoR) { 
+        let cod = {cod: tamanhoR.tamanho_id}
         fetch(localRecursos,{method:"DELETE",
                                  headers:{'Content-Type':'application/json'},
                                  body:JSON.stringify(cod)
             })
             .then(alert("excluído"))  
-            fetchTamanho()
+        fetchTamanho()
     }
-
+    function alterar(tamanhoR){
+        
+        history.push({
+            pathname: `/cadTamanho`,
+            state: { cod: tamanhoR.tamanho_id,tipo: tamanhoR.tamanho_tam },
+          });
+    }
 
     return (
         <div>
@@ -43,24 +49,10 @@ const ListaTamanho = () => {
             <div class="boxPrincipal">
                 <div class="campo-exibicao">
                     <h1>Tamanho</h1>
-                    
-                    <div class="opcoes">
-                        <div class="alterar">
-                            <h3>Alterar</h3>
-                            <div class="alterarInterno">
-                                <label for="nome">ID</label>
-                                <input type="number" id="alterarTipo" placeholder="ID que deseja alterar..." />
-                                <div class="botao">
-                                    <button>Alterar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
 
                     
                     <Table
-                        tamanhos={listaTamanho} deletarTamanho={deletar}
+                        tamanhos={listaTamanho} deletarTamanho={deletar} alterarTamanho={alterar}
                     />
                   
 

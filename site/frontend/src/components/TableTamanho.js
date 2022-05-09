@@ -19,7 +19,7 @@ const Table = (props) => {
                             <td>{tamanho.tamanho_id}</td>
                             <td>{tamanho.tamanho_tam}</td>
                             <td>
-                                <Button variant="outline-primary" onClick={()=>alert("alterar")}>A</Button>{' '}
+                                <Button variant="outline-primary" onClick={()=>{props.alterarTamanho(tamanho)}}>A</Button>{' '}
                                 <Button variant='outline-danger' onClick={()=>{props.deletarTamanho(tamanho)}}>X</Button>
                             </td>
                         </tr>
