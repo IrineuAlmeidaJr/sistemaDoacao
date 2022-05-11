@@ -36,7 +36,7 @@ module.exports = app => {
         const user = { ...req.body }
         console.log(user)
         const client = await app.db.connect();
-        let aux = "DELETE FROM local_doacao where local_id = "+user.cod
+        let aux = "DELETE FROM localdoacao where local_id = "+user.cod
         console.log(aux)
         try {
             const p = await client.query(aux)
