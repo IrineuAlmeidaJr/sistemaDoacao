@@ -20,9 +20,8 @@ export default function FormCadTamanho (tamanhoPass) {
             setEstaAtualizando(false)
         }
         else{
-            console.log(tamanhoPass.location.state);
             setEstaAtualizando(true)
-            //setTamanho({cod: tamanhoPass.location.state.cod, tipo: tamanhoPass.location.state.tipo})
+            setTamanho({cod: tamanhoPass.location.state.cod, tipo: tamanhoPass.location.state.tipo})
         }
     }
     function handler() {
@@ -81,7 +80,7 @@ export default function FormCadTamanho (tamanhoPass) {
 
                     <div class="inputBox">
                         <label class="label-bold" for="tipoDoacao">Tamanho:</label><br/>
-                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  defaultValue={tamanhoPass.location.state.tipo} onChange={manipularMudanca}/>
+                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  defaultValue={tamanho.tipo} onChange={manipularMudanca}/>
                     </div>
 
 
