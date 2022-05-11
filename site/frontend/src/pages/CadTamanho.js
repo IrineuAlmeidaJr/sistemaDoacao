@@ -10,15 +10,19 @@ export default function FormCadTamanho (tamanhoPass) {
     const [tamanho, setTamanho] = React.useState('');
     const [estaAtualizando, setEstaAtualizando] = React.useState(false);
     React.useEffect(()=>{
-        atualiza()
+        if(!estaAtualizando)
+            atualiza()
     });
+
+
     function atualiza(){
         if(tamanhoPass.location.state === undefined){
             setEstaAtualizando(false)
         }
         else{
+            console.log(tamanhoPass.location.state);
             setEstaAtualizando(true)
-            setTamanho({cod: tamanhoPass.location.state.cod, tipo: tamanhoPass.location.state.tipo})
+            //setTamanho({cod: tamanhoPass.location.state.cod, tipo: tamanhoPass.location.state.tipo})
         }
     }
     function handler() {
@@ -64,10 +68,10 @@ export default function FormCadTamanho (tamanhoPass) {
         const valor = componente.value;
         /*identificação do componente */
         const nome = componente.name;
-        setTamanho({...tamanho,[nome]:valor});
-    }
-    
-    
+        setTamanho({...tamanho,[nome]:"valor"});
+ 
+    }  
+
     return(
         <div>
             <Header/>
@@ -77,7 +81,7 @@ export default function FormCadTamanho (tamanhoPass) {
 
                     <div class="inputBox">
                         <label class="label-bold" for="tipoDoacao">Tamanho:</label><br/>
-                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  value={tamanho.tipo} onChange={manipularMudanca}/>
+                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  defaultValue={tamanhoPass.location.state.tipo} onChange={manipularMudanca}/>
                     </div>
 
 

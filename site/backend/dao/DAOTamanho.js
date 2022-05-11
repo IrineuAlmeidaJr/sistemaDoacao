@@ -6,7 +6,6 @@ module.exports = app => {
         const client = await app.db.connect();
         const sql ="SELECT * from tamanho"
         const p = await client.query(sql);
-        console.log(p.rows)
         res.status(200).send(p.rows)
         client.release();
     })

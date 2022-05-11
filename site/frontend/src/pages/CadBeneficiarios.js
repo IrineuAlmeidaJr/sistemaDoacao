@@ -7,12 +7,26 @@ import swal from 'sweetalert';
 
 const localRecursos = 'http://localhost:4000/Beneficiario'
 
-export default function FormCadBeneficiario (){
+export default function FormCadBeneficiario (tamanhoPass){
 
+    const[cod, setCod] = React.useState('');
     const[nome, setNome] = React.useState('');
     const[cpf, setCpf] = React.useState('');
     const[dataNascimento, setDataNascimento] = React.useState(new Date());
     const[usuarioId, setUsuarioId] = React.useState(2);
+    const[atualizando, setAtualizando] = React.useState(false);
+    //const[ListaBeneficiarios, setListaBeneficiarios] = React.useState([]);
+
+    React.useEffect(()=>{
+        atualiza()
+    });
+
+    function atualiza(){
+        if(tamanhoPass.location.state === undefined)
+            setAtualizando(false)    
+        else
+            setAtualizando(true)              
+    }
 
     function handler() {
         setNome(document.getElementById('nome').value);
@@ -24,38 +38,56 @@ export default function FormCadBeneficiario (){
     function handleSubmit(e) {
             
             e.preventDefault();
-    
-            console.log(nome);
-            console.log(cpf);
-            console.log(dataNascimento);
-            console.log(usuarioId);
+            if(!atualizando)
+            {
+                const beneficiarioJSON = {
+                    cpf: cpf,
+                    nome: nome,                
+                    dataNascimento: dataNascimento,
+                    usuarioId: usuarioId
+                }
+                //console.log(beneficiarioJSON);
 
-            const beneficiarioJSON = {
-                cpf: cpf,
-                nome: nome,                
-                dataNascimento: dataNascimento,
-                usuarioId: usuarioId
+                    fetch(localRecursos,{method:"POST",
+                                                            headers:{'Content-Type':'application/json'},
+                                                            body:JSON.stringify(beneficiarioJSON)
+                    })
+                    .then(resposta=>{
+                        if(resposta.status === 400)
+                            swal("Erro!", "CPF já cadastrado.", "error");
+                        else if(resposta.status === 401)
+                            swal("Erro!", "Campo Obrigatorio não preenchido.", "error");
+                        else
+                            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
+                                window.location = '/';
+                            }
+                        );
+                    })
+                    .catch(e=>alert(e))
             }
-            console.log(beneficiarioJSON);
+            else{
+                fetch(localRecursos,{method:"PUT",
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify(tamanhoPass.location.state)
+                })
+                .then(resposta=>alert(resposta.statusText))
+                .catch(e=>alert(e))        
 
-            fetch(localRecursos,{method:"POST",
-                                                    headers:{'Content-Type':'application/json'},
-                                                    body:JSON.stringify(beneficiarioJSON)
-            })
 
-            .then(resposta=>alert(resposta.statusText))
-            .catch(e=>alert(e))
+                swal("Finalizado!", "tamanho alterado com sucesso.", "success").then(function() {
+                window.location = '/';
+                });  
+            }
 
+            
             setNome('');
             setCpf('');
             setDataNascimento(new Date());
             setUsuarioId(2);
 
-            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
-                window.location = '/';
-            }); 
-
         }
+
+
 
         return(
             <div>
@@ -68,25 +100,22 @@ export default function FormCadBeneficiario (){
             
                                 <div class="box-nome">
                                     <label for="cpf">Cpf</label>
-                                    <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" />
+                                    <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" />
                                 </div>
             
                                 <div class="box-cpf">
                                     <label for="nome">nome</label>
-                                    <input type="text" name="nome" id="nome" placeholder='nome' />
+                                    <input type="text" name="nome" id="nome" placeholder='nome' required="True" />
                                 </div>
             
                                 <div class="box-senha">
                                     <label for="dataNascimento">Data de Nascimento</label>
-                                    <input type="date" name="dataNascimento" id="dataNascimento"/>
+                                    <input type="date" name="dataNascimento" id="dataNascimento" required="True"/>
                                 </div>
                                 
                                 <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
                             </form>
-                        </div>
+                        </div>               
                     </div>
-                );
-
-
-
+                );      
 }

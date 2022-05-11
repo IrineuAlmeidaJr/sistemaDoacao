@@ -13,6 +13,8 @@ import ListaTamanho from "./pages/ListaTamanho";
 import FormCadLocalDoacao from "./pages/CadLocalDoacao";
 import FormCadCampanhaDoacao from "./pages/CadCampanhaDoacao";
 import FormCadBeneficiario from "./pages/CadBeneficiarios";
+import ListaBeneficiarios from "./pages/ListaBeneficiarios";
+
 
 
 const Routes = () => {
@@ -30,6 +32,7 @@ const Routes = () => {
             <Route component={FormCadLocalDoacao} path="/cadLocalDoacao"/>
             <Route component={FormCadCampanhaDoacao} path="/cadCampanha"/>
             <Route component={FormCadBeneficiario} path="/cadBeneficiario"/>
+            <Route component={ListaBeneficiarios} path="/listaBeneficiarios"/>
 
        </BrowserRouter>
    )
