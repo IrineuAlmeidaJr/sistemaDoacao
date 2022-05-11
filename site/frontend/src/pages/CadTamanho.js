@@ -67,7 +67,7 @@ export default function FormCadTamanho (tamanhoPass) {
         const valor = componente.value;
         /*identificação do componente */
         const nome = componente.name;
-        setTamanho({...tamanho,[nome]:"valor"});
+        setTamanho({...tamanho,[nome]:valor});
  
     }  
 

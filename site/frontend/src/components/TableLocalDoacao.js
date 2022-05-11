@@ -31,9 +31,7 @@ const Table = (props) => {
                             <td>{Local.local_cidade}</td>
                             <td>{Local.local_estado}</td>
                             <td>{Local.usuario_usu_id}</td>
-                            <td>
-                                <Button variant="outline-primary" onClick={()=>{props.alterar(Local)}}><img src={editar} alt="Botao editar"/></Button>{' '}
-                            </td>
+                            <td><Button variant="outline-primary" onClick={()=>{props.alterar(Local)}}><img src={editar} alt="Botao editar"/></Button>{' '}</td>
                             <td><Button variant='outline-danger' onClick={()=>{props.deletar(Local)}}><img src={deletar} alt="Botao deletar"/></Button></td>
                         </tr>
                     ))

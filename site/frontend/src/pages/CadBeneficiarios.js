@@ -17,6 +17,7 @@ export default function FormCadBeneficiario (tamanhoPass)
     const[usuarioId, setUsuarioId] = React.useState(2);
     const[atualizando, setAtualizando] = React.useState(false);
     //const[ListaBeneficiarios, setListaBeneficiarios] = React.useState([]);
+    const[listaAlterar, setListaAlterar] = React.useState([]);
 
     React.useEffect(()=>{
         atualiza()
@@ -66,7 +67,10 @@ export default function FormCadBeneficiario (tamanhoPass)
         if(tamanhoPass.location.state === undefined)
             setAtualizando(false)    
         else
-            setAtualizando(true)              
+            {
+                setAtualizando(true)
+                setListaAlterar({cod: tamanhoPass.location.state.cod, nome: tamanhoPass.location.state.nome, cpf: tamanhoPass.location.state.cpf, dataNascimento: tamanhoPass.location.state.dataNascimento, usuarioId: tamanhoPass.location.state.usuario_id_usu})
+            }              
     }
 
     function handler() {
@@ -120,7 +124,7 @@ export default function FormCadBeneficiario (tamanhoPass)
             {
                 fetch(localRecursos,{method:"PUT",
                 headers:{'Content-Type':'application/json'},
-                body:JSON.stringify(tamanhoPass.location.state)
+                body:JSON.stringify(listaAlterar)
                 })
                 .then(resposta=>alert(resposta.statusText))
                 .catch(e=>alert(e))        
@@ -139,6 +143,18 @@ export default function FormCadBeneficiario (tamanhoPass)
         }
     }
 
+    function manipularMudanca(e){
+        /*o evento "e" traz quem disparou o evento (target) */
+        const componente = e.target;
+        /*valor trazido pelo componente no momento em que o evento é disparado */
+        const valor = componente.value;
+        /*identificação do componente */
+        const nome = componente.name;
+        setListaAlterar({...listaAlterar, [nome]: valor});    
+        console.log(listaAlterar);
+ 
+    }  
+
         return(
             <div>
                 <Header/>
@@ -150,17 +166,17 @@ export default function FormCadBeneficiario (tamanhoPass)
     
                         <div class="box-nome">
                             <label for="cpf">Cpf</label>
-                            <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" defaultValue={tamanhoPass.location.state.cpf}/>
+                            <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" defaultValue={listaAlterar.cpf} onChange={manipularMudanca}/>
                         </div>
     
                         <div class="box-cpf">
                             <label for="nome">nome</label>
-                            <input type="text" name="nome" id="nome" placeholder='nome' required="True" defaultValue={tamanhoPass.location.state.nome} />
+                            <input type="text" name="nome" id="nome" placeholder='nome' required="True" defaultValue={listaAlterar.nome} onChange={manipularMudanca} />
                         </div>
     
                         <div class="box-senha">
                             <label for="dataNascimento">Data de Nascimento</label>
-                            <input type="date" name="dataNascimento" id="dataNascimento" required="True" defaultValue={tamanhoPass.location.state.dataNascimento}/>
+                            <input type="date" name="dataNascimento" id="dataNascimento" required="True" defaultValue={listaAlterar.dataNascimento} onChange={manipularMudanca}/>
                         </div>
                         
                         <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>

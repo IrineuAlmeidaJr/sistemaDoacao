@@ -11,9 +11,10 @@ module.exports = app => {
     
     app.post('/LocalDoacao', async (req, res) => {
         const user = { ...req.body }
-        let novo = new local(user.nomeRua, user.numero, user.bairro, user.cidade, user.estado, 2)
+        let novo = new local(user.nomeRua, user.numero, user.bairro, user.cidade, user.estado, user.codUsuario)
+        console.log(novo)
         const client = await app.db.connect();
-        let aux = "INSERT INTO localdoacao (local_nomerua,local_numero,local_bairro,local_cidade,local_estado,usuario_id_usu) values('#1','#2','#3','#4','#5','#6')"
+        let aux = "INSERT INTO localdoacao (local_nomerua,local_numero,local_bairro,local_cidade,local_estado,usuario_id_usu) values('#1','#2','#3','#4','#5',#6)"
         let sql = aux.replace('#1', novo.getNomeRua())
         sql = sql.replace('#2', novo.getNumero())
         sql = sql.replace('#3', novo.getBairro())
