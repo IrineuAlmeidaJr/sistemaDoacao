@@ -7,7 +7,8 @@ import swal from 'sweetalert';
 
 const localRecursos = 'http://localhost:4000/Beneficiario'
 
-export default function FormCadBeneficiario (tamanhoPass){
+export default function FormCadBeneficiario (tamanhoPass)
+{
 
     const[cod, setCod] = React.useState('');
     const[nome, setNome] = React.useState('');
@@ -20,6 +21,46 @@ export default function FormCadBeneficiario (tamanhoPass){
     React.useEffect(()=>{
         atualiza()
     });
+
+    //verifi if cpf is valid
+    function verificaCpf(cpf) {
+        let soma = 0;
+        let resto;
+        let cpfArray = cpf.split('');
+        if (cpfArray.length !== 11) {
+            return false;
+        }
+        if (cpfArray[9] === cpfArray[10]) {
+            return false;
+        }
+        for (let i = 0; i < 9; i++) {
+            soma += parseInt(cpfArray[i]) * (10 - i);
+        }
+        resto = soma % 11;
+        if (resto < 2) {
+            resto = 0;
+        } else {
+            resto = 11 - resto;
+        }
+        if (resto !== parseInt(cpfArray[9])) {
+            return false;
+        }
+        soma = 0;
+        for (let i = 0; i < 10; i++) {
+            soma += parseInt(cpfArray[i]) * (11 - i);
+        }
+        resto = soma % 11;
+        if (resto < 2) {
+            resto = 0;
+        } else {
+            resto = 11 - resto;
+        }
+        if (resto !== parseInt(cpfArray[10])) {
+            return false;
+        }
+        return true;
+    }
+
 
     function atualiza(){
         if(tamanhoPass.location.state === undefined)
@@ -35,12 +76,19 @@ export default function FormCadBeneficiario (tamanhoPass){
 
     }
 
-    function handleSubmit(e) {
+    function handleSubmit(e)
+    {
             
+        const validaCpf = verificaCpf(cpf);
+        if(!validaCpf)
+            swal("Erro!", "CPF inválido.", "error");
+        else
+        {
             e.preventDefault();
             if(!atualizando)
             {
-                const beneficiarioJSON = {
+                const beneficiarioJSON = 
+                {
                     cpf: cpf,
                     nome: nome,                
                     dataNascimento: dataNascimento,
@@ -65,7 +113,9 @@ export default function FormCadBeneficiario (tamanhoPass){
                     })
                     .catch(e=>alert(e))
             }
-            else{
+
+            else
+            {
                 fetch(localRecursos,{method:"PUT",
                 headers:{'Content-Type':'application/json'},
                 body:JSON.stringify(tamanhoPass.location.state)
@@ -84,38 +134,36 @@ export default function FormCadBeneficiario (tamanhoPass){
             setCpf('');
             setDataNascimento(new Date());
             setUsuarioId(2);
-
         }
-
-
+    }
 
         return(
             <div>
-                        <Header/>
-            
-                        <div class="cadastro">
-                            <form action="POST" class="campos-cadastro" onSubmit={handleSubmit}>
-            
-                                <h1>Cadastro de beneficiario</h1>
-            
-                                <div class="box-nome">
-                                    <label for="cpf">Cpf</label>
-                                    <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" />
-                                </div>
-            
-                                <div class="box-cpf">
-                                    <label for="nome">nome</label>
-                                    <input type="text" name="nome" id="nome" placeholder='nome' required="True" />
-                                </div>
-            
-                                <div class="box-senha">
-                                    <label for="dataNascimento">Data de Nascimento</label>
-                                    <input type="date" name="dataNascimento" id="dataNascimento" required="True"/>
-                                </div>
-                                
-                                <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
-                            </form>
-                        </div>               
-                    </div>
-                );      
+                <Header/>
+    
+                <div class="cadastro">
+                    <form action="POST" class="campos-cadastro" onSubmit={handleSubmit}>
+    
+                        <h1>Cadastro de beneficiario</h1>
+    
+                        <div class="box-nome">
+                            <label for="cpf">Cpf</label>
+                            <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" />
+                        </div>
+    
+                        <div class="box-cpf">
+                            <label for="nome">nome</label>
+                            <input type="text" name="nome" id="nome" placeholder='nome' required="True" />
+                        </div>
+    
+                        <div class="box-senha">
+                            <label for="dataNascimento">Data de Nascimento</label>
+                            <input type="date" name="dataNascimento" id="dataNascimento" required="True"/>
+                        </div>
+                        
+                        <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
+                    </form>
+                </div>               
+            </div>
+        );      
 }
