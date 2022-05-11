@@ -22,7 +22,7 @@ export default function FormCadBeneficiario (tamanhoPass)
         atualiza()
     });
 
-    //verifi if cpf is valid
+    //verify if cpf is valid
     function verificaCpf(cpf) {
         let soma = 0;
         let resto;
@@ -102,7 +102,9 @@ export default function FormCadBeneficiario (tamanhoPass)
                     })
                     .then(resposta=>{
                         if(resposta.status === 400)
-                            swal("Erro!", "CPF já cadastrado.", "error");
+                            swal("Erro!", "CPF já cadastrado.", "error").then(function(){
+                                window.location ='/';
+                            });
                         else if(resposta.status === 401)
                             swal("Erro!", "Campo Obrigatorio não preenchido.", "error");
                         else
