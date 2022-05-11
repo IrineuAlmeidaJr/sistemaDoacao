@@ -28,6 +28,7 @@ const ListaBeneficiarios = () => {
     }
 
     function deletar(beneficiarioR) {
+        console.log(beneficiarioR)
         let cod = {cod: beneficiarioR.bene_id}
         fetch(localRecursos,{method:"DELETE",
                                     headers:{'Content-Type':'application/json'},
@@ -48,8 +49,13 @@ const ListaBeneficiarios = () => {
             <div>
             <Header />
             <div class="boxPrincipal">
+            
                 <div class="campo-exibicao">
                     <h1>Gerenciar Beneficiarios</h1>
+                    <div class="box-senha">
+                            <label for="Busca">Buscar por nome</label>
+                            <input type="input" name="busca" id="busca"/>
+                    </div>
                     <Table
                         beneficiarios={ListaBeneficiarios} 
                         deletar={deletar} 

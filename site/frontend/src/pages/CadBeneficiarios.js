@@ -148,17 +148,17 @@ export default function FormCadBeneficiario (tamanhoPass)
     
                         <div class="box-nome">
                             <label for="cpf">Cpf</label>
-                            <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" />
+                            <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" defaultValue={tamanhoPass.location.state.cpf}/>
                         </div>
     
                         <div class="box-cpf">
                             <label for="nome">nome</label>
-                            <input type="text" name="nome" id="nome" placeholder='nome' required="True" />
+                            <input type="text" name="nome" id="nome" placeholder='nome' required="True" defaultValue={tamanhoPass.location.state.nome} />
                         </div>
     
                         <div class="box-senha">
                             <label for="dataNascimento">Data de Nascimento</label>
-                            <input type="date" name="dataNascimento" id="dataNascimento" required="True"/>
+                            <input type="date" name="dataNascimento" id="dataNascimento" required="True" defaultValue={tamanhoPass.location.state.dataNascimento}/>
                         </div>
                         
                         <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>

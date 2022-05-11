@@ -2,10 +2,10 @@ const beneficiario = require('../model/beneficiario');
 
 module.exports = app => {
 
-    app.get('/Beneficiario', (req, res) => {
-        const client = app.db.connect();
-        const p = client.query('SELECT * from beneficiario');
-        console.log(p.rows)
+    app.get('/Beneficiario', async (req, res) => {
+        const client = await app.db.connect();
+        const sql=('SELECT * from beneficiario');
+        const p = await client.query(sql);
         res.status(200).send(p.rows)
         client.release();
     })
@@ -38,9 +38,8 @@ module.exports = app => {
 
     app.delete('/Beneficiario', async (req, res) => {
         const user = { ...req.body }
-        console.log(user)
         const client = await app.db.connect();
-        let aux = "DELETE FROM beneficiario where bene_id = "+user.id
+        let aux = "DELETE FROM beneficiario where bene_id = "+user.cod
         console.log(aux)
         try {
             const p = await client.query(aux)
