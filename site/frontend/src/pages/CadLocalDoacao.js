@@ -104,27 +104,27 @@ export default function FormCadLocalDoacao (tamanhoPass){
 
                     <div class="box-nome">
                         <label for="nomeRua">Nome da Rua</label>
-                        <input type="text" name="nomeRua" id="nomeRua" placeholder="Digite o Nome da rua" required="true"/>
+                        <input type="text" name="nomeRua" id="nomeRua" placeholder="Digite o Nome da rua" required="true" defaultValue={tamanhoPass.location.state.nomerua}/>
                     </div>
 
                     <div class="box-cpf">
                         <label for="numero">Numero</label>
-                        <input type="text" name="numero" id="numero" placeholder="01" required="true" />
+                        <input type="text" name="numero" id="numero" placeholder="01" required="true" defaultValue={tamanhoPass.location.state.numero} />
                     </div>
 
                     <div class="box-senha">
                         <label for="nome">Bairro</label>
-                        <input type="text" name="bairro" id="bairro" placeholder="Informe p bairro" required="true"/>
+                        <input type="text" name="bairro" id="bairro" placeholder="Informe p bairro" required="true" defaultValue={tamanhoPass.location.state.bairro}/>
                     </div>
 
                     <div class="box-dtNasc">
                         <label for="cidade">Cidade</label>
-                        <input type="text" name="cidade" id="cidade" placeholder="Informe a cidade" required="true"/>
+                        <input type="text" name="cidade" id="cidade" placeholder="Informe a cidade" required="true" defaultValue={tamanhoPass.location.state.cidade}/>
                     </div>
 
                     <div class="box-endereco">
                         <label for="estado">Estado</label>
-                        <input type="text" name="estado" id="estado" placeholder="Informe o estado" required="true" />
+                        <input type="text" name="estado" id="estado" placeholder="Informe o estado" required="true" defaultValue={tamanhoPass.location.state.estado} />
                     </div>
 
                     <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
