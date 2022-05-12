@@ -25,7 +25,12 @@ export default function FormCadTamanho (tamanhoPass) {
         }
     }
     function handler() {
-        setTamanho({tipo:document.getElementById('tipo').value});
+        if(!estaAtualizando){
+            setTamanho({tipo:document.getElementById('tipo').value});
+        }
+        else{
+            setTamanho({cod: tamanhoPass.location.state.cod,tipo:document.getElementById('tipo').value});
+        }
         
     }
 
@@ -60,16 +65,13 @@ export default function FormCadTamanho (tamanhoPass) {
         
 
     }
-    function manipularMudanca(e){
-        /*o evento "e" traz quem disparou o evento (target) */
+    /*function manipularMudanca(e){
         const componente = e.target;
-        /*valor trazido pelo componente no momento em que o evento é disparado */
         const valor = componente.value;
-        /*identificação do componente */
         const nome = componente.name;
-        setTamanho({...tamanho,[nome]:valor});
+        setTamanho({...tamanho,[nome]:valor, cod: tamanhoPass.location.state.cod});
  
-    }  
+    }*/
 
     return(
         <div>
@@ -80,7 +82,7 @@ export default function FormCadTamanho (tamanhoPass) {
 
                     <div class="inputBox">
                         <label class="label-bold" for="tipoDoacao">Tamanho:</label><br/>
-                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  defaultValue={tamanho.tipo} onChange={manipularMudanca}/>
+                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  defaultValue={tamanho.tipo}/>
                     </div>
 
 

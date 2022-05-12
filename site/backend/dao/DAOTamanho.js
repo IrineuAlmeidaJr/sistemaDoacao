@@ -46,7 +46,7 @@ module.exports = app => {
     app.put('/tamanho', async (req, res) => {
         const user = { ...req.body }
         const client = await app.db.connect();
-        let aux = "UPDATE tamanho SET tamanho_tam = '#2' WHERE tamanho_id = '#1'"
+        let aux = "UPDATE tamanho SET tamanho_tam = '#2' WHERE tamanho_id = #1"
         let sql = aux.replace('#1', user.cod)
         sql = sql.replace('#2', user.tipo)
         console.log(sql)

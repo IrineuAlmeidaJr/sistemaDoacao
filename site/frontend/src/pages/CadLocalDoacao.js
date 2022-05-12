@@ -37,7 +37,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
         setBairro(document.getElementById('bairro').value);
         setCidade(document.getElementById('cidade').value);
         setEstado(document.getElementById('estado').value);
-        setCodUsuario(2);
+        setCodUsuario(tamanhoPass.location.state.cod);
         
     }
 
@@ -80,6 +80,15 @@ export default function FormCadLocalDoacao (tamanhoPass){
             )
         }
         else{
+            const listaAlterar = {
+                nomeRua: nomeRua,
+                numero: numero,
+                bairro: bairro,
+                cidade: cidade,
+                estado: estado,
+                codUsuario: CodUsuario
+                
+            }
             fetch('http://localhost:4000/localDoacao',{method:"PUT",
                 headers:{'Content-Type':'application/json'},
                 body:JSON.stringify(listaAlterar)
