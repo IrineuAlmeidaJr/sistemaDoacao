@@ -1,64 +1,39 @@
-const tamanho = require('../model/tamanho')
 
-module.exports = app => {
+module.exports = class DAOTamanho {
 
-    app.get('/tamanho', async (req, res) => {
-        const client = await app.db.connect();
+    async listar(db){
         const sql ="SELECT * from tamanho"
-        const p = await client.query(sql);
-        res.status(200).send(p.rows)
-        client.release();
-    })
+        const p = await db.consulta(sql,"");
+        return p;
+    }
+    async listarId(id,db){
+        const sql = "SELECT * from tamanho where tamanho_id = ?"
+        const valor = [id]
+        const p = await db.consulta(sql,valor);
+        return p;
+    }
 
-    app.post('/tamanho', async (req, res) => {
-        const user = { ...req.body }
-        let novo = new tamanho(user.tipo)
-        const client = await app.db.connect();
-        let aux = "INSERT INTO tamanho(tamanho_tam) values('#1')"
-        let sql = aux.replace('#1', novo.getNome())
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json({resp:"inserido com sucesso"})
-        } catch (err) {
-            console.log(err)
-            res.status(400).json(err)
-        }
+    async gravar(tam, db){
+        let sql = "INSERT INTO tamanho(tamanho_tam) values(?)"
+        const valor = [tam.getNome()]
+        const p = await db.manipula(sql,valor)
+        return p
+    }
 
-    })
+    async deletar(tam,db){
+        let sql = "DELETE FROM tamanho where tamanho_id = ?"
+        const valor = [tam.getId()]
+        const p = await db.manipula(sql,valor)
+        return p
+    }
 
-    app.delete('/tamanho', async (req, res) => {
-        const user = { ...req.body }
-        console.log(user)
-        const client = await app.db.connect();
-        let aux = "DELETE FROM tamanho where tamanho_id = "+user.cod
-        console.log(aux)
-        try {
-            const p = await client.query(aux)
-            console.log("sucesso")
-            res.status(200).json("deletado com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json("erro na insercao")
-        }
-    })
+    async alterar(tam,db){
+        let sql = "UPDATE tamanho SET tamanho_tam = ? WHERE tamanho_id = ?"
+        const valor = [tam.getId(),tam.getNome()]
+        const p = await db.manipula(sql,valor)
+        return p
+    }
 
-    app.put('/tamanho', async (req, res) => {
-        const user = { ...req.body }
-        const client = await app.db.connect();
-        let aux = "UPDATE tamanho SET tamanho_tam = '#2' WHERE tamanho_id = #1"
-        let sql = aux.replace('#1', user.cod)
-        sql = sql.replace('#2', user.tipo)
-        console.log(sql)
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json("atualizado com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json("erro na insercao")
-        }
-    })
 
     
 
