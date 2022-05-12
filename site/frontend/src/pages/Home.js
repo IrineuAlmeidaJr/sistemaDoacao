@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <div>
             <Header />
-            <div class="home-info-container">
+            {/*<div class="home-info-container">
 
             </div>
             <div>
@@ -16,7 +16,7 @@ const Home = () => {
             </div>
             <div>
                 
-            </div>
+            </div>*/}
             <div class="principal">                
                 <div class="campos-principal">  
                     <h1>Página Usuario</h1>                  
