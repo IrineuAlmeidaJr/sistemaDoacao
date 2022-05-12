@@ -3,7 +3,8 @@ module.exports = class DAOTamanho {
 
     async listar(db){
         const sql ="SELECT * from tamanho"
-        const p = await db.consulta(sql,"");
+        const p = await db.consulta(sql,null);
+        console.log(p)
         return p;
     }
     async listarId(id,db){
@@ -17,6 +18,7 @@ module.exports = class DAOTamanho {
         let sql = "INSERT INTO tamanho(tamanho_tam) values(?)"
         const valor = [tam.getNome()]
         const p = await db.manipula(sql,valor)
+        console.log(p)
         return p
     }
 

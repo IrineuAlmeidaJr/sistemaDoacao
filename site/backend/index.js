@@ -4,9 +4,9 @@ app.db = require('./config/db.js')
 consign()
  .include('./config/passport.js')
  .then('./config/middlewares.js')
- .then('./dao')
+ .then('./config/routes.js')
  .into(app)
 
 app.listen(4000, () =>{
-    console.log('servidor esta executando na porta 3000')
+    console.log('servidor esta executando na porta 4000')
 })
