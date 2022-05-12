@@ -15,14 +15,14 @@
     font-weight: bold;
 }
 
-.inputBox{
+.inputBox, .comboBox{
     display: flex;
     flex-direction: column;
     padding: 4px;
     margin-bottom: 20px;
 }
 
-.inputBox input{
+.inputBox input, .comboBox select{
     color: gray;
     margin-top: 2px;
     padding: 6px 12px;

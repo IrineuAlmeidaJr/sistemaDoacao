@@ -1,3 +1,8 @@
 /*Será usado para organizar os css das outras páginas*/
 
 /*Home, e o padrão de página do site, depois que feito*/
+.home-info-container{
+    width: 100%;
+    height: 300px;
+    background-color: lightpink;
+}
