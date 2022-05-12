@@ -1,18 +1,53 @@
+const axios = require('axios');
 const db = require('../model/Database');
-const usuario = require('../model/usuario.js');
+const usuario = require('../model/usuario.js'); // Usa na hora de procura, fazer depois procurar
 
 
 
+module.exports = {
+    async gravar(request,response) {
+        const {cpf, senha, data, endereco, telefone, email, tipo} = request.body;
+
+        // Verifica se Usuário já está cadastrado
+        const con = await db.conecta();
+        const sql = "INSERT INTO usuario(cpf_usu, senha_usu, nome_usu, " +
+                    "datanasc_usu, endereco_usu, telefone_usu, email_usu, tipo_usuario)" + 
+                    "values(?, ?, ?, ?, ?, ?, ?, ?)";
+        const valor = [cpf, senha, data, endereco, telefone, email, tipo]; 
+        
+        const result = await db.manipula(sql,valor);
+
+        return response.json(result);        
+    }, 
+
+    async alterar(request,response){
+        // const {cpf, senha, data, endereco, telefone, email, tipo} = request.body;        
+      
+        // const con = await db.conecta();
+        // const sql = "UPDATE Cliente SET cli_bairro = ?,cli_rua=?, "+
+        //             "cli_cidade=?,cli_uf=?,cli_cep=? "+
+        //             "WHERE pes_cod = ?";
+        
+        // const valor = [cli_bairro,cli_rua,cli_cidade,cli_uf,cli_cep,pes_cod];
+        // const result = await db.manipula(sql,valor);
+        // return response.json(result);
+        // *** FAZER O ALTERAR
+    },
+
+    async listar (request, response) {
+        // Tem Fazer a Conexão
+        const con = await db.conecta();
+        const sql = "SELECT * FROM usuario";
+        // Aqui retorna dois campos, então pegamos apenas primeira posição
+        const usuario = await db.consulta(sql);
+        return response.json(usuario.data);
+    },
+
+}
 
 
 
-
-// *** DUVIDA -> aqui apenas teremos o lista e procurar usuário ?, e na controler tem
-// tudo CRUD ... Perguntar como irá ficar a divisão certinha de o que fica em no CONTROL,  DAO,
-// MODEL 
-
-
-// module.exports = app=>{
+// app=>{
 // app.get('/usuario',async(req,res)=>{
 //     const client = await app.db.connect();
 //     const p = await client.query('SELECT * from usuario');
