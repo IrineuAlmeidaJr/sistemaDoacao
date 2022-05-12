@@ -6,36 +6,71 @@ import swal from 'sweetalert';
 
 const localRecursos = 'http://localhost:4000/tamanho'
 
-export default function FormCadTamanho () {
+export default function FormCadTamanho (tamanhoPass) {
     const [tamanho, setTamanho] = React.useState('');
-    
+    const [estaAtualizando, setEstaAtualizando] = React.useState(false);
+    React.useEffect(()=>{
+        if(!estaAtualizando)
+            atualiza()
+    });
+
+
+    function atualiza(){
+        if(tamanhoPass.location.state === undefined){
+            setEstaAtualizando(false)
+        }
+        else{
+            setEstaAtualizando(true)
+            setTamanho({cod: tamanhoPass.location.state.cod, tipo: tamanhoPass.location.state.tipo})
+        }
+    }
     function handler() {
-        setTamanho(document.getElementById('tamanho').value);
+        setTamanho({tipo:document.getElementById('tipo').value});
         
     }
 
     function handleSubmit(e) {
         e.preventDefault();
+        if(!estaAtualizando){
+            fetch(localRecursos,{method:"POST",
+                                headers:{'Content-Type':'application/json'},
+                                body:JSON.stringify(tamanho)
+            })
+            .then(resposta=>alert(resposta.statusText))
+            .catch(e=>alert(e))        
 
-        const tamanhoJSON = {
-            tipo: tamanho
+            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
+                window.location = '/';
+            }); 
         }
-
-        fetch(localRecursos,{method:"POST",
-                            headers:{'Content-Type':'application/json'},
-                            body:JSON.stringify(tamanhoJSON)
-        })
-        .then(resposta=>alert(resposta.statusText))
-        .catch(e=>alert(e))        
+        else{
+            fetch(localRecursos,{method:"PUT",
+                                 headers:{'Content-Type':'application/json'},
+                                 body:JSON.stringify(tamanho)
+            })
+            .then(resposta=>alert(resposta.statusText))
+            .catch(e=>alert(e))        
+            
+ 
+            swal("Finalizado!", "tamanho alterado com sucesso.", "success").then(function() {
+                window.location = '/';
+            }); 
+        }
         setTamanho('');
-
-        swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
-            window.location = '/';
-        }); 
         
 
     }
-    
+    function manipularMudanca(e){
+        /*o evento "e" traz quem disparou o evento (target) */
+        const componente = e.target;
+        /*valor trazido pelo componente no momento em que o evento é disparado */
+        const valor = componente.value;
+        /*identificação do componente */
+        const nome = componente.name;
+        setTamanho({...tamanho,[nome]:valor});
+ 
+    }  
+
     return(
         <div>
             <Header/>
@@ -45,12 +80,12 @@ export default function FormCadTamanho () {
 
                     <div class="inputBox">
                         <label class="label-bold" for="tipoDoacao">Tamanho:</label><br/>
-                        <input class="input-style-1" type="text" id="tamanho" name="tamanho" size="15"/>
+                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  defaultValue={tamanho.tipo} onChange={manipularMudanca}/>
                     </div>
 
 
                     <br/><br/>
-                    <button class="btConfirmar" onClick={handler}>Confirmar</button>
+                    <button class="btConfirmar" onClick={handler}>Enviar</button>
                 </form>
             </div>
             

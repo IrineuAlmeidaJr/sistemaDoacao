@@ -1,14 +1,15 @@
 import React from 'react';
 import Header from '../components/Header';
 import '../css/ListaUsuario.css'
-
-import Table from '../components/TableTamanho';
+import { useHistory } from 'react-router-dom';
+import Table from '../components/TableTamanho.js';
 const localRecursos = 'http://localhost:4000/tamanho'
 
 const ListaTamanho = () => {
-
+    const history = useHistory();
 
     const [listaTamanho, setListaTamanhos] = React.useState([]);
+    
 
     React.useEffect(() => {
         fetchTamanho()
@@ -25,16 +26,22 @@ const ListaTamanho = () => {
         });
     }
     
-    function deletar() { 
-        const cod= {cod: document.querySelector('#deletarTamanho').value}
+    function deletar(tamanhoR) { 
+        let cod = {cod: tamanhoR.tamanho_id}
         fetch(localRecursos,{method:"DELETE",
                                  headers:{'Content-Type':'application/json'},
                                  body:JSON.stringify(cod)
             })
-            .then(resposta=>alert("sucesso"))    
-            fetchTamanho()
+            .then(alert("excluído"))  
+        fetchTamanho()
     }
-
+    function alterar(tamanhoR){
+        
+        history.push({
+            pathname: `/cadTamanho`,
+            state: { cod: tamanhoR.tamanho_id,tipo: tamanhoR.tamanho_tam },
+          });
+    }
 
     return (
         <div>
@@ -42,35 +49,10 @@ const ListaTamanho = () => {
             <div class="boxPrincipal">
                 <div class="campo-exibicao">
                     <h1>Tamanho</h1>
-                    
-                    <div class="opcoes">
-                        <div class="alterar">
-                            <h3>Alterar</h3>
-                            <div class="alterarInterno">
-                                <label for="nome">ID</label>
-                                <input type="number" id="alterarTipo" placeholder="ID que deseja alterar..." />
-                                <div class="botao">
-                                    <button>Alterar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="deletar">
-                            <h3>Deletar</h3>
-                            <div class="deletarInterno">
-                                <label for="nome">ID</label>
-                                <input type="number" id="deletarTamanho" placeholder="ID que deseja excluir..." />
-                                <div class="botao">
-                                    <button onClick={deletar}>Deletar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
 
                     
                     <Table
-                        tamanhos={listaTamanho}
+                        tamanhos={listaTamanho} deletarTamanho={deletar} alterarTamanho={alterar}
                     />
                   
 

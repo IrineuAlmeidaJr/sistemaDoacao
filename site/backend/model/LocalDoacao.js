@@ -1,12 +1,11 @@
 class Local{
 
-    constructor(nomeRua,numero,bairro,cidade,estado,campanhaId,usuarioId) {
+    constructor(nomeRua,numero,bairro,cidade,estado,usuarioId) {
         this.nomeRua = nomeRua;
         this.numero = numero;
         this.bairro = bairro;
         this.cidade = cidade;
         this.estado = estado;
-        this.campanhaId = campanhaId;
         this.usuarioId = usuarioId;
     }
 

@@ -25,7 +25,7 @@ module.export = app => {
             console.log(err)
             res.status(400).json(err)
         }
-    })
+    }) 
 
     app.delete('/inscricao', async (req, res) => {
         const user = { ...req.body }
