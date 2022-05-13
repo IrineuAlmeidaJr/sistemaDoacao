@@ -26,20 +26,21 @@ const ListaTamanho = () => {
         });
     }
     
-    function deletar(tamanhoR) { 
-        let cod = {cod: tamanhoR.tamanho_id}
-        fetch(localRecursos,{method:"DELETE",
+    async function deletar(tamanhoR) { 
+        let cod = {cod: tamanhoR.cod}
+        await fetch(localRecursos,{method:"DELETE",
                                  headers:{'Content-Type':'application/json'},
                                  body:JSON.stringify(cod)
             })
-            .then(alert("excluído"))  
+            .then(resposta=>{if(resposta.status != false){alert("excluido com sucesso")}})
+            .catch(resposta=>alert(resposta.message))  
         fetchTamanho()
     }
     function alterar(tamanhoR){
         
         history.push({
             pathname: `/cadTamanho`,
-            state: { cod: tamanhoR.tamanho_id,tipo: tamanhoR.tamanho_tam },
+            state: { cod: tamanhoR.cod,tipo: tamanhoR.nome},
           });
     }
 

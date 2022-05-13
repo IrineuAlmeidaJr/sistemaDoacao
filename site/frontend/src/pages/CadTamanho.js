@@ -21,27 +21,26 @@ export default function FormCadTamanho (tamanhoPass) {
         }
         else{
             setEstaAtualizando(true)
-            setTamanho({cod: tamanhoPass.location.state.cod, tipo: tamanhoPass.location.state.tipo})
+            setTamanho({cod: tamanhoPass.location.state.cod,nome: tamanhoPass.location.state.tipo})
         }
     }
     function handler() {
         if(!estaAtualizando){
-            setTamanho({tipo:document.getElementById('tipo').value});
+            setTamanho({nome:document.getElementById('tipo').value});
         }
         else{
-            setTamanho({cod: tamanhoPass.location.state.cod,tipo:document.getElementById('tipo').value});
+            setTamanho({cod: tamanhoPass.location.state.cod,nome:document.getElementById('tipo').value});
         }
         
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         if(!estaAtualizando){
-            fetch(localRecursos,{method:"POST",
+            await fetch(localRecursos,{method:"POST",
                                 headers:{'Content-Type':'application/json'},
                                 body:JSON.stringify(tamanho)
             })
-            .then(resposta=>alert(resposta.statusText))
             .catch(e=>alert(e))        
 
             swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
@@ -49,11 +48,10 @@ export default function FormCadTamanho (tamanhoPass) {
             }); 
         }
         else{
-            fetch(localRecursos,{method:"PUT",
+            await fetch(localRecursos,{method:"PUT",
                                  headers:{'Content-Type':'application/json'},
                                  body:JSON.stringify(tamanho)
             })
-            .then(resposta=>alert(resposta.statusText))
             .catch(e=>alert(e))        
             
  
@@ -82,7 +80,7 @@ export default function FormCadTamanho (tamanhoPass) {
 
                     <div class="inputBox">
                         <label class="label-bold" for="tipoDoacao">Tamanho:</label><br/>
-                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  defaultValue={tamanho.tipo}/>
+                        <input class="input-style-1"  type="text" id="tipo" name="tipo" size="15"  defaultValue={tamanho.nome}/>
                     </div>
 
 

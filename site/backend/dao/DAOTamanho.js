@@ -4,7 +4,6 @@ module.exports = class DAOTamanho {
     async listar(db){
         const sql ="SELECT * from tamanho"
         const p = await db.consulta(sql,null);
-        console.log(p)
         return p;
     }
     async listarId(id,db){
@@ -17,6 +16,7 @@ module.exports = class DAOTamanho {
     async gravar(tam, db){
         let sql = "INSERT INTO tamanho(tamanho_tam) values(?)"
         const valor = [tam.getNome()]
+        console.log(valor)
         const p = await db.manipula(sql,valor)
         console.log(p)
         return p
@@ -24,15 +24,20 @@ module.exports = class DAOTamanho {
 
     async deletar(tam,db){
         let sql = "DELETE FROM tamanho where tamanho_id = ?"
-        const valor = [tam.getId()]
+        console.log(tam)
+        const valor = [tam.getCod()]
+        console.log(valor)
         const p = await db.manipula(sql,valor)
+        console.log(p)
         return p
     }
 
     async alterar(tam,db){
         let sql = "UPDATE tamanho SET tamanho_tam = ? WHERE tamanho_id = ?"
-        const valor = [tam.getId(),tam.getNome()]
+        const valor = [tam.getNome(),tam.getCod()]
+        console.log(tam)
         const p = await db.manipula(sql,valor)
+        console.log(p)
         return p
     }
 

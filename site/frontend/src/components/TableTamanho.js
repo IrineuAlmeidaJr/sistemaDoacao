@@ -18,8 +18,8 @@ const Table = (props) => {
                 {
                     props.tamanhos.map(tamanho => (
                         <tr>
-                            <td>{tamanho.tamanho_id}</td>
-                            <td>{tamanho.tamanho_tam}</td>
+                            <td>{tamanho.cod}</td>
+                            <td>{tamanho.nome}</td>
                             <td>
                                 <Button variant="outline-primary" onClick={()=>{props.alterarTamanho(tamanho)}}><img src={editar} alt="Botao editar"/></Button>{' '}
                                 <Button variant='outline-danger' onClick={()=>{props.deletarTamanho(tamanho)}}><img src={deletar} alt="Botao deletar"/></Button>
