@@ -1,14 +1,23 @@
+const DAOCampanhaDoacao = require('../dao/DAOCampanhaDoacao')
+
 class CampanhaDoacao
 {
     
 
-    constructor(nome, dataInicio, dataFim){
+    constructor(cod,nome, dataInicio, dataFim){
+        this.cod = cod
         this.nome = nome;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
     }
 
+    getCod(){
+        return this.cod
+    }
 
+    setCod(cod){
+        this.cod = cod
+    }
     getNome(){
         return this.nome;
     }
@@ -32,6 +41,35 @@ class CampanhaDoacao
     setDataFim(dataFim){
         this.dataFim = dataFim;
     }   
+    async gravar(db){
+        const resp=await new DAOCampanhaDoacao().gravar(this,db);
+        this.cod=resp.lastId; 
+    }
+
+    async alterar(db){
+        await new DAOCampanhaDoacao().alterar(this,db)
+    }
+
+    async excluir(db){
+        await new DAOCampanhaDoacao().deletar(this,db)
+    }
+
+    async buscarId(id,db){
+        const result = await new DAOCampanhaDoacao().listarId(id,db)
+        let obj = new CampanhaDoacao(result.data[0].campanha_id,result.data[0].campanha_nome,result.data[0].campanha_datainicio,result.data[0].campanha_datafim)
+        return obj
+
+    }
+
+    async listar(db){
+        const result = await new DAOCampanhaDoacao().listar(db)
+        let lista = []
+        for(let i = 0;i<result.data.length;i++){
+            lista.push(new CampanhaDoacao(result.data[0].campanha_id,result.data[0].campanha_nome,result.data[0].campanha_datainicio,result.data[0].campanha_datafim))
+
+        }
+        return lista
+    }
 
 }
 
