@@ -1,68 +1,41 @@
 const campDoacao = require('../model/CampanhaDoacao.js')
 
-module.exports = app => {
-    app.get('/campanhaDoacao', async (req, res) => {
-        const client = await app.db.connect();
-        const p = await client.query('SELECT * from campanhadoacao');
-        res.status(200).send(p.rows)
-        client.release();
-    })
+module.exports = class DAOCampanhaDoacao{
+    async listar(db){
+        const sql ="SELECT * from campanhadoacao"
+        const p = await db.consulta(sql,null);
+        return p;
+    }
+    async listarId(id,db){
+        const sql = "SELECT * from campanhadoacao where campanha_id = ?"
+        const valor = [id]
+        const p = await db.consulta(sql,valor);
+        return p;
+    }
 
-    app.post('/campanhaDoacao', async (req, res) => {
-        console.log(req.body);
-        const user = { ...req.body }
-        let novo = new campDoacao(user.nomeCampanha, user.dataInicio, user.dataFim)
-        console.log(campDoacao)
-        const client = await app.db.connect();
-        let aux = "INSERT INTO campanhadoacao(campanha_nome, campanha_datainicio, campanha_datafim) values('#1','#2','#3')"
-        let sql = aux.replace('#1', novo.getNome())
-        sql = sql.replace('#2', novo.getDataInicio())
-        sql = sql.replace('#3', novo.getDataFim())
-        console.log(sql)
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json("inserido com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json(err)
-        }
-    })
+    async gravar(camp, db){
+        let sql = "INSERT INTO campanhadoacao(campanha_nome, campanha_datainicio, campanha_datafim) values(?,?,?)"
+        const valor = [camp.getNome(),camp.getDataInicio(),camp.getDataFim()]
+        console.log(valor)
+        const p = await db.manipula(sql,valor)
+        console.log(p)
+        return p
+    }
 
-    app.delete('/campanhaDoacao', async (req, res) => {
-        const user = { ...req.body }
-        console.log(user)
-        const client = await app.db.connect();
-        let aux = "DELETE FROM campanhadoacao where campanha_id = "+user.cod
-        console.log(aux)
-        try {
-            const p = await client.query(aux)
-            console.log("sucesso")
-            res.status(200).json("deletado com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json("erro na insercao")
-        }
-    })
+    async deletar(camp,db){
+        let sql = "DELETE FROM campanhadoacao where campanha_id = ?"
+        const valor = [camp.getCod()]
+        const p = await db.manipula(sql,valor)
+        console.log(p)
+        return p
+    }
 
-    app.put('/campanhaDoacao', async (req, res) => {
-        const user = { ...req.body }
-        console.log(user)
-        const client = await app.db.connect();
-        let aux = "UPDATE campanhadoacao SET campanha_nome = '#1', campanha_datainicio = '#2', campanha_datafim = '#3' WHERE campanha_id = '#4'"
-        let sql = aux.replace('#1', user.nome)
-        sql = sql.replace('#2', user.dataInicio)
-        sql = sql.replace('#3', user.dataFim)
-        sql = sql.replace('#4', user.cod)
-        console.log(sql)
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json("atualizado com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json(err)
-        }
-
-    })       
+    async alterar(camp,db){
+        let sql = "UPDATE campanhadoacao SET campanha_nome = ?, campanha_datainicio = ?, campanha_datafim = ? WHERE campanha_id = ?"
+        const valor = [camp.getNome(),camp.getDataInicio(),camp.getDataFim(),camp.getCod()]
+        const p = await db.manipula(sql,valor)
+        console.log(p)
+        return p
+    }
 }
+

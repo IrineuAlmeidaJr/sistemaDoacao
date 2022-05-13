@@ -21,10 +21,10 @@ const Table = (props) => {
                 {
                     props.campanhas.map(campanha=>(
                         <tr> 
-                            <td>{campanha.campanha_id}</td>
-                            <td>{campanha.campanha_nome}</td>
-                            <td>{campanha.campanha_datainicio}</td>
-                            <td>{campanha.campanha_datafim}</td> 
+                            <td>{campanha.cod}</td>
+                            <td>{campanha.nome}</td>
+                            <td>{campanha.dataInicio}</td>
+                            <td>{campanha.dataFim}</td> 
                             <td><Button variant="outline-primary" onClick={()=>{props.alterar(campanha)}}><img src={editar} alt="Botao editar"/></Button>{' '}</td>
                             <td><Button variant='outline-danger' onClick={()=>{props.deletar(campanha)}}><img src={deletar} alt="Botao deletar"/></Button></td>               
                         </tr>

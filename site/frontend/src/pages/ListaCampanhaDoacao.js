@@ -27,9 +27,9 @@ const ListaCampanhaDoacao = () => {
     }); 
     }
 
-    function deletar(campanha) {
+    async function deletar(campanha) {
         console.log(campanha)
-        let cod = {cod: campanha.campanha_id}
+        let cod = {cod: campanha.cod}
         fetch(localRecursos,{method:"DELETE",
                                     headers:{'Content-Type':'application/json'},
                                     body:JSON.stringify(cod)
@@ -41,7 +41,7 @@ const ListaCampanhaDoacao = () => {
     function alterar(campanha) {
         history.push({
         pathname: '/CadCampanhaDoacao',
-        state:{cod: campanha.campanha_id, nome: campanha.campanha_nome, datainicio: campanha.campanha_datainicio, datafim: campanha.campanha_datafim},
+        state:{cod: campanha.cod, nome: campanha.nome, datainicio: campanha.dataInicio, datafim: campanha.dataFim},
     });
     }
      
