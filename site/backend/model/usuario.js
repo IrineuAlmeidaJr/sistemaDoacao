@@ -1,76 +1,91 @@
-class Usuario{
-    #id
-    #cpf
-    #senha
-    #nome
-    #dataNascimento
-    #endereco
-    #telefone
-    #email
-    #tipo
+const DAOUsuario = require("../dao/DAOUsuario")
+
+module.exports = class Usuario {
     constructor(cpf,senha,nome,dataNascimento,endereco,telefone,email,tipo){
-        this.#cpf = cpf
-        this.#senha = senha
-        this.#nome = nome
-        this.#dataNascimento = dataNascimento
-        this.#endereco = endereco
-        this.#telefone = telefone
-        this.#email = email
-        this.#tipo = tipo
+        this.cpf = cpf
+        this.senha = senha
+        this.nome = nome
+        this.dataNascimento = dataNascimento
+        this.endereco = endereco
+        this.telefone = telefone
+        this.email = email
+        this.tipo = tipo
     }
+
     setId(id){
-        this.#id = id
+        this.id = id
     }
+
     setCPF(cpf){
-        this.#cpf = cpf
+        this.cpf = cpf
     }
+
     setSenha(senha){
-        this.#senha = senha
+        this.senha = senha
     }
+
     setNome(nome){
-        this.#nome = nome
+        this.nome = nome
     }
+
     setData(dataNascimento){
-        this.#dataNascimento = dataNascimento
+        this.dataNascimento = dataNascimento
     }
+
     setEndereco(endereco){
-        this.#endereco = endereco
+        this.endereco = endereco
     }
+
     setTelefone(telefone){
-        this.#telefone = telefone
+        this.telefone = telefone
     }
+
     setEmail(email){
-        this.#email = email
+        this.email = email
     }
+
     setTipo(tipo){
-        this.#tipo = tipo
+        this.tipo = tipo
     }
+
     getId(){
-        return this.#id
+        return this.id
     }
+
     getCPF(){
-        return this.#cpf
+        return this.cpf
     }
+
     getSenha(){
-        return this.#senha
+        return this.senha
     }
+
     getNome(){
         return this.#nome
     }
+
     getData(){
-        return this.#dataNascimento
+        return this.dataNascimento
     }
+
     getEndereco(){
-        return this.#endereco
+        return this.endereco
     }
+
     getTelefone(){
-        return this.#telefone
+        return this.telefone
     }
+
     getEmail(){
-        return this.#email
+        return this.email
     }
+
     getTipo(){
-        return this.#tipo
+        return this.tipo
+    }
+
+    async  gravar(db) {
+        const resp=await new DAOUsuario().gravar(this,db);
+        // this.ser_cod=resp.lastId; 
     }
 }
-module.exports = Usuario

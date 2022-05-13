@@ -1,4 +1,22 @@
-const usuario = require('../model/usuario.js')
+const db = require('../model/Database');
+const usuario = require('../model/usuario.js');
+
+module.exports = {
+    async gravar(usu, db) {
+        // Verifica se Usuário já está cadastrado
+        const sql = "INSERT INTO usuario(usu_cpf, usu_senha, usu_nome, " +
+                    "usu_dataNasc, usu_endereco, usu_telefone, usu_email, usu_tipoUsuario)" + 
+                    "values(?, ?, ?, ?, ?, ?, ?, ?)";
+        const valor = [usu.getCPF(), usu.getSenha(), usu.getNome(), usu.getData(), 
+                    usu.getEndereco(), usu.getTelefone(), usu.getEmail(), usu.getTipo()]; 
+        
+        const result = await db.manipula(sql,valor);
+
+        return result;        
+    }, 
+}
+
+
 
 module.exports = app=>{
 app.get('/usuario',async(req,res)=>{

@@ -1,5 +1,5 @@
 const tamanho = require('../model/tamanho')
-const db = require('../model/database.js')
+const db = require('../model/Database.js')
 module.exports = {
     async gravar(req,res){
         const tam = { ...req.body }
