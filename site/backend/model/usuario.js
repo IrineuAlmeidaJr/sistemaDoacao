@@ -1,7 +1,8 @@
 const DAOUsuario = require("../dao/DAOUsuario")
 
 module.exports = class Usuario {
-    constructor(cpf,senha,nome,dataNascimento,endereco,telefone,email,tipo){
+    constructor(id, cpf,senha,nome,dataNascimento,endereco,telefone,email,tipo){
+        this. id = id
         this.cpf = cpf
         this.senha = senha
         this.nome = nome
@@ -61,7 +62,7 @@ module.exports = class Usuario {
     }
 
     getNome(){
-        return this.#nome
+        return this.nome
     }
 
     getData(){
@@ -85,7 +86,25 @@ module.exports = class Usuario {
     }
 
     async  gravar(db) {
-        const resp=await new DAOUsuario().gravar(this,db);
-        // this.ser_cod=resp.lastId; 
+        const resp = await new DAOUsuario().gravar(this,db); 
+    }
+
+    async listar(db) {
+        const resp=await new DAOUsuario().listar(db);
+        let usuario = []; 
+        for(let i=0; i < resp.data.length; i++) {
+            usuario.push(new Usuario(
+                resp.data[i].usu_id,
+                resp.data[i].usu_cpf,
+                resp.data[i].usu_senha,
+                resp.data[i].usu_nome,
+                resp.data[i].usu_dataNasc,
+                resp.data[i].usu_endereco,
+                resp.data[i].usu_telefone,
+                resp.data[i].usu_email,
+                resp.data[i].usu_tipoUsuario
+            ))
+        }
+        return usuario;
     }
 }

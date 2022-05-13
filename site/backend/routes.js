@@ -13,3 +13,7 @@ routes.all('*', function (req, res, next) {
 
 
 routes.post('/usuario', usuarioCtrl.gravar);
+routes.get('/usuario', usuarioCtrl.listar);
+
+
+module.exports = routes;
