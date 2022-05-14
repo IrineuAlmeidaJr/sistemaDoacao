@@ -21,13 +21,14 @@ export default function FormCadCampanhaDoacao (campanhaPass){
     });
 
     function atualiza(){
-        if(tamanhoPass.location.state === undefined){
-            setEstaAtualizando(false)
-        }
-        else{
-            setEstaAtualizando(true)
-            setCampanha({cod: campanhaPass.location.state.cod,nome: campanhaPass.location.state.nome,dataInicio: campanhaPass.location.state.dataInicio,dataFim: campanhaPass.location.dataFim})
-        }
+        // *** OBS: depois arrumar essar parte está dando problema
+        // if(tamanhoPass.location.state === undefined){
+        //     setEstaAtualizando(false)
+        // }
+        // else{
+        //     setEstaAtualizando(true)
+        //     setCampanha({cod: campanhaPass.location.state.cod,nome: campanhaPass.location.state.nome,dataInicio: campanhaPass.location.state.dataInicio,dataFim: campanhaPass.location.dataFim})
+        // }
     }
     
 

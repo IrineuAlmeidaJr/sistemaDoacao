@@ -21,14 +21,14 @@ const Table = (props) => {
                 {
                     props.usuarios.map(usuario => (
                         <tr>
-                            <td>{usuario.id_usu}</td>
-                            <td>{usuario.nome_usu}</td>
-                            <td>{usuario.cpf_usu}</td>
-                            <td>{usuario.datanasc_usu}</td>
-                            <td>{usuario.endereco_usu}</td>
-                            <td>{usuario.email_usu}</td>
-                            <td>{usuario.telefone_usu}</td>
-                            <td>{usuario.tipo_usuario}</td>
+                            <td>{usuario.id}</td>
+                            <td>{usuario.nome}</td>
+                            <td>{usuario.cpf}</td>
+                            <td>{usuario.dataNasc}</td>
+                            <td>{usuario.endereco}</td>
+                            <td>{usuario.email}</td>
+                            <td>{usuario.telefone}</td>
+                            <td>{usuario.tipo}</td>
 
                         </tr>
                     ))

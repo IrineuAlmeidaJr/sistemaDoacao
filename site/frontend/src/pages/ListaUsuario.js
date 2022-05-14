@@ -1,9 +1,9 @@
 import React from 'react';
+import api from '../service/api'
 import Header from '../components/Header';
 import '../css/ListaUsuario.css'
 
 import Table from '../components/Table';
-const localRecursos = 'http://localhost:4000/usuario'
 
 const ListaUsuario = () => {
 
@@ -14,24 +14,27 @@ const ListaUsuario = () => {
         fetchUsers()
     }, [])
 
-    function fetchUsers() {
-        fetch(localRecursos,{method:"GET"})
-        .then(resposta=>resposta.json())
-        .then(dados=>{
-            setListaUsuarios(dados);
-        }, 
-        error =>{
-            alert(error)
-        });
+    async function fetchUsers() {
+        try {
+            const response = await api.get('/usuario');
+            console.log("Teste\n" + response)
+            setListaUsuarios(response.data);
+        
+        } catch(err) {
+            console.log(err);
+        }    
     }
     
-    function deletar() {
-        const id = {id: document.querySelector('#deletarUsu').value}
-        fetch(localRecursos,{method:"DELETE",
-                                 headers:{'Content-Type':'application/json'},
-                                 body:JSON.stringify(id)
-            })
-            .then(resposta=>alert(resposta.json()))    
+    async function deletar() {
+        const id = document.querySelector('#deletarUsu').value;
+        console.log(`ID - ${id}`)
+        try {
+            const response = await api.delete(`/usuario/${id}`);
+            fetchUsers();
+        
+        } catch(err) {
+            console.log(err);
+        }   
     }
 
 

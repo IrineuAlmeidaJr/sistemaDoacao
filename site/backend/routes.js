@@ -44,4 +44,5 @@ routes.delete('/inscricao', inscricaoCtrl.excluir)
 routes.get('/inscricaoi', inscricaoCtrl.buscarId)
 
 
-module.exports = {routes};
+// module.exports = {routes}; 
+module.exports = routes; // Estava dando erro de rota, tem exportar sem ser objeto
