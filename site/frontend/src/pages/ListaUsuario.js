@@ -17,7 +17,6 @@ const ListaUsuario = () => {
     async function fetchUsers() {
         try {
             const response = await api.get('/usuario');
-            console.log("Teste\n" + response)
             setListaUsuarios(response.data);
         
         } catch(err) {
@@ -27,10 +26,13 @@ const ListaUsuario = () => {
     
     async function deletar() {
         const id = document.querySelector('#deletarUsu').value;
-        console.log(`ID - ${id}`)
         try {
-            const response = await api.delete(`/usuario/${id}`);
+            await api.delete(`/usuario/${id}`);
             fetchUsers();
+            setListaUsuarios(listaUsuarios.filter(listaUsuarios => 
+                listaUsuarios.usu_id !==id
+            )) // Não muda desta forma porque a tabela está em um componente 
+            // e não segue o usar o Estado, apenas se eu jogar para dentro de Estado
         
         } catch(err) {
             console.log(err);

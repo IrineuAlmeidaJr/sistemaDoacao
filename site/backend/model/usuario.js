@@ -100,7 +100,7 @@ module.exports = class Usuario {
     async procurarId(id, db) {
         const resp=await new DAOUsuario().procurarId(id, db);
         let usuario = {};
-        if(resp.data.length >= 0) {
+        if(resp.data.length > 0) {
             usuario = new Usuario(
                 resp.data[0].usu_id,
                 resp.data[0].usu_cpf,

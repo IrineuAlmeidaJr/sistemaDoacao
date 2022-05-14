@@ -31,7 +31,9 @@ module.exports={
         // é melhor permitir (Delete Cascate) ou deixa o padrão que proibir que seja deletado?
         const con = await db.conecta(); 
         let usuario = await new Usuario().procurarId(usu_id, db);
-        await usuario.excluir(db);
+        if(Object.keys(usuario).length !== 0) {
+            await usuario.excluir(db);
+        }
         return response.json(usuario);
     },
 
