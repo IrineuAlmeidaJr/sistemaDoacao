@@ -2,7 +2,7 @@ const DAOUsuario = require("../dao/DAOUsuario")
 
 module.exports = class Usuario {
     constructor(id, cpf,senha,nome,dataNascimento,endereco,telefone,email,tipo){
-        this. id = id
+        this.id = id
         this.cpf = cpf
         this.senha = senha
         this.nome = nome
@@ -89,6 +89,33 @@ module.exports = class Usuario {
         const resp = await new DAOUsuario().gravar(this,db); 
     }
 
+    async alterar(db) {
+        const resp = await new DAOUsuario().alterar(this,db); 
+    }
+
+    async excluir(db) {
+        const resp = await new DAOUsuario().excluir(this,db); 
+    }
+
+    async procurarId(id, db) {
+        const resp=await new DAOUsuario().procurarId(id, db);
+        let usuario = {};
+        if(resp.data.length >= 0) {
+            usuario = new Usuario(
+                resp.data[0].usu_id,
+                resp.data[0].usu_cpf,
+                resp.data[0].usu_senha,
+                resp.data[0].usu_nome,
+                resp.data[0].usu_dataNasc,
+                resp.data[0].usu_endereco,
+                resp.data[0].usu_telefone,
+                resp.data[0].usu_email,
+                resp.data[0].usu_tipoUsuario
+            )        
+        }        
+        return usuario;
+    }
+
     async listar(db) {
         const resp=await new DAOUsuario().listar(db);
         let usuario = []; 
@@ -107,4 +134,24 @@ module.exports = class Usuario {
         }
         return usuario;
     }
+
+    async listarPorNome(usu_nome, db) {
+        const resp=await new DAOUsuario().listarPorNome(usu_nome, db);
+        let usuario = []; 
+        for(let i=0; i < resp.data.length; i++) {
+            usuario.push(new Usuario(
+                resp.data[i].usu_id,
+                resp.data[i].usu_cpf,
+                resp.data[i].usu_senha,
+                resp.data[i].usu_nome,
+                resp.data[i].usu_dataNasc,
+                resp.data[i].usu_endereco,
+                resp.data[i].usu_telefone,
+                resp.data[i].usu_email,
+                resp.data[i].usu_tipoUsuario
+            ))
+        }
+        return usuario;
+    }
+    
 }
