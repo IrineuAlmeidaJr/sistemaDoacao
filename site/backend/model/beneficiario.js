@@ -1,13 +1,14 @@
 class beneficiaro {
 
-    constructor(cpf,nome,dataNasc,usuarioId) {
+    constructor(cod,cpf,nome,dataNasc,usuarioId) {
+        this.cod = cod
         this.cpf = cpf;
         this.nome = nome;
         this.dataNasc = dataNasc;
         this.usuarioId = usuarioId;
     }
 
-    getId() {
+    getCod() {
         return this.id;
     }
 
@@ -27,8 +28,8 @@ class beneficiaro {
         return this.usuarioId;
     }
 
-    setId(id) {
-        this.id = id;
+    setCod(cod) {
+        this.cod = cod;
     }
 
     setCpf(cpf) {
@@ -45,6 +46,10 @@ class beneficiaro {
 
     setUsuarioId(usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    async buscarId(){
+        return null;
     }
 }
 

@@ -1,4 +1,4 @@
-module.export = class unidade {
+module.exports = class unidade {
 
     constructor(cod, nome) {
         this.cod = cod;

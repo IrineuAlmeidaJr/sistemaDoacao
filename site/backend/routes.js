@@ -2,6 +2,9 @@ const { Router } = require('express');
 const routes = Router();
 
 const usuarioCtrl = require('./controller/UsuarioController');
+const tamanhoCtrl = require('./controller/TamanhoController')
+const campanhaDoacaoCtrl = require('./controller/CampanhaDoacaoController')
+const inscricaoCtrl = require('./controller/InscricaoController')
 
 // Tem colocar porque cai no CORS, o navegador impede a conexão
 routes.all('*', function (req, res, next) {
@@ -15,5 +18,25 @@ routes.all('*', function (req, res, next) {
 routes.post('/usuario', usuarioCtrl.gravar);
 routes.get('/usuario', usuarioCtrl.listar);
 
+//Rotas tamanho
+routes.get('/tamanho',tamanhoCtrl.buscarTodos)
+routes.post('/tamanho',tamanhoCtrl.gravar)
+routes.put('/tamanho',tamanhoCtrl.alterar)
+routes.delete('/tamanho',tamanhoCtrl.excluir)
+routes.get('/tamanhoi',tamanhoCtrl.buscarId)
 
-module.exports = routes;
+//Rotas campanha doação
+routes.get('/campanhaDoacao', campanhaDoacaoCtrl.buscarTodos)
+routes.post('/campanhaDoacao', campanhaDoacaoCtrl.gravar)
+routes.put('/campanhaDoacao', campanhaDoacaoCtrl.alterar)
+routes.delete('/campanhaDoacao', campanhaDoacaoCtrl.excluir)
+routes.get('/campanhaDoacaoi', campanhaDoacaoCtrl.buscarId)
+
+//Rotas inscricao
+routes.get('/inscricao', inscricaoCtrl.buscarTodos)
+routes.post('/inscricao', inscricaoCtrl.gravar)
+routes.delete('/inscricao', inscricaoCtrl.excluir)
+routes.get('/inscricaoi', inscricaoCtrl.buscarId)
+
+
+module.exports = {routes};
