@@ -4,6 +4,7 @@ module.exports = {
     async gravar(req,res){
         const camp = { ...req.body }
         const con = await db.conecta()
+        console.log(camp)
         let novo = new CampanhaDoacao(null,camp.nome,camp.dataInicio,camp.dataFim)
         await novo.gravar(db)
         return res.json(novo)
@@ -38,6 +39,7 @@ module.exports = {
         let lista = []
         let novo = new CampanhaDoacao(null,null,null,null)
         lista = await novo.listar(db)
+        console.log(lista)
         return res.json(lista)
     }
 }

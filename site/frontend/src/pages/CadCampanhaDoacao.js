@@ -10,9 +10,6 @@ const localRecursos = 'http://localhost:4000/campanhaDoacao'
 
 export default function FormCadCampanhaDoacao (campanhaPass){
 
-    const [nomeCampanha, setNomeCampanha] = React.useState('');
-    const [dataInicio, setDataInicio] = React.useState(new Date());
-    const [dataFim, setDataFim] = React.useState(new Date());
     const [campanha,setCampanha] = React.useState('')
     const [estaAtualizando, setEstaAtualizando] = React.useState(false);
     React.useEffect(()=>{
@@ -22,34 +19,30 @@ export default function FormCadCampanhaDoacao (campanhaPass){
 
     function atualiza(){
         // *** OBS: depois arrumar essar parte está dando problema
-        // if(tamanhoPass.location.state === undefined){
-        //     setEstaAtualizando(false)
-        // }
-        // else{
-        //     setEstaAtualizando(true)
-        //     setCampanha({cod: campanhaPass.location.state.cod,nome: campanhaPass.location.state.nome,dataInicio: campanhaPass.location.state.dataInicio,dataFim: campanhaPass.location.dataFim})
-        // }
+         if(campanhaPass.location.state === undefined){
+             setEstaAtualizando(false)
+         }
+         else{
+             setEstaAtualizando(true)
+             setCampanha({cod: campanhaPass.location.state.cod,nome: campanhaPass.location.state.nome,dataInicio: campanhaPass.location.state.dataInicio,dataFim: campanhaPass.location.dataFim})
+         }
     }
     
 
     function handler() {
-        setNomeCampanha(document.getElementById('nomeCampanha').value);
-        setDataInicio(document.getElementById('dataInicio').value);
-        setDataFim(document.getElementById('dataFim').value);
         if(!estaAtualizando){
-            setCampanha({nome: nomeCampanha,dataInicio: dataInicio,dataFim: dataFim})
+            setCampanha({nome: document.getElementById('nome').value,dataInicio: document.getElementById('dataInicio').value,dataFim: document.getElementById('dataFim').value})
         }
         else{
-            setCampanha({cod: campanhaPass.location.state.cod, nome: nomeCampanha,dataInicio: dataInicio,dataFim: dataFim})
+            setCampanha({cod: campanhaPass.location.state.cod, nome: document.getElementById('nome').value,dataInicio: document.getElementById('dataInicio').value,dataFim: document.getElementById('dataFim').value})
         }
         
     }
 
     async function handleSubmit(e) {
-
+        alert(campanha.nome)
         e.preventDefault();
         if(!estaAtualizando){
-
             await fetch(localRecursos,{method:"POST",
 
                                                     headers:{'Content-Type':'application/json'},
@@ -75,10 +68,6 @@ export default function FormCadCampanhaDoacao (campanhaPass){
                 window.location = '/';
             }); 
         }
-        
-        setNomeCampanha('');
-        setDataInicio(new Date());
-        setDataFim(new Date());
 
     }
 
@@ -94,7 +83,7 @@ export default function FormCadCampanhaDoacao (campanhaPass){
 
                     <div class="box-nome">
                         <label for="nomeCampanha">Nome da campanha</label>
-                        <input type="text" name="nomeCampanha" id="nomeCampanha" placeholder="Nome da campanha" defaultValue={campanha.nome} />
+                        <input type="text" name="nome" id="nome" placeholder="Nome da campanha" defaultValue={campanha.nome} />
                     </div>
 
                     <div class="box-cpf">
