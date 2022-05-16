@@ -1,5 +1,5 @@
 const db = require('../model/Database');
-const Usuario = require('../model/Usuario');
+const Usuario = require('../model/usuario');
 
 module.exports={
     async gravar(request,response) {

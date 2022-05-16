@@ -56,7 +56,7 @@ class CampanhaDoacao
 
     async buscarId(id,db){
         const result = await new DAOCampanhaDoacao().listarId(id,db)
-        let obj = new CampanhaDoacao(result.data[0].campanha_id,result.data[0].campanha_nome,result.data[0].campanha_datainicio,result.data[0].campanha_datafim)
+        let obj = new CampanhaDoacao(result.data[0].campanha_id,result.data[0].campanha_nome,result.data[0].campanha_dataInicio,result.data[0].campanha_dataFim)
         return obj
 
     }
@@ -65,7 +65,7 @@ class CampanhaDoacao
         const result = await new DAOCampanhaDoacao().listar(db)
         let lista = []
         for(let i = 0;i<result.data.length;i++){
-            lista.push(new CampanhaDoacao(result.data[0].campanha_id,result.data[0].campanha_nome,result.data[0].campanha_datainicio,result.data[0].campanha_datafim))
+            lista.push(new CampanhaDoacao(result.data[0].campanha_id,result.data[0].campanha_nome,result.data[0].campanha_dataInicio,result.data[0].campanha_dataFim))
 
         }
         return lista
