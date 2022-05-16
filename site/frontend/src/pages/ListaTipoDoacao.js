@@ -69,7 +69,7 @@ const ListaTipoDoacao = () => {
 
                     
                     <Table
-                        tipos={listaTipos}
+                        tipos={listaTipos} deletarTipo={deletar}
                         
                     />
                   

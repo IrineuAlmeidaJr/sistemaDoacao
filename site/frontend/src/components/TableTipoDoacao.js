@@ -1,7 +1,8 @@
 import React from 'react';
+import {Button} from 'react-bootstrap';
 import '../css/Tabelas.css';
-
-
+import editar from '../images/icones/imgEditar.png';
+import deletar from '../images/icones/imgDeletar.png';
 
 const Table = (props) => {
 
@@ -16,8 +17,8 @@ const Table = (props) => {
                 {
                     props.tipos.map(tipo => (
                         <tr>
-                            <td>{tipo.tipo_id}</td>
-                            <td>{tipo.tipo_nome}</td>
+                            <td>{tipo.id}</td>
+                            <td>{tipo.nome}</td>
                             <td>
                                 <Button variant="outline-primary" onClick={()=>{props.alterarTipo(tipo)}}><img src={editar} alt="Botao editar"/></Button>{' '}
                                 <Button variant='outline-danger' onClick={()=>{props.deletarTipo(tipo)}}><img src={deletar} alt="Botao deletar"/></Button>

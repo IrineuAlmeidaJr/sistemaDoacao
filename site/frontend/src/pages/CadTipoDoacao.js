@@ -3,38 +3,34 @@ import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
 import swal from 'sweetalert';
+import api from '../service/api';
 
-const localRecursos = 'http://localhost:4000/tipoDoacao'
 
 export default function FormCadTipoDoacao () {
-    const [tipodoacao, setTipodoacao] = React.useState('');
+    const [nome, setNome] = React.useState('');
     
     function handler() {
-        setTipodoacao(document.getElementById('tipoDoacao').value);
+        setNome(document.getElementById('tipoDoacao').value);
         
     }
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        console.log(tipodoacao);
-        const tipoDoacaoJSON = {
-            tipo: tipodoacao
-        }
+        //console.log(nome);
 
-        fetch(localRecursos,{method:"POST",
-                            headers:{'Content-Type':'application/json'},
-                            body:JSON.stringify(tipoDoacaoJSON)
-        })
-        .then(resposta=>alert(resposta.statusText))
-        .catch(e=>alert(e))
+        const tipodoacao = {
+            nome: nome
+        };
+
+        api.post('/tipoDoacao', tipodoacao); 
         
 
                 
 
-        setTipodoacao('');
+        setNome('');
 
-        swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
+        swal("Finalizado!", "Cadastro tipo de doação efetuado com sucesso.", "success").then(function() {
             window.location = '/';
         });   
         
