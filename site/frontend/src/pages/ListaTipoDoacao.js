@@ -70,6 +70,7 @@ const ListaTipoDoacao = () => {
                     
                     <Table
                         tipos={listaTipos}
+                        
                     />
                   
 
