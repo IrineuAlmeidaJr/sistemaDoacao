@@ -16,6 +16,7 @@ routes.all('*', function (req, res, next) {
 });
 
 
+// Rotas usuario
 routes.post('/usuario', usuarioCtrl.gravar);
 routes.put('/usuario', usuarioCtrl.alterar);
 routes.delete('/usuario/:usu_id',usuarioCtrl.excluir);
