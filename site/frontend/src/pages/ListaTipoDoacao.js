@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import '../css/ListaUsuario.css';
 import api from '../service/api';
@@ -9,6 +10,7 @@ const ListaTipoDoacao = () => {
 
 
     const [listaTipos, setListaTipos] = React.useState([]);
+    const history = useHistory();
 
     React.useEffect(() => {
         fetchTypes()
@@ -32,6 +34,14 @@ const ListaTipoDoacao = () => {
         } catch(err) {
             console.log(err);
         }   
+    }
+
+    function alterar(TD){
+        
+        history.push({
+            pathname: `/CadTipoDoacao`,
+            state: { id: TD.id,nome: TD.nome},
+          });
     }
 
 
@@ -69,7 +79,7 @@ const ListaTipoDoacao = () => {
 
                     
                     <Table
-                        tipos={listaTipos} deletarTipo={deletar}
+                        tipos={listaTipos} deletarTipo={deletar} alterarTipo={alterar}
                         
                     />
                   

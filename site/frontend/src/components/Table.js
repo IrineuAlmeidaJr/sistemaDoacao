@@ -18,25 +18,20 @@ const Table = (props) => {
                     <td>E-mail</td>
                     <td>Fone</td>
                     <td>Tipo Usuário</td>
-                    <td></td>
-                    <td></td>
                 </tr>
                 {
                     props.usuarios.map(usuario => (
-                        <tr>
+                        <tr>                          
                             <td>{usuario.id}</td>
                             <td>{usuario.nome}</td>
                             <td>{usuario.cpf}</td>
-                            <td>{usuario.dataNasc}</td>
+                            <td>{usuario.dataNascimento.substr(0, 10)}</td>
                             <td>{usuario.endereco}</td>
                             <td>{usuario.email}</td>
                             <td>{usuario.telefone}</td>
                             <td>{usuario.tipo}</td>
-                            <td><Button variant="outline-primary" ><img src={editar} alt="Botao editar"/></Button></td>
-                            <td><Button variant='outline-danger' onClick={() => props.deleta(usuario)}><img src={deletar} alt="Botao deletar"/></Button></td>
- 
-
-                        </tr>
+                            <td><Button variant="outline-primary" onClick={()=>{props.alterarUsu(usuario)}}><img src={editar} alt="Botao editar"/></Button></td>
+                            <td><Button variant='outline-danger' onClick={() => props.deleta(usuario)}><img src={deletar} alt="Botao deletar"/></Button></td>                        </tr>
                     ))
                 
                 }

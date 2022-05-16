@@ -5,7 +5,8 @@ import Header from '../components/Header';
 import swal from 'sweetalert';
 import moment from 'moment';
 
-const CadUsuario = () => {
+const CadUsuario = (props) => {
+    const Usuario = props.location.state;
     const [nome, setNome] = React.useState('');
     const [cpf, setCpf] = React.useState('');
     const [senha, setSenha] = React.useState('');
@@ -14,6 +15,13 @@ const CadUsuario = () => {
     const [email, setEmail] = React.useState('');
     const [telefone, setTelefone] = React.useState('');
     const [tipoUsuario, setTipoUsuario] = React.useState(0);
+    const [estaAtualizando, setEstaAtualizando] = React.useState(false);
+
+    React.useEffect(()=>{
+        if(!estaAtualizando)
+            atualiza() 
+        console.log(Usuario)    
+    });
 
     function validaTexto(texto, qtde) {
         if (texto.length >= qtde) {
@@ -21,6 +29,24 @@ const CadUsuario = () => {
         }
         return false;
     }
+
+    function atualiza(){
+        if(Usuario === undefined){
+            setEstaAtualizando(false)
+        }
+        else{
+            setEstaAtualizando(true)
+            setNome(Usuario.nome)
+            setCpf(Usuario.cpf)
+            setSenha(Usuario.senha)
+            setDtNasc(Usuario.dataNasc)
+            setEndereco(Usuario.endereco)
+            setEmail(Usuario.email)
+            setTelefone(Usuario.telefone)
+            setTipoUsuario(Usuario.tipo)
+        }
+    }
+    
 
     function validaDtNasc() {
         // ***OBS --> VER ESTÁ DANDO ERRO
@@ -157,12 +183,12 @@ const CadUsuario = () => {
         }
     }
 
-    // function validarCPF(numCpf) {
-    //     var reg=/^\d{3}.\d{3}.\d{3}-\d{2}$/;
-    //     if(numCpf.match(reg)!=null)
-    //         return true;
-    //     return false;
-    // }
+    function validarCPF(numCpf) {
+        var reg=/^\d{3}.\d{3}.\d{3}-\d{2}$/;
+        if(numCpf.match(reg)!=null)
+            return true;
+        return false;
+    }
 
     function validaTipoUsu() {
         if (tipoUsuario > 0 && tipoUsuario <= 3) {
@@ -224,20 +250,47 @@ const CadUsuario = () => {
             swal("Erro!", "Selecione um tipo de usuário", "error");
             document.querySelector("#tipoUsuario").focus();
         } else {
-            const usuario = {
-                nome: nome,
-                senha: senha,
-                cpf: cpf,
-                tipo: tipoUsuario,
-                dataNascimento: dtNasc,
-                endereco: endereco,
-                telefone: telefone,
-                email: email,
-                tipo: tipoUsuario,
-            };
+            
 
-            // Não sei porque com await está dando erro, ai tirei funcionou
-            api.post('/usuario', usuario);            
+            if(!estaAtualizando){
+                const usuario = {
+                    nome: nome,
+                    senha: senha,
+                    cpf: cpf,
+                    dataNascimento: dtNasc,
+                    endereco: endereco,
+                    telefone: telefone,
+                    email: email,
+                    tipo: tipoUsuario,
+                };
+                // Não sei porque com await está dando erro, ai tirei funcionou
+                api.post('/usuario', usuario);     
+                swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
+                    window.location = '/';
+                });
+            } else {
+                const usuario = {
+                    id: Usuario.id,
+                    nome: nome,
+                    senha: senha,
+                    cpf: cpf,
+                    dataNascimento: dtNasc,
+                    endereco: endereco,
+                    telefone: telefone,
+                    email: email,
+                    tipo: tipoUsuario,
+                };
+
+                api.put('/usuario', usuario); 
+                
+                swal("Finalizado!", "Atualizado efetuada com sucesso.", "success").then(function() {
+                    window.location = '/';
+                });   
+
+            }
+
+            
+                   
 
             setNome('');
             setCpf('');
@@ -248,9 +301,7 @@ const CadUsuario = () => {
             setTelefone('');
             setTipoUsuario(0);
 
-            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
-                window.location = '/';
-            }); 
+            
             
             /*
                 Não deixar finalizar antes tenho que consultar se o CPF já não está cadastrado,
@@ -273,7 +324,8 @@ const CadUsuario = () => {
 
                     <div class="box-nome">
                         <label for="nome">Nome</label>
-                        <input type="text" name="nome" id="nome" placeholder="Digite o seu nome" />
+                        <input type="text" name="nome" id="nome" placeholder="Digite o seu nome" 
+                        defaultValue={nome}/>
                     </div>
 
                     <div class="box-cpf">
@@ -282,38 +334,43 @@ const CadUsuario = () => {
                         {/* <input type="text" id="campo_cpf" placeholder="Apenas Números"
                         onblur={validarCPF()}/> */}
 
-                        <input type="text" name="cpf" id="cpf" placeholder="Apenas Números" />
+                        <input type="text" name="cpf" id="cpf" placeholder="Apenas Números" 
+                         defaultValue={cpf}/>
 
                     </div>
 
                     <div class="box-senha">
                         <label for="nome">Senha</label>
-                        <input type="password" name="senha" id="senha" placeholder="Informe sua senha" />
+                        <input type="password" name="senha" id="senha" placeholder="Informe sua senha" 
+                        defaultValue={senha}/>
                     </div>
 
                     <div class="box-dtNasc">
                         <label for="dtNasc">Data Nascimento</label>
-                        <input type="date" name="dtNasc" id="dtNasc" />
+                        <input type="date" name="dtNasc" id="dtNasc" defaultValue={dtNasc} />
                     </div>
 
                     <div class="box-endereco">
                         <label for="endereco">Endereço Completo</label>
-                        <input type="text" name="endereco" id="endereco" placeholder="Informe o endereço completo, como nome da Cidade e Estado" />
+                        <input type="text" name="endereco" id="endereco" placeholder="Informe o endereço completo, como nome da Cidade e Estado" 
+                        defaultValue={endereco}/>
                     </div>
 
                     <div class="box-email">
                         <label for="email">Email <p>(opcional)</p></label>
-                        <input type="email" name="email" id="email" placeholder="Digite o seu email" />
+                        <input type="email" name="email" id="email" placeholder="Digite o seu email"
+                        defaultValue={email} />
                     </div>
 
                     <div class="box-telefone">
                         <label for="telefone">Telefone <p>(opcional)</p></label>
-                        <input type="text" name="telefone" id="telefone" placeholder="Digite o numero do seu telefone" />
+                        <input type="text" name="telefone" id="telefone" placeholder="Digite o numero do seu telefone" 
+                        defaultValue={telefone}/>
                     </div>
 
                     <div class="box-tipoUsuario">
                         <label for="tipoUsuario">Qual seu tipo de inscrição?</label>
-                        <select name="tipoUsuario" id="tipoUsuario">
+                        <select name="tipoUsuario" id="tipoUsuario" defaultValue={tipoUsuario}>
                             <option class="test" value='0' selected disabled>Selecione</option>
                             <option value="1">Colaborador</option>
                             <option value="2">Doador</option>

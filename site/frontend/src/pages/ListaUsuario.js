@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import api from '../service/api'
 import Header from '../components/Header';
 import '../css/ListaUsuario.css'
@@ -6,8 +7,8 @@ import '../css/ListaUsuario.css'
 import Table from '../components/Table';
 
 const ListaUsuario = () => {
+    const history = useHistory();
     const [indice, setIndice] =  React.useState (0);
-
     const [listaUsuarios, setListaUsuarios] = React.useState([]);
 
     React.useEffect(() => {
@@ -18,6 +19,7 @@ const ListaUsuario = () => {
         try {
             const response = await api.get('/usuario');
             setListaUsuarios(response.data);
+            
         
         } catch(err) {
             console.log(err);
@@ -37,6 +39,15 @@ const ListaUsuario = () => {
         } catch(err) {
             console.log(err);
         }   
+    }
+
+    function alterar(usu){
+        history.push({
+            pathname: `/CadUsuario`,
+            state: { id: usu.id, nome: usu.nome, cpf: usu.cpf, senha: usu.senha,  
+                    dataNasc: usu.dataNascimento, endereco: usu.endereco, 
+                    email: usu.email, telefone: usu.telefone, tipo: usu.tipo },
+          });
     }
 
 
@@ -82,8 +93,7 @@ const ListaUsuario = () => {
                     <Table
                         usuarios={listaUsuarios}
                         deleta={deletar}
-                        i = {indice}
-                        setI = {setIndice}
+                        alterarUsu={alterar}
                     />
 
                 </div>
