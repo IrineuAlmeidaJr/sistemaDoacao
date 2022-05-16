@@ -1,15 +1,16 @@
 class TipoDoacao {
 
-    constructor(nome){
+    constructor(id,nome){
+        this.id = id;
         this.nome = nome;
     }
 
-    getCod(){
+    getId(){
         return this.cod;
     }
 
-    setCod(cod){
-        this.cod = cod;
+    setId(id){
+        this.id = id;
     }
 
     getNome(){
@@ -18,6 +19,10 @@ class TipoDoacao {
 
     setNome(nome){
         this.nome = nome;
+    }
+
+    async  gravar(db) {
+        const resp = await new DAOTipoDoacao().gravar(this, db); 
     }
 }
 

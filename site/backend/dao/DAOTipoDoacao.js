@@ -1,83 +1,46 @@
 const tipo = require('../model/TipoDoacao');
 
-module.exports = app => {
+module.exports = class DAOTipoDoacao {
 
-    app.get('/tipoDoacao', async(req, res) => {
-        const client = await app.db.connect();
-        let sql = "SELECT * from tipo_doacao"
-        const p = await client.query(sql);
-        console.log(p.rows)
-        res.status(200).send(p.rows)
-        client.release();
-    })
+    async gravar(tipo, db) {
 
-    app.post('/tipoDoacao', async (req, res) => {
-        const user = { ...req.body }
+        const sql = "INSERT INTO tipodoacao(tipo_nome) VALUES (?)";
+        const valor = [tipo.getNome()]; 
+        
+        const result = await db.manipula(sql,valor);
 
-        console.log(req.body);
-        let novo = new tipo(user.tipo)
-        const client = await app.db.connect();
-        let aux = "INSERT INTO tipo_doacao(tipo_nome) values('#1')"
-        let sql = aux.replace('#1', novo.getNome())
-        console.log(sql)
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json("inserido com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json(err)
-        }
+        return result;        
+    } 
 
-    })
+    async alterar(tipo, db) {
+        // Fazer validações aqui --> de CPF tambem
+        const sql = "UPDATE tipodoacao SET tipo_nome=? WHERE tipo_id=?";
+        const valor = [tipo.getNome()];      
+        const result = await db.manipula(sql,valor);  
+        console.log(result);                 
+    }
 
-    app.delete('/tipoDoacao', async (req, res) => {
-        const user = { ...req.body }
-        console.log(user)
-        const client = await app.db.connect();
-        let aux = "DELETE FROM tipo_doacao where tipo_id = "+user.cod
-        console.log(aux)
-        try {
-            const p = await client.query(aux)
-            console.log("sucesso")
-            res.status(200).json("deletado com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json("erro na insercao")
-        }
-    })
+    async excluir(tipo, db){
+        const sql = "DELETE FROM tipodoacao WHERE tipo_id=?"
+        const valor = [tipo.getId()];
+        const result = await db.manipula(sql,valor);
+        return result;
+    }
 
-    app.put('/tipoDoacao', async (req, res) => {
-        const user = { ...req.body }
-        let novo = new tipo(user.cod, user.nome)
-        const client = await app.db.connect();
-        let aux = "UPDATE tipo_doacao SET tipo_nome = '#2' WHERE tipo_id = '#1'"
-        let sql = aux.replace('#1', novo.getCod())
-        sql = sql.replace('#2', novo.getNome())
-        console.log(sql)
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json("atualizado com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json("erro na atualizacao")
-        }
-    })
+    async procurarId(id, db){
+        const sql = "SELECT * FROM tipodoacao WHERE tipo_id=?";        
+        const valor = [id];
+        const result = await db.consulta(sql,valor);
+        return result;
+    }
 
-    app.get('/tipoDoacao/:cod', async (req, res) => {
-        const client = await app.db.connect();
-        let aux = "SELECT * FROM tipo_doacao WHERE tipo_id = '#1'"
-        let sql = aux.replace('#1', req.params.cod)
-        console.log(sql)
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json(p.rows)
-        } catch (err) {
-            console.log(err)
-            res.status(400).json("erro na consulta")
-        }
-    })
+    async listar(db) {
+
+        const sql = "SELECT * FROM tipodoacao";
+        const result = await db.consulta(sql);
+        return result;
+    }
+
+    
 
 }
