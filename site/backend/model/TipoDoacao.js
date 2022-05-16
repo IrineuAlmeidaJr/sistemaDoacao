@@ -7,7 +7,7 @@ module.exports = class TipoDoacao {
     }
 
     getId(){
-        return this.cod;
+        return this.id;
     }
 
     setId(id){
@@ -32,6 +32,18 @@ module.exports = class TipoDoacao {
 
     async excluir(db) {
         const resp = await new DAOTipoDoacao().excluir(this,db); 
+    }
+
+    async procurarId(id, db) {
+        const resp=await new DAOTipoDoacao().procurarId(id, db);
+        let tipodoacao = {};
+        if(resp.data.length > 0) {
+            tipodoacao = new TipoDoacao(
+                resp.data[0].tipo_id,
+                resp.data[0].tipo_nome
+            )        
+        }        
+        return tipodoacao;
     }
 
     async listar(db) {

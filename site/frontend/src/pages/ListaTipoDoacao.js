@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../components/Header';
-import '../css/ListaUsuario.css'
-
+import '../css/ListaUsuario.css';
+import api from '../service/api';
 import Table from '../components/TableTipoDoacao';
-const localRecursos = 'http://localhost:4000/tipoDoacao'
+//const localRecursos = 'http://localhost:4000/tipoDoacao'
 
 const ListaTipoDoacao = () => {
 
@@ -11,28 +11,27 @@ const ListaTipoDoacao = () => {
     const [listaTipos, setListaTipos] = React.useState([]);
 
     React.useEffect(() => {
-        fetchTipo()
-    }, [])
+        fetchTypes()
+    }, []);
 
-    function fetchTipo() {
-        fetch(localRecursos,{method:"GET"})
-        .then(resposta=>resposta.json())
-        .then(dados=>{
-            setListaTipos(dados);
-        }, 
-        error =>{
-            alert(error)
-        });
+    async function fetchTypes() {
+        try {
+            const response = await api.get('/tipoDoacao');
+            setListaTipos(response.data);
+        
+        } catch(err) {
+            console.log(err);
+        }    
     }
     
-    function deletar() { 
-        const cod= {cod: document.querySelector('#deletarTipo').value}
-        fetch(localRecursos,{method:"DELETE",
-                                 headers:{'Content-Type':'application/json'},
-                                 body:JSON.stringify(cod)
-            })
-            .then(resposta=>alert("sucesso"))    
-            fetchTipo()
+    async function deletar(td) { 
+        const id = td.id;
+        try {
+            await api.delete(`/tipoDoacao/${id}`);
+            fetchTypes();
+        } catch(err) {
+            console.log(err);
+        }   
     }
 
 
@@ -71,6 +70,7 @@ const ListaTipoDoacao = () => {
                     
                     <Table
                         tipos={listaTipos}
+                        
                     />
                   
 
