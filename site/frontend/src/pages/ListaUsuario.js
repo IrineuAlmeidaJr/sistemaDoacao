@@ -6,7 +6,7 @@ import '../css/ListaUsuario.css'
 import Table from '../components/Table';
 
 const ListaUsuario = () => {
-
+    const [indice, setIndice] =  React.useState (0);
 
     const [listaUsuarios, setListaUsuarios] = React.useState([]);
 
@@ -24,14 +24,14 @@ const ListaUsuario = () => {
         }    
     }
     
-    async function deletar() {
-        const id = document.querySelector('#deletarUsu').value;
+    async function deletar(usu) {
+        const id = usu.id;
         try {
             await api.delete(`/usuario/${id}`);
             fetchUsers();
-            setListaUsuarios(listaUsuarios.filter(listaUsuarios => 
-                listaUsuarios.usu_id !==id
-            )) // Não muda desta forma porque a tabela está em um componente 
+            // setListaUsuarios(listaUsuarios.filter(listaUsuarios => 
+            //     listaUsuarios.usu_id !==id
+            // )) // Não muda desta forma porque a tabela está em um componente 
             // e não segue o usar o Estado, apenas se eu jogar para dentro de Estado
         
         } catch(err) {
@@ -81,6 +81,9 @@ const ListaUsuario = () => {
 
                     <Table
                         usuarios={listaUsuarios}
+                        deleta={deletar}
+                        i = {indice}
+                        setI = {setIndice}
                     />
 
                 </div>

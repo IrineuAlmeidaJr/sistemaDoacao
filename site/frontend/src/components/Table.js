@@ -1,7 +1,8 @@
 import React from 'react';
 import '../css/Tabelas.css';
-
-
+import {Button } from "react-bootstrap";
+import editar from "../images/icones/imgEditar.png";
+import deletar from "../images/icones/imgDeletar.png";
 
 const Table = (props) => {
 
@@ -17,6 +18,8 @@ const Table = (props) => {
                     <td>E-mail</td>
                     <td>Fone</td>
                     <td>Tipo Usuário</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 {
                     props.usuarios.map(usuario => (
@@ -29,6 +32,9 @@ const Table = (props) => {
                             <td>{usuario.email}</td>
                             <td>{usuario.telefone}</td>
                             <td>{usuario.tipo}</td>
+                            <td><Button variant="outline-primary" ><img src={editar} alt="Botao editar"/></Button></td>
+                            <td><Button variant='outline-danger' onClick={() => props.deleta(usuario)}><img src={deletar} alt="Botao deletar"/></Button></td>
+ 
 
                         </tr>
                     ))

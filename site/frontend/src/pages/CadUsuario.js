@@ -1,10 +1,9 @@
 import React from 'react';
+import api from '../service/api'
 import '../css/Formularios.css';
 import Header from '../components/Header';
 import swal from 'sweetalert';
 import moment from 'moment';
-
-const localRecursos = 'http://localhost:4000/usuario'
 
 const CadUsuario = () => {
     const [nome, setNome] = React.useState('');
@@ -37,15 +36,6 @@ const CadUsuario = () => {
         }  else {
             return false;
         }      
-
-        // Quando dava new e não tinha data dava -> invalid date
-        // Desta forma fez uma condição antes de dar new
-        
-
-        // if (dtNasc === '') {
-        //     return false;
-        // }
-        // return true;
     }
 
     function validaCpfCnpj(val) {
@@ -235,23 +225,19 @@ const CadUsuario = () => {
             document.querySelector("#tipoUsuario").focus();
         } else {
             const usuario = {
-                cpf: cpf,
-                senha: senha,
-                tipo: tipoUsuario,
                 nome: nome,
-                data: dtNasc,
+                senha: senha,
+                cpf: cpf,
+                tipo: tipoUsuario,
+                dataNascimento: dtNasc,
                 endereco: endereco,
                 telefone: telefone,
-                email: email
-            }
+                email: email,
+                tipo: tipoUsuario,
+            };
 
-            fetch(localRecursos,{method:"POST",
-                                headers:{'Content-Type':'application/json'},
-                                body:JSON.stringify(usuario)
-            })
-            .then(resposta=>alert(resposta.statusText))
-            .catch(e=>alert(e))
-            
+            // Não sei porque com await está dando erro, ai tirei funcionou
+            api.post('/usuario', usuario);            
 
             setNome('');
             setCpf('');
