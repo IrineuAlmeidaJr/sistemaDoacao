@@ -4,7 +4,7 @@ module.exports = class DAOTipoDoacao {
 
     async gravar(tipo, db) {
 
-        const sql = "INSERT INTO tipodoacao(tipo_nome) VALUES (?)";
+        const sql = "INSERT INTO tipodoacao (tipo_nome) VALUES (?)";
         const valor = [tipo.getNome()]; 
         
         const result = await db.manipula(sql,valor);
@@ -15,8 +15,8 @@ module.exports = class DAOTipoDoacao {
     async alterar(tipo, db) {
         // Fazer validações aqui --> de CPF tambem
         const sql = "UPDATE tipodoacao SET tipo_nome=? WHERE tipo_id=?";
-        const valor = [tipo.getNome()];      
-        const result = await db.manipula(sql,valor);  
+        const valor = [tipo.getNome(), tipo.getId()];      
+        const result = await db.manipula(sql, valor);  
         console.log(result);                 
     }
 

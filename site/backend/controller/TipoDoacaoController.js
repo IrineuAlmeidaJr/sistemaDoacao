@@ -13,8 +13,8 @@ module.exports = {
     },
 
     async alterar(request, response) {
-        const {tipo} = request.body;
-        let tipodoacao = new TipoDoacao(0, tipo);
+        const {nome} = request.body;
+        let tipodoacao = new TipoDoacao(0, nome);
         const con = await db.conecta();      
         await tipodoacao.alterar(db);
         return response.json(tipodoacao);
