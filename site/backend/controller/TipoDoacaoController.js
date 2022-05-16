@@ -3,8 +3,8 @@ const TipoDoacao = require('../model/TipoDoacao');
 
 module.exports = {
     async gravar(request, response) {
-        const {tipo} = request.body; // campos do formulario
-        let tipodoacao = new TipoDoacao(0, tipo); // nova classe do tipo "TipoDoacao"
+        const {id, nome} = request.body; // campos do formulario
+        let tipodoacao = new TipoDoacao(0, nome); // nova classe do tipo "TipoDoacao"
         const con = await db.conecta(); //  conecta ao banco        
         // Chama a classe usuário que tem o método gravar que por sua vez chama DAO
         await tipodoacao.gravar(db);
@@ -13,8 +13,8 @@ module.exports = {
     },
 
     async alterar(request, response) {
-        const {nome} = request.body;
-        let tipodoacao = new TipoDoacao(0, nome);
+        const {id, nome} = request.body;
+        let tipodoacao = new TipoDoacao(id, nome);
         const con = await db.conecta();      
         await tipodoacao.alterar(db);
         return response.json(tipodoacao);

@@ -48,6 +48,7 @@ routes.get('/inscricaoi', inscricaoCtrl.buscarId)
 routes.post('/tipoDoacao', tipoDoacao.gravar);
 routes.get('/tipoDoacao', tipoDoacao.listar);
 routes.put('/tipoDoacao', tipoDoacao.alterar);
-routes.delete('/tipoDoacao', tipoDoacao.excluir);
+routes.delete('/tipoDoacao/:tipo_id', tipoDoacao.excluir);
+routes.get('/tipoDoacao/:tipo_id', tipoDoacao.listarPorId);
 // module.exports = {routes}; 
 module.exports = routes; // Estava dando erro de rota, tem exportar sem ser objeto
