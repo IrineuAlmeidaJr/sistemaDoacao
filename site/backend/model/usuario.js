@@ -154,4 +154,23 @@ module.exports = class Usuario {
         return usuario;
     }
     
+    async listarPorId(usu_id, db) {
+        const resp=await new DAOUsuario().listarPorId(usu_id, db);
+        let usuario = []; 
+        if(resp.data.length > 0) {
+            usuario.push(new Usuario(
+                resp.data[0].usu_id,
+                resp.data[0].usu_cpf,
+                resp.data[0].usu_senha,
+                resp.data[0].usu_nome,
+                resp.data[0].usu_dataNasc,
+                resp.data[0].usu_endereco,
+                resp.data[0].usu_telefone,
+                resp.data[0].usu_email,
+                resp.data[0].usu_tipoUsuario
+            ))
+        }
+        return usuario;
+    }
+
 }

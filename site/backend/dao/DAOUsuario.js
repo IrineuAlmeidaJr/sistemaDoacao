@@ -61,4 +61,11 @@ module.exports = class DAOUsuario{
         return usu;
     }
 
+    async listarPorId(id, db) {
+        const sql = 'SELECT * FROM usuario WHERE usu_id = ?';
+        const valor = [id];
+        const usu = await db.consulta(sql, valor);
+        return usu;
+    }
+
 }

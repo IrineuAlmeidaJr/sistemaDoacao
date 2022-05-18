@@ -40,7 +40,7 @@ module.exports={
     async listarPorId (request, response) {
         const {usu_id} = request.params;
         const con = await db.conecta();
-        let usu = await new Usuario().procurarId(usu_id, db);
+        let usu = await new Usuario().listarPorId(usu_id, db);
         return response.json(usu);
     },
 

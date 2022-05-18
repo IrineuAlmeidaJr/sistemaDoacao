@@ -18,8 +18,7 @@ const ListaUsuario = () => {
     async function fetchUsers() {
         try {
             const response = await api.get('/usuario');
-            setListaUsuarios(response.data);
-            
+            setListaUsuarios(response.data);            
         
         } catch(err) {
             console.log(err);
@@ -41,13 +40,39 @@ const ListaUsuario = () => {
         }   
     }
 
-    function alterar(usu){
+    function alterar(usu) {
         history.push({
             pathname: `/CadUsuario`,
             state: { id: usu.id, nome: usu.nome, cpf: usu.cpf, senha: usu.senha,  
                     dataNasc: usu.dataNascimento, endereco: usu.endereco, 
                     email: usu.email, telefone: usu.telefone, tipo: usu.tipo },
           });
+    }
+
+    async function buscarNome() {
+        const nome = document.getElementById('pesquisarUsu').value; 
+        try {
+            const response = await api.get(`/usuario/${nome}`);
+            setListaUsuarios(response.data);  
+        } catch(err) {
+            console.log(err);
+        }            
+    }
+
+    async function buscarId() {
+        const id = document.getElementById('pesquisarUsuId').value;
+        console.log(id) 
+        try { 
+            let response;          
+            if(id === '') {
+                response = await api.get(`/usuario/${id}`);
+            } else {
+                response = await api.get(`/usuId/${id}`);
+            }
+            setListaUsuarios(response.data);  
+        } catch(err) {
+            console.log(err);
+        }            
     }
 
 
@@ -67,23 +92,23 @@ const ListaUsuario = () => {
                         </div>
 
                         <div class="alterar">
-                            <h3>Alterar</h3>
+                            <h3>Consultar por Nome</h3>
                             <div class="alterarInterno">
-                                <label for="nome">ID</label>
-                                <input type="number" id="alterarUsu" placeholder="ID que deseja alterar..." />
+                                <label for="pesquisarUsu">Nome</label>
+                                <input type="text" id="pesquisarUsu" placeholder="Nome deseja buscar..." />
                                 <div class="botao">
-                                    <button>Alterar</button>
+                                    <button onClick={buscarNome}>Buscar</button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="deletar">
-                            <h3>Deletar</h3>
+                            <h3>Consultar por ID</h3>
                             <div class="deletarInterno">
-                                <label for="nome">ID</label>
-                                <input type="number" id="deletarUsu" placeholder="ID que deseja excluir..." />
+                                <label for="pesquisarUsuId">ID</label>
+                                <input type="number" id="pesquisarUsuId" placeholder="ID que deseja buscar..." />
                                 <div class="botao">
-                                    <button onClick={deletar}>Deletar</button>
+                                    <button onClick={buscarId}>Buscar</button>
                                 </div>
                             </div>
                         </div>

@@ -183,11 +183,15 @@ const CadUsuario = (props) => {
         }
     }
 
-    function validarCPF(numCpf) {
-        var reg=/^\d{3}.\d{3}.\d{3}-\d{2}$/;
-        if(numCpf.match(reg)!=null)
-            return true;
-        return false;
+    function validarCPF() {
+        // *OBS - ARRUMAR
+        var cpf = document.getElementById("cpf")
+        console.log(cpf)
+        if (cpf.value.length == 3 || cpf.value.length == 7){
+            cpf.value += "."
+        } else if (cpf.value.length == 11){
+            cpf.value += "-"
+        }
     }
 
     function validaTipoUsu() {
@@ -335,7 +339,7 @@ const CadUsuario = (props) => {
                         onblur={validarCPF()}/> */}
 
                         <input type="text" name="cpf" id="cpf" placeholder="Apenas Números" 
-                         defaultValue={cpf}/>
+                         defaultValue={cpf} onblur={validarCPF}/>
 
                     </div>
 
