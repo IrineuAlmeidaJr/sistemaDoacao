@@ -62,10 +62,11 @@ routes.get('/tipoDoacao/:tipo_id', tipoDoacao.listarPorId);
 
 //rotas beneficiario
 routes.post('/beneficiario', beneficiarioCtrl.gravar);
-routes.get('/beneficiario', beneficiarioCtrl.buscarTodos);
+routes.get('/beneficiario', beneficiarioCtrl.listar);
 routes.put('/beneficiario', beneficiarioCtrl.alterar);
 routes.delete('/beneficiario/:beneficiario_id', beneficiarioCtrl.excluir);
-routes.get('/beneficiario/:beneficiario_id', beneficiarioCtrl.buscarId);
+routes.get('/beneficiario/:beneficiario_id', beneficiarioCtrl.listarPorId);
+
 
 
 // module.exports = {routes}; 

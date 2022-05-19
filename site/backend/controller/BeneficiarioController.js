@@ -2,44 +2,47 @@ const beneficiario = require('../model/beneficiario');
 const db = require('../model/Database.js');
 
 module.exports = {
-    async gravar(req, res) {
-        const ben = { ...req.body };
-        const con = await db.conecta();
-        let novo = new beneficiario(ben.cpf, ben.nome, ben.dataNascimento, ben.usuarioId);
-        await novo.gravar(db);
-        return res.json(novo);
+    
+    async gravar(request, response) {
+        const {id, nome, cpf, dataNascimento, usuario_id} = request.body; // campos do formulario
+        let beneficiario = new beneficiario(0, nome, cpf, dataNascimento, usuario_id); // nova classe do tipo "TipoDoacao"
+        const con = await db.conecta(); //  conecta ao banco
+        // Chama a classe usuário que tem o método gravar que por sua vez chama DAO
+        await beneficiario.gravar(db);
+        return response.json(beneficiario);
     },
 
-    async alterar(req, res) {
-        const ben = { ...req.body };
-        const con = await db.conecta();
-        let novo = new beneficiario(ben.cpf, ben.nome, ben.dataNascimento, ben.usuarioId);
-        await novo.alterar(db);
-        return res.json(novo);
+    async alterar(request, response) {
+        const {id, nome, cpf, dataNascimento, usuario_id} = request.body;
+        let beneficiario = new beneficiario(id, nome, cpf, dataNascimento, usuario_id);
+        const con = await db.conecta();      
+        await beneficiario.alterar(db);
+        return response.json(beneficiario);
     },
 
-    async excluir(req, res) {
-        const ben = { ...req.body };
-        const con = await db.conecta();
-        let novo = new beneficiario(ben.cpf, null, null, null);
-        await novo.excluir(db);
-        return res.json(novo);
+    async excluir(request, response) {
+        const {beneficiario_id} = request.params; // parametro de url
+        const con = await db.conecta(); 
+        let beneficiario = await new beneficiario().procurarId(beneficiario_id, db);
+        if(Object.keys(beneficiario).length !== 0) {
+            await beneficiario.excluir(db);
+        }
+        return response.json(beneficiario);
     },
 
-    async buscarId(req, res) {
-        const ben = { ...req.body };
+    async listarPorId (request, response) {
+        const {beneficiario_id} = request.params; // parametro de url
         const con = await db.conecta();
-        let novo = new beneficiario(ben.cpf, null, null, null);
-        await novo.buscarId(novo.getCpf(), db);
-        return res.json(novo);
+        let beneficiario = await new beneficiario().procurarId(beneficiario_id, db);
+        return response.json(beneficiario);
     },
 
-    async buscarTodos(req, res) {
+    async listar (request, response) {
         const con = await db.conecta();
-        let lista = [];
-        let novo = new beneficiario(null, null, null, null);
-        lista = await novo.listar(db);
-        console.log(lista);
-        return res.json(lista);
-    }    
+        let beneficiario = await new beneficiario().listar(db);
+
+        return response.json(beneficiario);
+    }
+
+
 }
