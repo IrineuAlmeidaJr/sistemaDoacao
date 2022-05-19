@@ -1,7 +1,7 @@
 const db = require('../model/Database');
 const Usuario = require('../model/usuario');
 
-module.exports={
+module.exports = {
     async gravar(request,response) {
         const {nome, senha, cpf, dataNascimento, endereco, telefone, email, tipo} = request.body;
         // Colocar request.query para testar no Insomia, mas, na verdade aqui ele espera

@@ -1,7 +1,4 @@
-
-const usuario = require('../model/usuario.js');
-
-module.exports = class DAOUsuario{
+module.exports = class DAOUsuario {
     async gravar(usu, db) {
         // - Fazer validações aqui --> de CPF tambem
         // - Verificar se Usuário já está cadastrado... Acho

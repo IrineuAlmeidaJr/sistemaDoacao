@@ -6,6 +6,7 @@ const tamanhoCtrl = require('./controller/TamanhoController')
 const campanhaDoacaoCtrl = require('./controller/CampanhaDoacaoController')
 const inscricaoCtrl = require('./controller/InscricaoController')
 const tipoDoacao = require('./controller/TipoDoacaoController')
+const generoCtrl = require('./controller/GeneroController')
 
 // Tem colocar porque cai no CORS, o navegador impede a conexão
 routes.all('*', function (req, res, next) {
@@ -31,6 +32,12 @@ routes.post('/tamanho',tamanhoCtrl.gravar)
 routes.put('/tamanho',tamanhoCtrl.alterar)
 routes.delete('/tamanho',tamanhoCtrl.excluir)
 routes.get('/tamanhoi',tamanhoCtrl.buscarId)
+
+// Rotas Genero
+routes.post('/genero', generoCtrl.gravar);
+routes.delete('/genero/:genero_id',generoCtrl.excluir)
+routes.get('/genero', generoCtrl.listar); 
+
 
 //Rotas campanha doação
 routes.get('/campanhaDoacao', campanhaDoacaoCtrl.buscarTodos)

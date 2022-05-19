@@ -1,4 +1,4 @@
-const doacao = require('../model/doacao');
+const doacao = require('../model/Doacao');
 
 module.exports = app => {
 
