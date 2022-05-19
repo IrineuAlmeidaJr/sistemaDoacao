@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
 import swal from 'sweetalert';
+import api from '../service/api';
 
 
 const localRecursos = 'http://localhost:4000/Beneficiario'
@@ -10,16 +11,18 @@ const localRecursos = 'http://localhost:4000/Beneficiario'
 export default function FormCadBeneficiario (tamanhoPass)
 {
 
+    const beneparam = tamanhoPass.location.state;
     const[cod, setCod] = React.useState('');
     const[nome, setNome] = React.useState('');
     const[cpf, setCpf] = React.useState('');
     const[dataNascimento, setDataNascimento] = React.useState(new Date());
-    const[usuarioId, setUsuarioId] = React.useState(2);
+    const[usuarioId, setUsuarioId] = React.useState(24);
     const[atualizando, setAtualizando] = React.useState(false);
     //const[ListaBeneficiarios, setListaBeneficiarios] = React.useState([]);
     const[listaAlterar, setListaAlterar] = React.useState([]);
 
     React.useEffect(()=>{
+    if(!atualizando)
         atualiza()
     });
 
@@ -69,7 +72,12 @@ export default function FormCadBeneficiario (tamanhoPass)
         else
             {
                 setAtualizando(true)
-                setListaAlterar({cod: tamanhoPass.location.state.cod, nome: tamanhoPass.location.state.nome, cpf: tamanhoPass.location.state.cpf, dataNascimento: tamanhoPass.location.state.dataNascimento, usuarioId: tamanhoPass.location.state.usuario_id_usu})
+                setCod(beneparam.cod)
+                setNome(beneparam.nome)
+                setCpf(beneparam.cpf)
+                setDataNascimento(beneparam.dataNascimento)
+                setUsuarioId(beneparam.usuarioId)
+
             }              
     }
 
@@ -77,83 +85,74 @@ export default function FormCadBeneficiario (tamanhoPass)
         setNome(document.getElementById('nome').value);
         setCpf(document.getElementById('cpf').value);
         setDataNascimento(document.getElementById('dataNascimento').value);
+        // setUsuarioId falta a sessão esta fixo o valor como 24
 
     }
 
     function handleSubmit(e)
     {
-            
+        e.preventDefault();
         const validaCpf = verificaCpf(cpf);
         if(!validaCpf)
             swal("Erro!", "CPF inválido.", "error");
         else
         {
-            e.preventDefault();
             if(!atualizando)
             {
-                const beneficiarioJSON = 
-                {
+                const beneficiario = {
                     cpf: cpf,
                     nome: nome,                
                     dataNascimento: dataNascimento,
                     usuarioId: usuarioId
-                }
-                //console.log(beneficiarioJSON);
-
-                    fetch(localRecursos,{method:"POST",
-                                                            headers:{'Content-Type':'application/json'},
-                                                            body:JSON.stringify(beneficiarioJSON)
-                    })
-                    .then(resposta=>{
-                        if(resposta.status === 400)
-                            swal("Erro!", "CPF já cadastrado.", "error").then(function(){
-                                window.location ='/';
-                            });
-                        else if(resposta.status === 401)
-                            swal("Erro!", "Campo Obrigatorio não preenchido.", "error");
-                        else
-                            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
-                                window.location = '/';
-                            }
-                        );
-                    })
-                    .catch(e=>alert(e))
+                };
+                api.post('/Beneficiario', beneficiario)
+                //verificar se o cpf já existe
+                .then(response => {
+                    if(response.data.cpf === cpf)
+                    {
+                        swal("Erro!", "CPF já cadastrado.", "error");
+                    }
+                    else
+                    {
+                        swal("Sucesso!", "Beneficiário cadastrado com sucesso.", "success");
+                    }
+                })
+                .catch(error => {
+                    swal("Erro!", "Erro ao cadastrar o beneficiário.", "error");
+                });
             }
-
             else
             {
-                fetch(localRecursos,{method:"PUT",
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify(listaAlterar)
-                })
-                .then(resposta=>alert(resposta.statusText))
-                .catch(e=>alert(e))        
-
-
-                swal("Finalizado!", "tamanho alterado com sucesso.", "success").then(function() {
-                window.location = '/';
-                });  
+                const beneficiario = {
+                    cod: cod,
+                    cpf: cpf,
+                    nome: nome,
+                    dataNascimento: dataNascimento,
+                    usuarioId: usuarioId
+                };
+                api.put('/Beneficiario', beneficiario)
+                //sucess
+                .then(response => {
+                    swal("Sucesso!", "Beneficiário atualizado com sucesso.", "success").then(() => {
+                        window.location = '/';
+                    });               
+                }
+                //error
+                ).catch(error => {
+                    swal("Erro!", "Erro ao atualizar o beneficiário.", "error");
+                });       
             }
-
+                setNome('');
+                setCpf('');
+                setDataNascimento(new Date());
+                setUsuarioId(24);
             
-            setNome('');
-            setCpf('');
-            setDataNascimento(new Date());
-            setUsuarioId(2);
         }
     }
 
-    function manipularMudanca(e){
-        /*o evento "e" traz quem disparou o evento (target) */
-        const componente = e.target;
-        /*valor trazido pelo componente no momento em que o evento é disparado */
-        const valor = componente.value;
-        /*identificação do componente */
-        const nome = componente.name;
-        setListaAlterar({...listaAlterar, [nome]: valor});    
-        console.log(listaAlterar);
- 
-    }  
+
+
+    
 
         return(
             <div>
@@ -166,17 +165,17 @@ export default function FormCadBeneficiario (tamanhoPass)
     
                         <div class="box-nome">
                             <label for="cpf">Cpf</label>
-                            <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" defaultValue={listaAlterar.cpf} onChange={manipularMudanca}/>
+                            <input type="text" name="cpf" id="cpf" placeholder="CPF do beneficiario" required="True" defaultValue={cpf}/>
                         </div>
     
                         <div class="box-cpf">
                             <label for="nome">nome</label>
-                            <input type="text" name="nome" id="nome" placeholder='nome' required="True" defaultValue={listaAlterar.nome} onChange={manipularMudanca} />
+                            <input type="text" name="nome" id="nome" placeholder='nome' required="True" defaultValue={nome} />
                         </div>
     
                         <div class="box-senha">
                             <label for="dataNascimento">Data de Nascimento</label>
-                            <input type="date" name="dataNascimento" id="dataNascimento" required="True" defaultValue={listaAlterar.dataNascimento} onChange={manipularMudanca}/>
+                            <input type="date" name="dataNascimento" id="dataNascimento" required="True" defaultValue={dataNascimento}/>
                         </div>
                         
                         <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>

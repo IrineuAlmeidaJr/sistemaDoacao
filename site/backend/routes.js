@@ -7,6 +7,7 @@ const campanhaDoacaoCtrl = require('./controller/CampanhaDoacaoController')
 const inscricaoCtrl = require('./controller/InscricaoController')
 const tipoDoacao = require('./controller/TipoDoacaoController')
 const generoCtrl = require('./controller/GeneroController')
+const beneficiarioCtrl = require('./controller/BeneficiarioController')
 
 // Tem colocar porque cai no CORS, o navegador impede a conexão
 routes.all('*', function (req, res, next) {
@@ -58,5 +59,14 @@ routes.get('/tipoDoacao', tipoDoacao.listar);
 routes.put('/tipoDoacao', tipoDoacao.alterar);
 routes.delete('/tipoDoacao/:tipo_id', tipoDoacao.excluir);
 routes.get('/tipoDoacao/:tipo_id', tipoDoacao.listarPorId);
+
+//rotas beneficiario
+routes.post('/beneficiario', beneficiarioCtrl.gravar);
+routes.get('/beneficiario', beneficiarioCtrl.buscarTodos);
+routes.put('/beneficiario', beneficiarioCtrl.alterar);
+routes.delete('/beneficiario/:beneficiario_id', beneficiarioCtrl.excluir);
+routes.get('/beneficiario/:beneficiario_id', beneficiarioCtrl.buscarId);
+
+
 // module.exports = {routes}; 
 module.exports = routes; // Estava dando erro de rota, tem exportar sem ser objeto

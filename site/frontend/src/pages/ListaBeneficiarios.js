@@ -5,37 +5,39 @@ import "../css/Gerais.css";
 import swal from 'sweetalert';
 import { useHistory } from 'react-router-dom';
 import Table from '../components/TableBeneficiario';
-const localRecursos = 'http://localhost:4000/Beneficiario'
+import api from '../service/api';
+
 
 
 const ListaBeneficiarios = () => {
+    
     const history = useHistory();
     const[ListaBeneficiarios, setListaBeneficiarios] = React.useState([]);
     
     React.useEffect(() => {
-        fetchBeneficiarios();
+        fetchBeneficiarios()
     }, [])
 
-    function fetchBeneficiarios() {
-        fetch(localRecursos,{method:"GET"})
-        .then(resposta=>resposta.json())
-        .then(dados=>{
-            setListaBeneficiarios(dados);
-        }, 
-        error =>{
-            alert(error)
-    }); 
+    async function fetchBeneficiarios() 
+    {
+       try {
+            const response = await api.get('/beneficiario');
+            setListaBeneficiarios(response.data);
+        } catch(err) {
+                console.log(err);
+            }
     }
+    
 
-    function deletar(beneficiarioR) {
-        console.log(beneficiarioR)
-        let cod = {cod: beneficiarioR.bene_id}
-        fetch(localRecursos,{method:"DELETE",
-                                    headers:{'Content-Type':'application/json'},
-                                    body:JSON.stringify(cod)
-        })
-        .then(alert("excluído"))
-        fetchBeneficiarios()
+    async function deletar(beneficiarioR) {
+       const id = beneficiarioR.bene_id;
+       try {
+        await api.delete(`/Beneficiario/${id}`);
+           fetchBeneficiarios();
+       } catch(err) {
+              console.log(err);
+              //sweetAlert("Erro", "Erro ao deletar", "error");              
+         }
     }
     
     function alterar(beneficiarioR) {
