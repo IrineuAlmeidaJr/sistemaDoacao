@@ -52,6 +52,7 @@ module.exports = class beneficiaro{
     
     async  gravar(db) {
         const resp = await new DAOBeneficiario().gravar(this, db); 
+        this.cod=resp.lastId; 
     }
 
     async alterar(db) {
@@ -85,7 +86,7 @@ module.exports = class beneficiaro{
                 resp.data[i].bene_id,
                 resp.data[i].bene_cpf,
                 resp.data[i].bene_nome,
-                resp.data[i].bene_datanascimento,
+                resp.data[i].bene_dataNascimento,
                 resp.data[i].usuario_id_usu
             ));
         }

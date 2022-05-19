@@ -1,5 +1,5 @@
 const DAOTamanho = require('../dao/DAOTamanho')
-class tamanho {
+class Tamanho {
 
     constructor(cod,nome) {
         this.cod = cod
@@ -37,7 +37,7 @@ class tamanho {
 
     async buscarId(id,db){
         const result = await new DAOTamanho().listarId(id,db)
-        let obj = new tamanho(result.data[0].tamanho_id,result.data[0].tamanho_tam)
+        let obj = new Tamanho(result.data[0].tamanho_id,result.data[0].tamanho_tam)
         return obj
 
     }
@@ -46,11 +46,11 @@ class tamanho {
         const result = await new DAOTamanho().listar(db)
         let lista = []
         for(let i = 0;i<result.data.length;i++){
-            lista.push(new tamanho(result.data[i].tamanho_id,result.data[i].tamanho_tam))
+            lista.push(new Tamanho(result.data[i].tamanho_id,result.data[i].tamanho_tam))
 
         }
         return lista
     }
 }
 
-module.exports = tamanho;
+module.exports = Tamanho;
