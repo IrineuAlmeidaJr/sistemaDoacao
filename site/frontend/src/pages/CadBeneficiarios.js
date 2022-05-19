@@ -6,26 +6,84 @@ import swal from 'sweetalert';
 import api from '../service/api';
 
 
-const localRecursos = 'http://localhost:4000/Beneficiario'
+//const localRecursos = 'http://localhost:4000/Beneficiario'
 
-export default function FormCadBeneficiario (tamanhoPass)
-{
+export default function FormCadBeneficiario (tamanhoPass){
 
-    const beneparam = tamanhoPass.location.state;
-    const[cod, setCod] = React.useState('');
+
+    const[id, setId] = React.useState('');
     const[nome, setNome] = React.useState('');
     const[cpf, setCpf] = React.useState('');
     const[dataNascimento, setDataNascimento] = React.useState(new Date());
     const[usuarioId, setUsuarioId] = React.useState(24);
     const[atualizando, setAtualizando] = React.useState(false);
-    //const[ListaBeneficiarios, setListaBeneficiarios] = React.useState([]);
-    const[listaAlterar, setListaAlterar] = React.useState([]);
+    
 
     React.useEffect(()=>{
     if(!atualizando)
         atualiza()
     });
 
+    function atualiza(){
+        if(tamanhoPass.location.state === undefined){
+            setAtualizando(false)
+        }
+        else{
+            setAtualizando(true)
+            setNome(tamanhoPass.location.state.nome);
+            setCpf(tamanhoPass.location.state.cpf);
+            setDataNascimento(tamanhoPass.location.state.dataNascimento);
+            setUsuarioId(tamanhoPass.location.state.usuarioId);
+            setId(tamanhoPass.location.state.id);
+        }
+    }
+
+    function handler() {
+        setNome(document.getElementById('nome').value);
+        setCpf(document.getElementById('cpf').value);
+        setDataNascimento(document.getElementById('dataNascimento').value);
+        setUsuarioId(24); //não tem sessão implemetada ainda
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        if(!verificaCpf(cpf)){
+            swal("Erro!", "CPF inválido!", "error");
+        }
+        else
+        {
+            if(!atualizando){
+                const ben = {
+                    nome: nome,
+                    cpf: cpf,
+                    dataNascimento: dataNascimento,
+                    usuarioId: usuarioId
+                };
+            api.post('/Beneficiario', ben);
+            swal("Finalizado!", "Cadastro de beneficiário efetuado com sucesso.", "success")/*.then(function() {
+                window.location = '/';
+            });*/
+            } else {
+                const ben = {
+                    id: id,
+                    nome: nome,
+                    cpf: cpf,
+                    dataNascimento: dataNascimento,
+                    usuarioId: usuarioId
+                };
+                api.put('/Beneficiario', ben);
+                swal("Finalizado!", "Cadastro de beneficiário efetuado com sucesso.", "success").then(function() {
+                    window.location = '/';
+                });
+            }
+    
+            setNome('');
+            setCpf('');
+            setDataNascimento('');
+            setUsuarioId(24);
+        }
+    }
+    
     //verify if cpf is valid
     function verificaCpf(cpf) {
         let soma = 0;
@@ -65,94 +123,6 @@ export default function FormCadBeneficiario (tamanhoPass)
         return true;
     }
 
-
-    function atualiza(){
-        if(tamanhoPass.location.state === undefined)
-            setAtualizando(false)    
-        else
-            {
-                setAtualizando(true)
-                setCod(beneparam.cod)
-                setNome(beneparam.nome)
-                setCpf(beneparam.cpf)
-                setDataNascimento(beneparam.dataNascimento)
-                setUsuarioId(beneparam.usuarioId)
-
-            }              
-    }
-
-    function handler() {
-        setNome(document.getElementById('nome').value);
-        setCpf(document.getElementById('cpf').value);
-        setDataNascimento(document.getElementById('dataNascimento').value);
-        // setUsuarioId falta a sessão esta fixo o valor como 24
-
-    }
-
-    function handleSubmit(e)
-    {
-        e.preventDefault();
-        const validaCpf = verificaCpf(cpf);
-        if(!validaCpf)
-            swal("Erro!", "CPF inválido.", "error");
-        else
-        {
-            if(!atualizando)
-            {
-                const beneficiario = {
-                    cpf: cpf,
-                    nome: nome,                
-                    dataNascimento: dataNascimento,
-                    usuarioId: usuarioId
-                };
-                api.post('/Beneficiario', beneficiario)
-                //verificar se o cpf já existe
-                .then(response => {
-                    if(response.data.cpf === cpf)
-                    {
-                        swal("Erro!", "CPF já cadastrado.", "error");
-                    }
-                    else
-                    {
-                        swal("Sucesso!", "Beneficiário cadastrado com sucesso.", "success");
-                    }
-                })
-                .catch(error => {
-                    swal("Erro!", "Erro ao cadastrar o beneficiário.", "error");
-                });
-            }
-            else
-            {
-                const beneficiario = {
-                    cod: cod,
-                    cpf: cpf,
-                    nome: nome,
-                    dataNascimento: dataNascimento,
-                    usuarioId: usuarioId
-                };
-                api.put('/Beneficiario', beneficiario)
-                //sucess
-                .then(response => {
-                    swal("Sucesso!", "Beneficiário atualizado com sucesso.", "success").then(() => {
-                        window.location = '/';
-                    });               
-                }
-                //error
-                ).catch(error => {
-                    swal("Erro!", "Erro ao atualizar o beneficiário.", "error");
-                });       
-            }
-                setNome('');
-                setCpf('');
-                setDataNascimento(new Date());
-                setUsuarioId(24);
-            
-        }
-    }
-
-
-
-    
 
         return(
             <div>

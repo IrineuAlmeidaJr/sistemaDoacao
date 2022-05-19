@@ -4,17 +4,17 @@ module.exports = class DAOBeneficiario {
 
      async gravar(beneficiario, db) {
       
-        const sql = "INSERT INTO beneficiario(bene_cpf, bene_nome, bene_datanascimento, usuario_id_usu) VALUES (?,?,?,?)";
-        const valor = [beneficiario.getCpf(), beneficiario.getNome(), beneficiario.getDataNasc(), beneficiario.getUsuarioId()];
-
+        const sql = "INSERT INTO beneficiario(bene_cpf, bene_nome, bene_dataNascimento, usuario_id_usu) VALUES (?,?,?,?)";
+        const valor = [beneficiario.getNome(),beneficiario.getCpf(), beneficiario.getDataNasc(), beneficiario.getUsuarioId()];
+        console.log(valor);
         const result = await db.manipula(sql,valor);
         return result;
      }
 
     async alterar(beneficiario, db) {
         // Fazer validações aqui --> de CPF tambem
-        const sql = "UPDATE beneficiario SET bene_cpf=?, bene_nome=?, bene_datanascimento=?, usuario_id_usu=? WHERE bene_id=?";
-        const valor = [beneficiario.getCpf(), beneficiario.getNome(), beneficiario.getDataNasc(), beneficiario.getUsuarioId(), beneficiario.getId()];      
+        const sql = "UPDATE beneficiario SET bene_cpf=?, bene_nome=?, bene_dataNascimento=?, usuario_id_usu=? WHERE bene_id=?";
+        const valor = [beneficiario.getNome(),beneficiario.getCpf(), beneficiario.getDataNasc(), beneficiario.getUsuarioId(), beneficiario.getId()];      
         const result = await db.manipula(sql, valor);  
         console.log(result);                 
     }
