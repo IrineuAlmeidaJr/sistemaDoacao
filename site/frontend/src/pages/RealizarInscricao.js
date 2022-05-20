@@ -46,6 +46,9 @@ export default function RealizarInscricao() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        alert(inscricao.bene_id)
+        alert(inscricao.campanha_id)
+        if(inscricao.bene_id != "Selecione o beneficiario" && inscricao.campanha_id != "Selecione a campanha"){
             await fetch(localRecursos,{method:"POST",
                                 headers:{'Content-Type':'application/json'},
                                 body:JSON.stringify(inscricao)
@@ -55,7 +58,10 @@ export default function RealizarInscricao() {
             });})
             .catch(e=>alert(e))        
 
-            
+        }
+        else{
+            swal("Não é possivel prosseguir!", "Por favor, selecione uma campanha e um beneficiario", "alert")
+        }
         setInscricao('');
         
 
