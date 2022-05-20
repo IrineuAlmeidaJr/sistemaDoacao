@@ -22,11 +22,11 @@ const Table = (props) => {
                 {
                     props.beneficiarios.map(beneficiario => (
                         <tr> 
-                            <td>{beneficiario.bene_id}</td>
-                            <td>{beneficiario.bene_nome}</td>
-                            <td>{beneficiario.bene_cpf}</td>
-                            <td>{beneficiario.bene_datanascimento.substr(0, 10)}</td>
-                            <td>{beneficiario.usuario_usu_id}</td>
+                            <td>{beneficiario.id}</td>
+                            <td>{beneficiario.nome}</td>
+                            <td>{beneficiario.cpf}</td>
+                            <td>{beneficiario.dataNasc.substr(0, 10)}</td>
+                            <td>{beneficiario.usuarioId}</td>
                             <td><Button variant="outline-primary" onClick={()=>{props.alterar(beneficiario)}}><img src={editar} alt="Botao editar"/></Button>{' '}</td>
                             <td><Button variant='outline-danger' onClick={()=>{props.deletar(beneficiario)}}><img src={deletar} alt="Botao deletar"/></Button></td>               
                         </tr>

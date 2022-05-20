@@ -1,13 +1,9 @@
-const beneficiarioC = require('./beneficiario')
-const campanhaC = require('./CampanhaDoacao')
+
 const DAOInscricao = require('../dao/DAOinscricao')
 class inscricao {
-   constructor(beneficiarioId,campanhaId, dataInscricao) {
-
-        let bene = new beneficiarioC(beneficiarioId,null,null,null,null)
-        let camp = new campanhaC(campanhaId,null,null,null)
-        this.beneficiario = bene.buscarId(beneficiarioId,db)
-        this.campanha= camp.buscarId(campanhaId,db)
+   constructor(beneficiario,campanha, dataInscricao) {
+        this.beneficiario = beneficiario
+        this.campanha = campanha
         this.dataInscricao = dataInscricao
     }
     
