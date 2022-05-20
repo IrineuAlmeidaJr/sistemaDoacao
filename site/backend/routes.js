@@ -8,6 +8,7 @@ const inscricaoCtrl = require('./controller/InscricaoController')
 const tipoDoacao = require('./controller/TipoDoacaoController')
 const generoCtrl = require('./controller/GeneroController')
 const beneficiarioCtrl = require('./controller/BeneficiarioController')
+const unidadeCtrl = require('./controller/UnidadeController')
 
 // Tem colocar porque cai no CORS, o navegador impede a conexão
 routes.all('*', function (req, res, next) {
@@ -66,6 +67,13 @@ routes.get('/beneficiario', beneficiarioCtrl.listar);
 routes.put('/beneficiario', beneficiarioCtrl.alterar);
 routes.delete('/beneficiario/:beneficiario_id', beneficiarioCtrl.excluir);
 routes.get('/beneficiario/:beneficiario_id', beneficiarioCtrl.listarPorId);
+
+//Rotas unidade de medida
+routes.get('/unidade',unidadeCtrl.buscarTodos)
+routes.post('/unidade',unidadeCtrl.gravar)
+routes.put('/unidade',unidadeCtrl.alterar)
+routes.delete('/unidade', unidadeCtrl.excluir)
+routes.get('/unidadei',unidadeCtrl.buscarId)
 
 
 

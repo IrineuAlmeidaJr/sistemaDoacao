@@ -1,5 +1,5 @@
 const db = require('../model/Database');
-const Genero = require('../model/Genero')
+const Genero = require('../model/genero')
 
 module.exports = {
 
