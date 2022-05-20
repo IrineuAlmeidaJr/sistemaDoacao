@@ -13,7 +13,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
     const [bairro, setBairro] = React.useState('');
     const [cidade, setCidade] = React.useState('');
     const [estado, setEstado] = React.useState('');
-    const [CodUsuario, setCodUsuario] = React.useState(2);
+    const [CodUsuario, setCodUsuario] = React.useState(24);
     const[atualizando, setAtualizando] = React.useState(false);
 
 
@@ -33,7 +33,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
                 setBairro(tamanhoPass.location.state.bairro);
                 setCidade(tamanhoPass.location.state.cidade);
                 setEstado(tamanhoPass.location.state.estado);
-                setCodUsuario(tamanhoPass.location.state.codUsuario);
+                setCodUsuario(tamanhoPass.location.state.usuarioId);
                 setId(tamanhoPass.location.state.id);
             }             
     }
@@ -92,7 +92,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
         setEstado('');
         setNomeRua('');
         setNumero('');
-        setCodUsuario(2);
+        setCodUsuario(24);
     }
 
     return(
