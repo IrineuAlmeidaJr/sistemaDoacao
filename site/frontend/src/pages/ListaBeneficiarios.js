@@ -35,15 +35,14 @@ const ListaBeneficiarios = () => {
         await api.delete(`/Beneficiario/${id}`);
            fetchBeneficiarios();
        } catch(err) {
-              console.log(err);
-              //sweetAlert("Erro", "Erro ao deletar", "error");              
+              swal("Erro", "Erro ao deletar", "error");           
          }
     }
     
     function alterar(beneficiarioR) {
         history.push({
         pathname: '/CadBeneficiario',
-        state:{cod: beneficiarioR.bene_id, nome: beneficiarioR.bene_nome, cpf: beneficiarioR.bene_cpf, datanascimento: beneficiarioR.bene_dataNascimento, usuarioId: beneficiarioR.usuario_id_usu},
+        state:{cod: beneficiarioR.id, nome: beneficiarioR.nome, cpf: beneficiarioR.cpf, datanascimento: beneficiarioR.dataNascimento, usuarioId: beneficiarioR.usuarioId},
     });
     }
      

@@ -9,6 +9,7 @@ const tipoDoacao = require('./controller/TipoDoacaoController')
 const generoCtrl = require('./controller/GeneroController')
 const beneficiarioCtrl = require('./controller/BeneficiarioController')
 const unidadeCtrl = require('./controller/UnidadeController')
+const localDoacaoCtrl = require('./controller/LocalDoacaoController')
 
 // Tem colocar porque cai no CORS, o navegador impede a conexão
 routes.all('*', function (req, res, next) {
@@ -74,6 +75,13 @@ routes.post('/unidade',unidadeCtrl.gravar)
 routes.put('/unidade',unidadeCtrl.alterar)
 routes.delete('/unidade', unidadeCtrl.excluir)
 routes.get('/unidadei',unidadeCtrl.buscarId)
+
+//Rotas LocalDoacao
+routes.post('/localDoacao', localDoacaoCtrl.gravar);
+routes.get('/localDoacao', localDoacaoCtrl.listar);
+routes.put('/localDoacao', localDoacaoCtrl.alterar);
+routes.delete('/localDoacao/:local_id', localDoacaoCtrl.excluir);
+routes.get('/localDoacao/:local_id', localDoacaoCtrl.listarPorId);
 
 
 
