@@ -85,7 +85,7 @@ export default function FormCadTamanho (tamanhoPass) {
 
 
                     <br/><br/>
-                    <button class="btConfirmar" onClick={handler}>Enviar</button>
+                    <button class="btConfirmar" onClick={handler}>Confirmar</button>
                 </form>
             </div>
             

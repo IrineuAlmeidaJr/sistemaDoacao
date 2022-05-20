@@ -382,7 +382,7 @@ const CadUsuario = (props) => {
                         </select>
                     </div>
 
-                    <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
+                    <button class="bt-cadUsuario" type="submit" onClick={handler}>Confirmar</button>
                 </form>
             </div>
         </div>

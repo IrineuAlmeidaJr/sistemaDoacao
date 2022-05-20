@@ -140,7 +140,7 @@
 #Menu ul ul{visibility: hidden; position: absolute;} /*ul filho em display block*/
 #Menu ul li:hover {background-color: #BB1212;}
 #Menu ul li:hover ul{visibility: visible; z-index: 20;}
-#Menu ul ul li {float: none; border-top: solid 1px #ccc;}
+#Menu ul ul li {float: none; border-top: solid 1px #ccc; width: auto;}
 #Menu ul ul li a {background-color: #BB1212; color: #fff;}
 /*.homepageBox{width: 100%; height: auto;}
 .home-img{width: 30px;}*/

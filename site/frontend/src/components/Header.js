@@ -42,15 +42,23 @@ const Header = () => {
                     <li><Link to="agendarDoacao">Agendar</Link></li>
                     <li><a href="">Cadastrar</a>
                         <ul> {/*ul com visibility: hidden, aparece apenas em hover*/}
-                            <li><a href="#">Usuario</a></li>
-                            <li><a href="#">TipoDoação</a></li>
+                            <li><Link to="/cadUsuario">Usuario</Link></li>
+                            <li><Link to="/cadTipoDoacao">TipoDoação</Link></li>
+                            <li><Link to="/cadTamanho">Tamanho</Link></li>
+                            <li><Link to="/cadBeneficiario">Beneficiário</Link></li>
+                            <li><Link to="/cadLocalDoacao">LocalDoação</Link></li>
+                            <li><Link to="/cadCampanha">CampanhaDoação</Link></li>
                         </ul>
                     </li>
 
                     <li><a href="">Listar</a>
                         <ul> {/*ul com visibility: hidden, aparece apenas em hover*/}
-                            <li><a href="#">Usuario</a></li>
-                            <li><a href="#">TipoDoação</a></li>
+                            <li><Link to="/listaUsuario">Usuario</Link></li>
+                            <li><Link to="/listaTipoDoacao">TipoDoação</Link></li>
+                            <li><Link to="/listaTamanho">Tamanho</Link></li>
+                            <li><Link to="/listaBeneficiarios">Beneficiário</Link></li>
+                            <li><Link to="/listaLocalDoacao">LocalDoação</Link></li>
+                            <li><Link to="/listaCampanha">CampanhaDoação</Link></li>
                         </ul>
                     </li>
 

@@ -96,7 +96,7 @@ export default function FormCadCampanhaDoacao (campanhaPass){
                         <input type="date" name="dataFim" id="dataFim" defaultValue={campanha.dataFim}/>
                     </div>
                     
-                    <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
+                    <button class="bt-cadUsuario" type="submit" onClick={handler}>Confirmar</button>
                 </form>
             </div>
         </div>

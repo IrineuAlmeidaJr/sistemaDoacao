@@ -129,7 +129,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
                         <input type="text" name="estado" id="estado" placeholder="Informe o estado" required="true" defaultValue={estado} />
                     </div>
 
-                    <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>
+                    <button class="bt-cadUsuario" type="submit" onClick={handler}>Confirmar</button>
                 </form>
             </div>
         </div>
