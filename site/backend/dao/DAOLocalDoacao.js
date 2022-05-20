@@ -1,73 +1,43 @@
 const local = require ('../model/LocalDoacao');
 
-module.exports = app => {
+module.exports = class DAOLocalDoacao{
 
-    app.get('/LocalDoacao', async (req, res) => {
-        const client = await app.db.connect();
-        const p = await client.query('SELECT * from localdoacao');
-        res.status(200).send(p.rows)
-        client.release();
-    })
+    async gravar(local, db) {
+        const sql = "INSERT INTO localDoacao(local_nomerua,local_numero,local_bairro,local_cidade,local_estado,usuario_id_usu) VALUES (?,?,?,?,?,?)";
+        const valor = [local.getNomeRua(),local.getNumero(),local.getBairro(),local.getCidade(),local.getEstado(),local.getUsuarioId()];
+        const result = await db.manipula(sql,valor);
+        return result;
+    }
+
+    async alterar(local, db) {
+        // Fazer validações aqui --> de CPF tambem
+        const sql = "UPDATE localDoacao SET local_nomerua=?, local_numero=?, local_bairro=?, local_cidade=?, local_estado=?, usuario_id_usu=? WHERE local_id=?";
+        const valor = [local.getNomeRua(),local.getNumero(),local.getBairro(),local.getCidade(),local.getEstado(),local.getUsuarioId(),local.getId()];      
+        const result = await db.manipula(sql, valor);  
+        console.log(result);                 
+    }
+
+    async excluir(local, db){
+        const sql = "DELETE FROM localDoacao WHERE local_id=?"
+        const valor = [local.getId()];
+        const result = await db.manipula(sql,valor);
+        return result;
+    }
+
+    async procurarId(id, db){
+        const sql = "SELECT * FROM localDoacao WHERE local_id=?";        
+        const valor = [id];
+        const result = await db.consulta(sql,valor);
+        return result;
+    }
+
+    async listar(db) {
+        const sql = "SELECT * FROM localDoacao";
+        const result = await db.consulta(sql);
+        return result;
+    }
     
-    app.post('/LocalDoacao', async (req, res) => {
-        const user = { ...req.body }
-        let novo = new local(user.nomeRua, user.numero, user.bairro, user.cidade, user.estado, user.codUsuario)
-        console.log(novo)
-        const client = await app.db.connect();
-        let aux = "INSERT INTO localdoacao (local_nomerua,local_numero,local_bairro,local_cidade,local_estado,usuario_id_usu) values('#1','#2','#3','#4','#5',#6)"
-        let sql = aux.replace('#1', novo.getNomeRua())
-        sql = sql.replace('#2', novo.getNumero())
-        sql = sql.replace('#3', novo.getBairro())
-        sql = sql.replace('#4', novo.getCidade())
-        sql = sql.replace('#5', novo.getEstado())
-        sql = sql.replace('#6', novo.getUsuarioId())
-        console.log(sql)
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json("inserido com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json(err)
-        }    
-    })
 
-    app.delete('/LocalDoacao', async (req, res) => {
-        const user = { ...req.body }
-        console.log(user)
-        const client = await app.db.connect();
-        let aux = "DELETE FROM localdoacao where local_id = "+user.cod
-        console.log(aux)
-        try {
-            const p = await client.query(aux)
-            console.log("sucesso")
-            res.status(200).json("deletado com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json("erro na insercao")
-        }
-    })
-
-    app.put('/LocalDoacao', async (req, res) => {
-        const user = { ...req.body }
-        let novo = new local(user.cod, user.nomeRua, user.numero, user.bairro, user.cidade, user.estado, user.usuarioId)
-        const client = await app.db.connect();
-        let aux = "UPDATE local_doacao SET local_nomeRua = '#2', local_numero = '#3', local_bairro = '#4', local_cidade = '#5', local_estado = '#6',usuario_id_usu = '#8' WHERE local_id = '#1'"
-        let sql = aux.replace('#1', novo.getCod())
-        sql = sql.replace('#2', novo.getNomeRua())
-        sql = sql.replace('#3', novo.getNumero())
-        sql = sql.replace('#4', novo.getBairro())
-        sql = sql.replace('#5', novo.getCidade())
-        sql = sql.replace('#6', novo.getEstado())
-        sql = sql.replace('#8', novo.getUsuarioId())
-        console.log(sql)
-        try {
-            const p = await client.query(sql);
-            console.log("sucesso")
-            res.status(200).json("atualizado com sucesso")
-        } catch (err) {
-            console.log(err)
-            res.status(400).json("erro na insercao")
-        }
-    })
 }
+
+//INSERT INTO localdoacao (local_nomerua,local_numero,local_bairro,local_cidade,local_estado,usuario_id_usu) values('#1','#2','#3','#4','#5',#6)"

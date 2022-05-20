@@ -1,6 +1,8 @@
-class Local{
+const DAOLocalDoacao = require('../dao/DAOLocalDoacao');
+module.exports = class LocalDoacao {
 
-    constructor(nomeRua,numero,bairro,cidade,estado,usuarioId) {
+    constructor(id,nomeRua,numero,bairro,cidade,estado,usuarioId) {
+        this.id = id;
         this.nomeRua = nomeRua;
         this.numero = numero;
         this.bairro = bairro;
@@ -9,8 +11,8 @@ class Local{
         this.usuarioId = usuarioId;
     }
 
-    getCod() {
-        return this.cod;
+    getId() {
+        return this.id;
     }
 
     getNomeRua() {
@@ -41,8 +43,8 @@ class Local{
         return this.usuarioId;
     }
 
-    setCod(cod) {
-        this.cod = cod;
+    setId(id) {
+        this.id = id;
     }
 
     setNomeRua(nomeRua) {
@@ -72,6 +74,52 @@ class Local{
     setUsuarioId(usuarioId) {
         this.usuarioId = usuarioId;
     }
-}
 
-module.exports = Local;
+    async gravar(db) {
+        const resp = await new DAOLocalDoacao().gravar(this, db);
+        this.cod = resp.lastId;
+    }
+
+    async alterar(db) {
+        const resp = await new DAOLocalDoacao().alterar(this, db);
+    }
+
+    async excluir(db) {
+        const resp = await new DAOLocalDoacao().excluir(this, db);
+    }
+
+    async listar(db) {
+        const resp = await new DAOLocalDoacao().listar(db);
+        let localdoacao = [];
+        for (let i = 0; i < resp.length; i++) {
+            localdoacao.push(new LocalDoacao(
+                resp[i].localdoacao_id,
+                resp[i].localdoacao_nomeRua,
+                resp[i].localdoacao_numero,
+                resp[i].localdoacao_bairro,
+                resp[i].localdoacao_cidade,
+                resp[i].localdoacao_estado,
+                resp[i].usuario_id
+            ));
+        }
+        return localdoacao;
+    }
+        
+    async procurarId(id, db) { 
+        const resp = await new DAOLocalDoacao().procurarId(id, db);
+        let localdoacao = {};
+        if (resp.data.length > 0) {
+            localdoacao = new LocalDoacao(
+                resp.data[0].localdoacao_id,
+                resp.data[0].localdoacao_nomeRua,
+                resp.data[0].localdoacao_numero,
+                resp.data[0].localdoacao_bairro,
+                resp.data[0].localdoacao_cidade,
+                resp.data[0].localdoacao_estado,
+                resp.data[0].usuario_id
+            );
+        }
+        return localdoacao;
+    }
+
+}
