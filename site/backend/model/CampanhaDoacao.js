@@ -66,7 +66,7 @@ class CampanhaDoacao
         const result = await new DAOCampanhaDoacao().listar(db)
         let lista = []
         for(let i = 0;i<result.data.length;i++){
-            lista.push(new CampanhaDoacao(result.data[0].campanha_id,result.data[0].campanha_nome,result.data[0].campanha_dataInicio,result.data[0].campanha_dataFim))
+            lista.push(new CampanhaDoacao(result.data[i].campanha_id,result.data[i].campanha_nome,result.data[i].campanha_dataInicio,result.data[i].campanha_dataFim))
 
         }
         return lista

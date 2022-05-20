@@ -17,6 +17,7 @@ import AgendarDoacao from "./pages/AgendarDoacao";
 import ListaBeneficiarios from "./pages/ListaBeneficiarios";
 import ListaLocalDoacao from "./pages/ListaLocalDoacao";
 import ListaCampanhaDoacao from "./pages/ListaCampanhaDoacao"
+import RealizarInscricao from "./pages/RealizarInscricao";
 
 
 
@@ -39,6 +40,7 @@ const Routes = () => {
             <Route component={AgendarDoacao} path="/agendarDoacao"/>
             <Route component={ListaBeneficiarios} path="/listaBeneficiarios"/>
             <Route component={ListaLocalDoacao} path="/listaLocalDoacao"/>
+            <Route component={RealizarInscricao} path="/realizarinscricao"/>
 
        </BrowserRouter>
    )

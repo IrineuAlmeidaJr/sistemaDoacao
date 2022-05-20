@@ -42,6 +42,9 @@ const Home = () => {
                     <Link class="link" to="/cadTamanho">Cadastrar Tamanho</Link>
                     <Link class="link" to="/listaTamanho">Listar tamanho</Link> 
 
+                    <h1>Realizar inscricao na campanha</h1>
+                    <Link class="link" to="/realizarinscricao">Realizar Inscrição de beneficiario</Link>
+
                 </div>
             </div>
             <Footer/>

@@ -25,6 +25,7 @@ module.exports = class DAOCampanhaDoacao{
     async deletar(camp,db){
         let sql = "DELETE FROM campanhadoacao where campanha_id = ?"
         const valor = [camp.getCod()]
+        console.log(valor)
         const p = await db.manipula(sql,valor)
         console.log(p)
         return p
