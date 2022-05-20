@@ -7,6 +7,14 @@ module.exports = class DAOGenero {
         return result;        
     } 
 
+    async alterar(gen, db) {
+        const sql = "UPDATE genero SET genero_nome=? " +
+                    "WHERE genero_id=?";
+        const valor = [gen.getNome(), gen.getId()];      
+        const result = await db.manipula(sql,valor);  
+        console.log(result);                 
+    }
+
     async excluir(gen,db){
         const sql = "DELETE FROM genero WHERE genero_id=?"
         const valor = [gen.getId()];

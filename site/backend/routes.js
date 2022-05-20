@@ -36,6 +36,7 @@ routes.get('/tamanhoi',tamanhoCtrl.buscarId)
 
 // Rotas Genero
 routes.post('/genero', generoCtrl.gravar);
+routes.put('/genero', generoCtrl.alterar);
 routes.delete('/genero/:genero_id',generoCtrl.excluir)
 routes.get('/genero', generoCtrl.listar); 
 

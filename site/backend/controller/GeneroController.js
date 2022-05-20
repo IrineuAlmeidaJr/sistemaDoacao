@@ -11,6 +11,14 @@ module.exports = {
         return response.json(genero);
     },
 
+    async alterar(request,response) {
+        const {id, nome} = request.body;
+        let genero = new Genero(id, nome);
+        const con = await db.conecta();      
+        await genero.alterar(db);
+        return response.json(genero);
+    },
+
     async excluir(request,response) {
         const {genero_id} = request.params;
         const con = await db.conecta(); 

@@ -21,6 +21,10 @@ module.exports = class Genero{
         const resp = await new DAOGenero().gravar(this,db); 
     }
 
+    async alterar(db) {
+        const resp = await new DAOGenero().alterar(this,db); 
+    }
+
     async excluir(db) {
         const resp = await new DAOGenero().excluir(this,db); 
     }
