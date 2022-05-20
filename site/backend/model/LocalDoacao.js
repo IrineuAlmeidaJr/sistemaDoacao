@@ -93,13 +93,13 @@ module.exports = class LocalDoacao {
         let localdoacao = [];
         for (let i = 0; i < resp.length; i++) {
             localdoacao.push(new LocalDoacao(
-                resp[i].localdoacao_id,
-                resp[i].localdoacao_nomeRua,
-                resp[i].localdoacao_numero,
-                resp[i].localdoacao_bairro,
-                resp[i].localdoacao_cidade,
-                resp[i].localdoacao_estado,
-                resp[i].usuario_id
+                resp[i].local_id,
+                resp[i].local_nomeRua,
+                resp[i].local_numero,
+                resp[i].local_bairro,
+                resp[i].local_cidade,
+                resp[i].local_estado,
+                resp[i].usuario_id_usu
             ));
         }
         return localdoacao;
@@ -110,13 +110,13 @@ module.exports = class LocalDoacao {
         let localdoacao = {};
         if (resp.data.length > 0) {
             localdoacao = new LocalDoacao(
-                resp.data[0].localdoacao_id,
-                resp.data[0].localdoacao_nomeRua,
-                resp.data[0].localdoacao_numero,
-                resp.data[0].localdoacao_bairro,
-                resp.data[0].localdoacao_cidade,
-                resp.data[0].localdoacao_estado,
-                resp.data[0].usuario_id
+                resp.data[0].local_id,
+                resp.data[0].local_nomeRua,
+                resp.data[0].local_numero,
+                resp.data[0].local_bairro,
+                resp.data[0].local_cidade,
+                resp.data[0].local_estado,
+                resp.data[0].usuario_id_usu
             );
         }
         return localdoacao;

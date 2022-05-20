@@ -5,7 +5,8 @@ import "../css/Gerais.css";
 import swal from 'sweetalert';
 import { useHistory } from 'react-router-dom';
 import Table from '../components/TableLocalDoacao';
-const localRecursos = 'http://localhost:4000/LocalDoacao'
+//const localRecursos = 'http://localhost:4000/LocalDoacao'
+import api from '../service/api';
 
 
 const ListaLocalDoacao = () => {
@@ -16,32 +17,31 @@ const ListaLocalDoacao = () => {
         fetchBeneficiarios();
     }, [])
 
-    function fetchBeneficiarios() {
-        fetch(localRecursos,{method:"GET"})
-        .then(resposta=>resposta.json())
-        .then(dados=>{
-            setListaLocalDoacao(dados);
-        }, 
-        error =>{
-            alert(error)
-    }); 
+    async function fetchBeneficiarios() 
+    {
+       try {
+            const response = await api.get('/LocalDoacao');
+            setListaLocalDoacao(response.data);
+        } catch(err) {
+                console.log(err);
+            }
     }
 
     function deletar(LocalDoacaoR) {
-        console.log(LocalDoacaoR)
-        let cod = {cod: LocalDoacaoR.local_id}
-        fetch(localRecursos,{method:"DELETE",
-                                    headers:{'Content-Type':'application/json'},
-                                    body:JSON.stringify(cod)
-        })
-        .then(alert("excluído"))
-        fetchBeneficiarios()
+        const id = LocalDoacaoR.id;
+        try {
+            api.delete(`/LocalDoacao/${id}`);
+            fetchBeneficiarios();
+        } catch(err) {
+               //console.log(err);
+               swal("Erro", "Erro ao deletar", "error");             
+          }
     }
     
     function alterar(LocalDoacaoR) {
         history.push({
         pathname: '/CadLocalDoacao',
-        state:{cod: LocalDoacaoR.local_id, nomerua: LocalDoacaoR.local_nomerua, numero: LocalDoacaoR.local_numero, bairro: LocalDoacaoR.local_bairro, cidade: LocalDoacaoR.local_cidade, estado: LocalDoacaoR.local_estado, usuarioId: LocalDoacaoR.usuario_id_usu},
+        state:{cod: LocalDoacaoR.id, nomerua: LocalDoacaoR.nomerua, numero: LocalDoacaoR.numero, bairro: LocalDoacaoR.bairro, cidade: LocalDoacaoR.cidade, estado: LocalDoacaoR.estado, usuarioId: LocalDoacaoR.usuarioId},
     });
     }
      
