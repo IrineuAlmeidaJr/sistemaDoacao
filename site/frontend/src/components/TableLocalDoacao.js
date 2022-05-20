@@ -24,13 +24,13 @@ const Table = (props) => {
                 {
                     props.locais.map(Local => (
                         <tr>
-                            <td>{Local.local_id}</td>
-                            <td>{Local.local_nomerua}</td>
-                            <td>{Local.local_numero}</td>
-                            <td>{Local.local_bairro}</td>
-                            <td>{Local.local_cidade}</td>
-                            <td>{Local.local_estado}</td>
-                            <td>{Local.usuario_usu_id}</td>
+                            <td>{Local.id}</td>
+                            <td>{Local.nomeRua}</td>
+                            <td>{Local.numero}</td>
+                            <td>{Local.bairro}</td>
+                            <td>{Local.cidade}</td>
+                            <td>{Local.estado}</td>
+                            <td>{Local.usuarioId}</td>
                             <td><Button variant="outline-primary" onClick={()=>{props.alterar(Local)}}><img src={editar} alt="Botao editar"/></Button>{' '}</td>
                             <td><Button variant='outline-danger' onClick={()=>{props.deletar(Local)}}><img src={deletar} alt="Botao deletar"/></Button></td>
                         </tr>

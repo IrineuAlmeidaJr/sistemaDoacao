@@ -3,9 +3,11 @@ import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
 import swal from 'sweetalert';
+import api from '../service/api';
 
 export default function FormCadLocalDoacao (tamanhoPass){
 
+    const [id, setId] = React.useState('');
     const [nomeRua, setNomeRua] = React.useState('');
     const [numero, setNumero] = React.useState('');
     const [bairro, setBairro] = React.useState('');
@@ -13,7 +15,6 @@ export default function FormCadLocalDoacao (tamanhoPass){
     const [estado, setEstado] = React.useState('');
     const [CodUsuario, setCodUsuario] = React.useState(2);
     const[atualizando, setAtualizando] = React.useState(false);
-    const[listaAlterar, setListaAlterar] = React.useState([]);
 
 
     React.useEffect(()=>{
@@ -27,7 +28,13 @@ export default function FormCadLocalDoacao (tamanhoPass){
         else
             {
                 setAtualizando(true)
-                setListaAlterar({cod: tamanhoPass.location.state.cod, nomerua: tamanhoPass.location.state.nomerua, numero: tamanhoPass.location.state.numero, bairro: tamanhoPass.location.state.bairro, cidade: tamanhoPass.location.state.cidade, estado: tamanhoPass.location.state.estado, codusuario: tamanhoPass.location.state.usuario_id_usu})
+                setNomeRua(tamanhoPass.location.state.nomeRua);
+                setNumero(tamanhoPass.location.state.numero);
+                setBairro(tamanhoPass.location.state.bairro);
+                setCidade(tamanhoPass.location.state.cidade);
+                setEstado(tamanhoPass.location.state.estado);
+                setCodUsuario(tamanhoPass.location.state.codUsuario);
+                setId(tamanhoPass.location.state.id);
             }             
     }
 
@@ -37,7 +44,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
         setBairro(document.getElementById('bairro').value);
         setCidade(document.getElementById('cidade').value);
         setEstado(document.getElementById('estado').value);
-        setCodUsuario(tamanhoPass.location.state.cod);
+        setCodUsuario(24); //não tem sessão implemetada ainda
         
     }
 
@@ -45,61 +52,39 @@ export default function FormCadLocalDoacao (tamanhoPass){
     function handleSubmit(e) {
 
         e.preventDefault();
-        console.log(atualizando)
+
         if(!atualizando)
         {
-            const localDoacaoJSON = {
+            const local = {
                 nomeRua: nomeRua,
                 numero: numero,
                 bairro: bairro,
                 cidade: cidade,
                 estado: estado,
                 codUsuario: CodUsuario
-                
-            }
-            console.log(localDoacaoJSON)
-    
-            fetch('http://localhost:4000/localDoacao',{method:"POST",
-                                                        headers:{'Content-Type':'application/json'},
-                                                        body:JSON.stringify(localDoacaoJSON)
-            })
-            //check if the response is status is 200
-            .then(resposta=>{
-                if(resposta.status === 200){
-                    swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
-                        window.location = '/';
-                    }
-                );
-                }
-                else
-                    swal("Erro!", "Erro ao cadastrar Verifique a conexão com o banco.", "error")     
-            })
-            .catch(e=>{
-                swal("Erro!", "Erro ao cadastrar Verifique a conexão com o banco.", "error")
-            }
-            )
-        }
-        else{
-            const listaAlterar = {
-                nomeRua: nomeRua,
-                numero: numero,
-                bairro: bairro,
-                cidade: cidade,
-                estado: estado,
-                codUsuario: CodUsuario
-                
-            }
-            fetch('http://localhost:4000/localDoacao',{method:"PUT",
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify(listaAlterar)
-                })
-                .then(resposta=>alert(resposta.statusText))
-                .catch(e=>alert(e))        
-
-
-                swal("Finalizado!", "tamanho alterado com sucesso.", "success").then(function() {
+            };
+            api.post('/localDoacao', local);
+            swal("Finalizado!", "Cadastro local de doação efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
-                });  
+            }
+            );            
+        }
+        else
+        {
+            const local = {
+                id: id,
+                nomeRua: nomeRua,
+                numero: numero,
+                bairro: bairro,
+                cidade: cidade,
+                estado: estado,
+                codUsuario: CodUsuario
+            };
+            api.put('/localDoacao', local);
+            swal("Finalizado!", "Alteração local de doação efetuado com sucesso.", "success").then(function() {
+                window.location = '/';
+            }
+            );
         }
 
         setBairro('');
@@ -109,18 +94,6 @@ export default function FormCadLocalDoacao (tamanhoPass){
         setNumero('');
         setCodUsuario(2);
     }
-
-    function manipularMudanca(e){
-        /*o evento "e" traz quem disparou o evento (target) */
-        const componente = e.target;
-        /*valor trazido pelo componente no momento em que o evento é disparado */
-        const valor = componente.value;
-        /*identificação do componente */
-        const nome = componente.name;
-
-
-        setListaAlterar({...listaAlterar, [nome]: valor}); 
-    }  
 
     return(
         <div>
@@ -133,27 +106,27 @@ export default function FormCadLocalDoacao (tamanhoPass){
 
                     <div class="box-nome">
                         <label for="nomerua">Nome da Rua</label>
-                        <input type="text" name="nomeRua" id="nomeRua" placeholder="Digite o Nome da rua" required="true" defaultValue={listaAlterar.nomerua} onChange={manipularMudanca}/>
+                        <input type="text" name="nomeRua" id="nomeRua" placeholder="Digite o Nome da rua" required="true" defaultValue={nomeRua}/>
                     </div>
 
                     <div class="box-cpf">
                         <label for="numero">Numero</label>
-                        <input type="text" name="numero" id="numero" placeholder="01" required="true" defaultValue={listaAlterar.numero}  onChange={manipularMudanca}/>
+                        <input type="text" name="numero" id="numero" placeholder="01" required="true" defaultValue={numero} />
                     </div>
 
                     <div class="box-senha">
                         <label for="nome">Bairro</label>
-                        <input type="text" name="bairro" id="bairro" placeholder="Informe p bairro" required="true" defaultValue={listaAlterar.bairro} onChange={manipularMudanca}/>
+                        <input type="text" name="bairro" id="bairro" placeholder="Informe p bairro" required="true" defaultValue={bairro}/>
                     </div>
 
                     <div class="box-dtNasc">
                         <label for="cidade">Cidade</label>
-                        <input type="text" name="cidade" id="cidade" placeholder="Informe a cidade" required="true" defaultValue={listaAlterar.cidade} onChange={manipularMudanca}/>
+                        <input type="text" name="cidade" id="cidade" placeholder="Informe a cidade" required="true" defaultValue={cidade}/>
                     </div>
 
                     <div class="box-endereco">
                         <label for="estado">Estado</label>
-                        <input type="text" name="estado" id="estado" placeholder="Informe o estado" required="true" defaultValue={listaAlterar.estado} onChange={manipularMudanca} />
+                        <input type="text" name="estado" id="estado" placeholder="Informe o estado" required="true" defaultValue={estado} />
                     </div>
 
                     <button class="bt-cadUsuario" type="submit" onClick={handler}>Enviar</button>

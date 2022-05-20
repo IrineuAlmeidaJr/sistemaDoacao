@@ -1,13 +1,9 @@
-const beneficiarioC = require('./beneficiario')
-const campanhaC = require('./CampanhaDoacao')
+
 const DAOInscricao = require('../dao/DAOinscricao')
 class inscricao {
-   constructor(beneficiarioId,campanhaId, dataInscricao) {
-
-        let bene = new beneficiarioC(beneficiarioId,null,null,null,null)
-        let camp = new campanhaC(campanhaId,null,null,null)
-        this.beneficiario = bene.buscarId(beneficiarioId,db)
-        this.campanha= camp.buscarId(campanhaId,db)
+   constructor(beneficiario,campanha, dataInscricao) {
+        this.beneficiario = beneficiario
+        this.campanha = campanha
         this.dataInscricao = dataInscricao
     }
     
@@ -45,7 +41,7 @@ class inscricao {
 
     async buscarId(db){
         const result = await new DAOInscricao().listarId(this,db)
-        let obj = new inscricao(result.data[0].bene_id, result.data[0].campanha_id,result.data[0].ins_data)
+        let obj = new inscricao(result.data[0].beneficiario_id, result.data[0].campanhaDoacao_id,result.data[0].ins_data)
         return obj
 
     }
@@ -53,7 +49,7 @@ class inscricao {
         const result = await new DAOInscricao().listar(db)
         let lista = []
         for(let i = 0;i<result.data.length;i++){
-            lista.push(inscricao(result.data[0].bene_id, result.data[0].campanha_id,result.data[0].ins_data))
+            lista.push(new inscricao(result.data[0].beneficiario_id, result.data[0].campanhaDoacao_id,result.data[0].ins_data))
 
         }
         return lista
