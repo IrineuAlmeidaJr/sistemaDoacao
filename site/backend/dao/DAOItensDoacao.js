@@ -1,4 +1,4 @@
-const itens = require('../model/itensDoacao');
+const itens = require('../model/ItensDoacao');
 
 module.exports = app => {
 

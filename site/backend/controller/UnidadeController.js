@@ -1,4 +1,4 @@
-const Unidade = require('../model/unidadeMedida')
+const Unidade = require('../model/UnidadeMedida')
 const db = require('../model/Database.js')
 module.exports = {
     async gravar(req,res){

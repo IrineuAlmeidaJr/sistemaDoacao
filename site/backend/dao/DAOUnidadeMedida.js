@@ -1,4 +1,4 @@
-const unidade = require('../model/unidadeMedida');
+const unidade = require('../model/UnidadeMedida');
 
 module.exports = class DAOUnidadeMedida {
 

@@ -1,22 +1,22 @@
+const DAOItensDoacao = require("../dao/DAOItensDoacao")
 module.exports = class itensDoacao {
-
-    constructor (cod,nome,quantidade,codTipo,codUnidade,codTamanho,codGenero,codDoacao){
-        this.cod = cod;
+    constructor (id,nome,quantidade,tipoDoacao_id,unidadeMedida_id,tamanho_id,genero_id,doacao_id){
+        this.id = id;
         this.nome = nome;
         this.quantidade = quantidade;
-        this.codTipo = codTipo;
-        this.codUnidade = codUnidade;
-        this.codTamanho = codTamanho;
-        this.codGenero = codGenero;
-        this.codDoacao = codDoacao;
+        this.tipoDoacao_id = tipoDoacao_id;
+        this.unidadeMedida_id = unidadeMedida_id;
+        this.tamanho_id = tamanho_id;
+        this.genero_id = genero_id;
+        this.doacao_id = doacao_id;
     }
 
-    getCod(){
-        return this.cod;
+    getId(){
+        return this.id;
     }
 
-    setCod(cod){
-        this.cod = cod;
+    setId(id){
+        this.id = id;
     }
 
     getNome(){
@@ -35,44 +35,44 @@ module.exports = class itensDoacao {
         this.quantidade = quantidade;
     }
 
-    getCodTipo(){
-        return this.codTipo;
+    getTipoDoacao_id(){
+        return this.tipoDoacao_id;
     }
 
-    setCodTipo(codTipo){
-        this.codTipo = codTipo;
+    setTipoDoacao_id(tipoDoacao_id){
+        this.tipoDoacao_id = tipoDoacao_id;
     }
 
-    getCodUnidade(){
-        return this.codUnidade;
+    getUnidadeMedida_id(){
+        return this.unidadeMedida_id;
     }
 
-    setCodUnidade(codUnidade){
-        this.codUnidade = codUnidade;
+    setCodUnidade(unidadeMedida_id){
+        this.unidadeMedida_id = unidadeMedida_id;
     }
 
-    getCodTamanho(){
-        return this.codTamanho;
+    getTamanho_id(){
+        return this.tamanho_id;
     }
 
-    setCodTamanho(codTamanho){
-        this.codTamanho = codTamanho;
+    setTamanho_id(tamanho_id){
+        this.tamanho_id = tamanho_id;
     }
 
-    getCodGenero(){
-        return this.codGenero;
+    getGenero_id(){
+        return this.genero_id;
     }
 
-    setCodGenero(codGenero){
-        this.codGenero = codGenero;
+    setGenero_id(genero_id){
+        this.genero_id = genero_id;
     }
 
-    getCodDoacao(){
-        return this.codDoacao;
+    getDoacao_id(){
+        return this.doacao_id;
     }
 
-    setCodDoacao(codDoacao){
-        this.codDoacao = codDoacao;
+    setDoacao_id(doacao_id){
+        this.doacao_id = doacao_id;
     }
     
 
