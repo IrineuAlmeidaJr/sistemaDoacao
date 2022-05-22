@@ -69,6 +69,7 @@ routes.get('/beneficiario', beneficiarioCtrl.listar);
 routes.put('/beneficiario', beneficiarioCtrl.alterar);
 routes.delete('/beneficiario/:beneficiario_id', beneficiarioCtrl.excluir);
 routes.get('/beneficiario/:beneficiario_id', beneficiarioCtrl.listarPorId);
+routes.get('/beneficiario/:id',beneficiarioCtrl.listarDependente)
 
 //Rotas unidade de medida
 routes.get('/unidade',unidadeCtrl.buscarTodos)

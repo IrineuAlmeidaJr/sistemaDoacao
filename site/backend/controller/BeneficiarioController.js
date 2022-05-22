@@ -42,6 +42,13 @@ module.exports = {
         let beneficiario = await new B().listar(db);
 
         return response.json(beneficiario);
+    },
+
+    async listarDependente(request,response){
+        const {id} = request.params; // parametro de url
+        const con = await db.conecta();
+        let beneficiario = await new B().listarPorDependente(id, db);
+        return response.json(beneficiario);
     }
 
 

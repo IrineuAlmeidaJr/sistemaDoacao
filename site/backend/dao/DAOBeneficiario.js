@@ -37,5 +37,11 @@ module.exports = class DAOBeneficiario {
             const sql = "SELECT * FROM beneficiario";
             const result = await db.consulta(sql);
             return result;
-        }
+    }
+
+    async listarPorDependente(id,db){
+        const sql = "SELECT * FROM beneficiario where usuario_id_usu = "+id
+        const result = await db.consulta(sql);
+        return result;
+    }
 }
