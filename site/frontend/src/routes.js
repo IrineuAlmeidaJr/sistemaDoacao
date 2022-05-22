@@ -18,6 +18,7 @@ import ListaBeneficiarios from "./pages/ListaBeneficiarios";
 import ListaLocalDoacao from "./pages/ListaLocalDoacao";
 import ListaCampanhaDoacao from "./pages/ListaCampanhaDoacao"
 import RealizarInscricao from "./pages/RealizarInscricao";
+import Login from './pages/Login'
 
 
 
@@ -41,6 +42,7 @@ const Routes = () => {
             <Route component={ListaBeneficiarios} path="/listaBeneficiarios"/>
             <Route component={ListaLocalDoacao} path="/listaLocalDoacao"/>
             <Route component={RealizarInscricao} path="/realizarinscricao"/>
+            <Route component={Login} path='/login'/>
 
        </BrowserRouter>
    )

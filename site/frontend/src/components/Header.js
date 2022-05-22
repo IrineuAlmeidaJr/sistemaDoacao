@@ -30,7 +30,7 @@ const Header = () => {
                             <img src={nouser} alt="Foto de usuário"/>
                         </div>
                         
-                        <Link class="bold bt-login" to="/">Login</Link>
+                        <Link to="/login" class="bold bt-login">Login</Link>
                     </div>
                         
                 </nav>  
@@ -40,6 +40,7 @@ const Header = () => {
                     {/*<li><div class="homepageBox"><Link><img class="home-img" src={hmw}/></Link></div></li>*/}
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="agendarDoacao">Agendar</Link></li>
+                    <li><Link to="/realizarinscricao">Inscrever</Link></li>
                     <li><a href="">Cadastrar</a>
                         <ul> {/*ul com visibility: hidden, aparece apenas em hover*/}
                             <li><Link to="/cadUsuario">Usuario</Link></li>
