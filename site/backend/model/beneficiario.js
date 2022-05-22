@@ -97,14 +97,14 @@ module.exports = class beneficiaro{
         const resp=await new DAOBeneficiario().listarPorDependente(id, db);
         let beneficiario = [];
         for(let i=0; i < resp.data.length; i++) {
-            beneficiario = new beneficiaro(
-                resp.data[0].bene_id,
-                resp.data[0].bene_cpf,
-                resp.data[0].bene_nome,
-                resp.data[0].bene_datanascimento,
-                resp.data[0].usuario_id_usu
+            beneficiario.push( new beneficiaro(
+                resp.data[i].bene_id,
+                resp.data[i].bene_cpf,
+                resp.data[i].bene_nome,
+                resp.data[i].bene_datanascimento,
+                resp.data[i].usuario_id_usu)
             )        
-        }        
+        }      
         return beneficiario;
     }
 

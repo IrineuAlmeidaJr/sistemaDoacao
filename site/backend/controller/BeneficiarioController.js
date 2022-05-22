@@ -45,7 +45,9 @@ module.exports = {
     },
 
     async listarDependente(request,response){
+        console.log("entra aqui?")
         const {id} = request.params; // parametro de url
+        console.log(id)
         const con = await db.conecta();
         let beneficiario = await new B().listarPorDependente(id, db);
         return response.json(beneficiario);

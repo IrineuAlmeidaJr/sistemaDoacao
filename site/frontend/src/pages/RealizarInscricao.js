@@ -19,7 +19,7 @@ export default function RealizarInscricao() {
     }, [])
 
     async function fetchBeneficiarios() {
-        await fetch('http://localhost:4000/beneficiario',{method:"GET"})
+        await fetch('http://localhost:4000/beneficiario/dependente/'+localStorage.getItem("usuario"),{method:"GET"})
         .then(resposta=>resposta.json())
         .then(dados=>{
             setlistaB(dados);
