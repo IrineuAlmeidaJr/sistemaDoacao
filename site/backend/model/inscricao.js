@@ -41,7 +41,13 @@ class inscricao {
 
     async buscarId(db){
         const result = await new DAOInscricao().listarId(this,db)
-        let obj = new inscricao(result.data[0].beneficiario_id, result.data[0].campanhaDoacao_id,result.data[0].ins_data)
+        let obj
+        if(result.data.length === 0){
+            obj = null;
+        }
+        else{
+            obj = new inscricao(result.data[0].beneficiario_id, result.data[0].campanhaDoacao_id,result.data[0].ins_data)
+        }
         return obj
 
     }

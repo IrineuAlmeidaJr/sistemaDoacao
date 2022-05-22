@@ -9,7 +9,15 @@ module.exports = {
         let today = Date.now()
         const data = new Date(today);
         let novo = new inscricao(await new B().procurarId(ins.bene_id,db), await new C().buscarId(ins.campanha_id,db),data)
-        await novo.gravar(db) 
+        let obj
+        obj = await novo.buscarId(db)
+        if(obj==null){
+            await novo.gravar(db)
+        }
+        else{
+            novo = {erro: 1}
+        }
+        console.log(novo)
         return res.json(novo)
     },
     async excluir(req,res){

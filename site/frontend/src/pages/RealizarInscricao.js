@@ -46,17 +46,23 @@ export default function RealizarInscricao() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        alert(inscricao.bene_id)
-        alert(inscricao.campanha_id)
         if(inscricao.bene_id != "Selecione o beneficiario" && inscricao.campanha_id != "Selecione a campanha"){
             await fetch(localRecursos,{method:"POST",
                                 headers:{'Content-Type':'application/json'},
                                 body:JSON.stringify(inscricao)
             })
-            .then(r=>{swal("Finalizado!", "Inscricao efetuada com sucesso.", "success").then(function() {
-                window.location = '/';
-            });})
-            .catch(e=>alert(e))        
+            .then(resposta=>resposta.json())
+            .then(r=>{if(r.erro === undefined){
+                swal("Finalizado!", "Inscricao efetuada com sucesso.", "success").then(function() {
+                    window.location = '/realizarinscricao';
+                }) 
+                }else{
+                    swal("Erro!", "Inscricao não efetuada com sucesso.", "error").then(function() {
+                        window.location = '/realizarinscricao';
+                    }) 
+                }})
+            .catch(e=>alert(e))    
+               
 
         }
         else{
