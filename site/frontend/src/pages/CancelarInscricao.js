@@ -70,12 +70,12 @@ export default function CancelarInscricao() {
             <div class="cadastro">
                 <form class="campos-cadastro" onSubmit={handleSubmit}>
                     <h3 class="titulo-style-1">Cancelar inscrição</h3><br/>
-                    <form class="inputBox">
+                    <div class="comboBox">
                         <ComboBoxInscricao inscricoes={listaB}/>
-                    </form>
+                    </div>
 
-                    <br/><br/>
-                    <button class="btConfirmar" onClick={handler}>Enviar</button>
+                    
+                    <button class="btConfirmar" onClick={handler}>Confirmar</button>
                 </form>
             </div>
             

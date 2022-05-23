@@ -79,14 +79,16 @@ export default function RealizarInscricao() {
             <div class="cadastro">
                 <form class="campos-cadastro" onSubmit={handleSubmit}>
                     <h3 class="titulo-style-1">Inscrever beneficiario na campanha</h3><br/>
-                    <form class="inputBox">
+                    
+                    <div class="comboBox">
                         <ComboBoxBeneficiario beneficiarios={listaB}/>
-                        <br></br>
+                    </div>
+                    
+                    <div class="comboBox">
                         <ComboBoxCampanha campanhas={listaC}/>
-                    </form>
-
-                    <br/><br/>
-                    <button class="btConfirmar" onClick={handler}>Enviar</button>
+                    </div>
+                    <button class="btConfirmar" onClick={handler}>Confirmar</button>
+                
                 </form>
             </div>
             
