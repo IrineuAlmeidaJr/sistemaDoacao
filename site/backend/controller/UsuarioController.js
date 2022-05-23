@@ -2,8 +2,7 @@ const db = require('../model/Database');
 const Usuario = require('../model/usuario');
 
 function validaCPF(val) {
-
-    if (val.length == 14) { // Entra se for CPF
+    if (val.length == 14) { 
         var cpf = val.trim();
         cpf = cpf.replace(/\./g, '');
         cpf = cpf.replace('-', '');
@@ -76,9 +75,7 @@ module.exports = {
                 message: 'CPF Inválido',
             }            
         }
-        return response.json(usuario)
-
-        
+        return response.json(usuario)        
     },
 
     async alterar(request,response) {
