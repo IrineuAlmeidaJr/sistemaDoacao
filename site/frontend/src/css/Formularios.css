@@ -32,6 +32,17 @@
     font-weight:lighter;
 }
 
+.SFBox{
+    text-align: center;
+}
+.SFBox .linksf{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+.SFBox .linksf:visited{color: white;}
+.SFBox .linksf:hover{color: #BB1212;}
+
 .btConfirmar{
     background-color: pink;
     border-style: none;

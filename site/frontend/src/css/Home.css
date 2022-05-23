@@ -107,7 +107,7 @@
 }
 
 .imgC1, .imgC2, .imgC3 {
-    background-color: aqua;
+    background-color: transparent;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
