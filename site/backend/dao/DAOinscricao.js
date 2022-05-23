@@ -26,6 +26,12 @@ module.exports = class DAOInscricao{
         console.log(p)
         return p
     }
+    async buscaCancela(id,db){
+        let sql = "select * from inscricao as i inner join beneficiario as b on i.beneficiario_id = b.bene_id and b.usuario_id_usu = ?"
+        const valor = [id]
+        const p = await db.consulta(sql,valor);
+        return p;
+    }
     //alterar não é necessário, pois não será possível modificar uma inscrição realizada
 }
 

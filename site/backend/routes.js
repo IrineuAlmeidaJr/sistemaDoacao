@@ -48,13 +48,14 @@ routes.get('/campanhaDoacao', campanhaDoacaoCtrl.buscarTodos)
 routes.post('/campanhaDoacao', campanhaDoacaoCtrl.gravar)
 routes.put('/campanhaDoacao', campanhaDoacaoCtrl.alterar)
 routes.delete('/campanhaDoacao', campanhaDoacaoCtrl.excluir)
-routes.get('/campanhaDoacaoi', campanhaDoacaoCtrl.buscarId)
+routes.get('/campanhaDoacao/:cod', campanhaDoacaoCtrl.buscarId)
 
 //Rotas inscricao
 routes.get('/inscricao', inscricaoCtrl.buscarTodos)
 routes.post('/inscricao', inscricaoCtrl.gravar)
 routes.delete('/inscricao', inscricaoCtrl.excluir)
 routes.get('/inscricaoi', inscricaoCtrl.buscarId)
+routes.get('/inscricao/busca/:id',inscricaoCtrl.buscaCancela)
 
 // Rotas Tipo Doação
 routes.post('/tipoDoacao', tipoDoacao.gravar);

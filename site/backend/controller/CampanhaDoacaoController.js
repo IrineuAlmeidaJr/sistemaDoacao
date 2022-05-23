@@ -27,7 +27,7 @@ module.exports = {
     },
 
     async buscarId(req,res){
-        const camp = {...req.body}
+        const camp = {...req.params}
         const con = await db.conecta()
         let novo = new CampanhaDoacao(camp.cod,null,null,null)
         await novo.buscarId(novo.getCod(),db)

@@ -1,4 +1,4 @@
-const inscricao = require('../model/inscricao')
+const Inscricao = require('../model/Inscricao')
 const db = require('../model/Database.js')
 const B = require('../model/beneficiario')
 const C = require('../model/CampanhaDoacao')
@@ -8,7 +8,7 @@ module.exports = {
         const con = await db.conecta()
         let today = Date.now()
         const data = new Date(today);
-        let novo = new inscricao(await new B().procurarId(ins.bene_id,db), await new C().buscarId(ins.campanha_id,db),data)
+        let novo = new Inscricao(await new B().procurarId(ins.bene_id,db), await new C().buscarId(ins.campanha_id,db),data)
         let obj
         obj = await novo.buscarId(db)
         if(obj==null){
@@ -23,22 +23,30 @@ module.exports = {
     async excluir(req,res){
         const ins = { ...req.body }
         const con = await db.conecta()
-        let novo = new inscricao(new B().getid(ins.bene_id), new C().getCod(ins.campanha_id),null)
+        let novo = new Inscricao(new B().getid(ins.bene_id), new C().getCod(ins.campanha_id),null)
         await novo.excluir(db)
         return res.json(novo)
     },
     async buscarId(req,res){
         const ins = {...req.body}
         const con = await db.conecta()
-        let novo = new inscricao(new B().getid(ins.bene_id), new C().getCod(ins.campanha_id),null)
+        let novo = new Inscricao(new B().getid(ins.bene_id), new C().getCod(ins.campanha_id),null)
         await novo.buscarId(db)
         return res.json(novo)
     },
     async buscarTodos(req,res){
         const con = await db.conecta()
         let lista = []
-        let novo = new inscricao(null,null,null)
+        let novo = new Inscricao(null,null,null)
         lista = await novo.listar(db)
+        return res.json(lista)
+    },
+    async buscaCancela(req,res){
+        const ins = {...req.params}
+        const con = await db.conecta()
+        let lista = []
+        let novo = new Inscricao(null,null,null)
+        lista = await novo.buscaCancela(ins.id,db)
         return res.json(lista)
     }
 }
