@@ -1,20 +1,84 @@
 const db = require('../model/Database');
 const Usuario = require('../model/usuario');
 
-module.exports = {
+function validaCPF(val) {
+
+    if (val.length == 14) { // Entra se for CPF
+        var cpf = val.trim();
+        cpf = cpf.replace(/\./g, '');
+        cpf = cpf.replace('-', '');
+        cpf = cpf.split('');
+        
+        var v1 = 0;
+        var v2 = 0;
+        var aux = false;
+        
+        for (var i = 1; cpf.length > i; i++) {
+            if (cpf[i - 1] != cpf[i]) {
+                aux = true;   
+            }
+        } 
+        
+        if (aux == false) {
+            return false; 
+        } 
+        
+        for (var i = 0, p = 10; (cpf.length - 2) > i; i++, p--) {
+            v1 += cpf[i] * p; 
+        } 
+        
+        v1 = ((v1 * 10) % 11);
+        
+        if (v1 == 10) {
+            v1 = 0; 
+        }
+        
+        if (v1 != cpf[9]) {
+            return false; 
+        } 
+        
+        for (var i = 0, p = 11; (cpf.length - 1) > i; i++, p--) {
+            v2 += cpf[i] * p; 
+        } 
+        
+        v2 = ((v2 * 10) % 11);
+        
+        if (v2 == 10) {
+            v2 = 0; 
+        }
+        
+        if (v2 != cpf[10]) {
+            return false; 
+        } else {   
+            return true; 
+        }
+    }
+    return false 
+}
+
+module.exports = {    
+
     async gravar(request,response) {
         const {nome, senha, cpf, dataNascimento, endereco, telefone, email, tipo} = request.body;
         // Colocar request.query para testar no Insomia, mas, na verdade aqui ele espera
         // um JSON vindo do front
+        let usuario = {}
+        // Valida CPF
+        if(validaCPF(cpf)) {
+            // Cria objeto Usuário
+            usuario = new Usuario(0, cpf, senha, nome, dataNascimento, endereco, telefone, email, tipo);
+            // Cria conexão com o banco 
+            const con = await db.conecta();        
+            // Chama a classe usuário que tem o método gravar que por sua vez chama DAO
+            await usuario.gravar(db);
+        } else {
+            usuario = { 
+                message: 'CPF Inválido',
+            }            
+        }
+        return response.json(usuario)
 
-        // Cria objeto Usuário
-        let usuario = new Usuario(0, cpf, senha, nome, dataNascimento, endereco, telefone, email, tipo);
-        // Cria conexão com o banco 
-        const con = await db.conecta();        
-        // Chama a classe usuário que tem o método gravar que por sua vez chama DAO
-        await usuario.gravar(db);
-
-        return response.json(usuario);
+        
     },
 
     async alterar(request,response) {

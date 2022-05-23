@@ -1,10 +1,5 @@
 module.exports = class DAOUsuario {
     async gravar(usu, db) {
-        // - Fazer validações aqui --> de CPF tambem
-        // - Verificar se Usuário já está cadastrado... Acho
-        // que o banco não deixa inserir dois CPF iguais por causa
-        // do unique item no caso do CPF, isso já serve como verificação?
-
         const sql = "INSERT INTO usuario(usu_cpf, usu_senha, usu_nome, " +
                     "usu_dataNasc, usu_endereco, usu_telefone, usu_email, usu_tipoUsuario)" + 
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
