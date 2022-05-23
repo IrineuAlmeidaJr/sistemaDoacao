@@ -10,6 +10,7 @@ const generoCtrl = require('./controller/GeneroController')
 const beneficiarioCtrl = require('./controller/BeneficiarioController')
 const unidadeCtrl = require('./controller/UnidadeController')
 const localDoacaoCtrl = require('./controller/LocalDoacaoController')
+const itensDoacaoCtrl = require('./controller/ItemDoacaoController')
 
 // Tem colocar porque cai no CORS, o navegador impede a conexão
 routes.all('*', function (req, res, next) {
@@ -18,7 +19,6 @@ routes.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
-
 
 // Rotas usuario
 routes.post('/usuario', usuarioCtrl.gravar);
@@ -86,7 +86,9 @@ routes.put('/localDoacao', localDoacaoCtrl.alterar);
 routes.delete('/localDoacao/:local_id', localDoacaoCtrl.excluir);
 routes.get('/localDoacao/:local_id', localDoacaoCtrl.listarPorId);
 
-
+// Rotas ItensDoacao
+routes.get('/itensDocao', itensDoacaoCtrl.listar); 
+routes.get('/itensDocaoDetalhado', itensDoacaoCtrl.listarDetalhado);
 
 // module.exports = {routes}; 
 module.exports = routes; // Estava dando erro de rota, tem exportar sem ser objeto

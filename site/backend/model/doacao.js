@@ -1,51 +1,78 @@
-module.exports = class doacao {
+const DAODoacao = require("../dao/DAODoacao")
 
-    constructor(cod,data,codLocal,codCampanha,codUsuario){
-        this.cod = cod;
-        this.data = data;
-        this.codLocal = codLocal;
-        this.codCampanha = codCampanha;
-        this.codUsuario = codUsuario;
+module.exports = class Doacao {
+
+    constructor(id, dataDoacao, localDoacao_id, camapanha_id, usu_id, status){
+        this.id = id;
+        this.dataDoacao = dataDoacao;
+        this.localDoacao_id = localDoacao_id;
+        this.camapanha_id = camapanha_id;
+        this.usu_id = usu_id;
+        this.status = status;
     }
 
-    getCod(){
-        return this.cod;
+    getId(){
+        return this.id;
     }
 
-    setCod(cod){
-        this.cod = cod;
+    setId(id){
+        this.id = id;
     }
 
-    getData(){
-        return this.data;
+    getDataDoacao(){
+        return this.dataDoacao;
     }
 
-    setData(data){
-        this.data = data;
+    setDataDoacao(dataDoacao){
+        this.dataDoacao = dataDoacao;
     }
 
-    getCodLocal(){
-        return this.codLocal;
+    getLocalDoacao_id(){
+        return this.localDoacao_id;
     }
 
-    setCodLocal(codLocal){
-        this.codLocal = codLocal;
+    setLocalDoacao_id(localDoacao_id){
+        this.localDoacao_id = localDoacao_id;
     }
 
-    getCodCampanha(){
-        return this.codCampanha;
+    getCamapanha_id(){
+        return this.camapanha_id;
     }
 
-    setCodCampanha(codCampanha){
-        this.codCampanha = codCampanha;
+    setCamapanha_id(camapanha_id){
+        this.camapanha_id = camapanha_id;
     }
 
-    getCodUsuario(){
+    getUsu_id(){
         return this.codUsuario;
     }
 
-    setCodUsuario(codUsuario){
-        this.codUsuario = codUsuario;
+    setUsu_id(usu_id){
+        this.usu_id = usu_id;
+    }
+
+    getStatus(){
+        return this.status;
+    }
+
+    setStatus(status){
+        this.status = status;
+    }
+
+    async procurarId(id, db) {
+        const resp=await new DAODoacao().procurarId(id, db);
+        let doacao = {};
+        if(resp.data.length > 0) {
+            doacao = new Doacao(
+                resp.data[0].doacao_id,
+                resp.data[0].doacao_dataDocao,
+                resp.data[0].doacao_localDoacao_id,
+                resp.data[0].camapanha_id,
+                resp.data[0].usu_id,
+                resp.data[0].doacao_status
+            )        
+        }        
+        return doacao;
     }
 
 }
