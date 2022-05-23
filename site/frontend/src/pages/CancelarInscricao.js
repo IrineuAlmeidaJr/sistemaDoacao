@@ -12,11 +12,9 @@ const localRecursos = 'http://localhost:4000/inscricao'
 export default function CancelarInscricao() {
     const [cancelar, setCancelar] = React.useState('');
     const [listaB, setlistaB] = React.useState([])
-    const [listaC, setlistaC] = React.useState([])
 
     React.useEffect(() => {
         fetchInscricoes()
-        fetchCampanhas()
     }, [])
 
     async function fetchInscricoes() {
@@ -29,39 +27,28 @@ export default function CancelarInscricao() {
             alert(error)
         });
     }
-    async function fetchCampanhas() {
-        await fetch('http://localhost:4000/campanhaDoacao',{method:"GET"})
-        .then(resposta=>resposta.json())
-        .then(dados=>{
-            setlistaC(dados);
-        }, 
-        error =>{
-            alert(error)
-        });
-    }
-
 
     function handler() {
             let obj = document.getElementById('inscrito').value
-            console.log(obj)
-            //setCancelar({bene_id: ,campanha_id:document.getElementById('campanha').value}); 
+            let aux = obj.split(",",2)
+            setCancelar({bene_id: aux[0],campanha_id:aux[1]}); 
     }
 
     async function handleSubmit(e) {
-        /*e.preventDefault();
-        if(inscricao.bene_id != "Selecione o beneficiario" && inscricao.campanha_id != "Selecione a campanha"){
-            await fetch(localRecursos,{method:"POST",
+        e.preventDefault();
+        if(cancelar.bene_id != "Selecione a inscricao"){
+            await fetch(localRecursos,{method:"DELETE",
                                 headers:{'Content-Type':'application/json'},
-                                body:JSON.stringify(inscricao)
+                                body:JSON.stringify(cancelar)
             })
             .then(resposta=>resposta.json())
             .then(r=>{if(r.erro === undefined){
-                swal("Finalizado!", "Inscricao efetuada com sucesso.", "success").then(function() {
-                    window.location = '/realizarinscricao';
+                swal("Finalizado!", "Cancelamento efetudo com sucesso.", "success").then(function() {
+                    window.location = '/cancelarinscricao';
                 }) 
                 }else{
                     swal("Erro!", "Inscricao não efetuada com sucesso.", "error").then(function() {
-                        window.location = '/realizarinscricao';
+                        window.location = '/cancelarinscricao';
                     }) 
                 }})
             .catch(e=>alert(e))    
@@ -71,7 +58,7 @@ export default function CancelarInscricao() {
         else{
             swal("Não é possivel prosseguir!", "Por favor, selecione uma campanha e um beneficiario", "alert")
         }
-        setInscricao('');*/
+        setCancelar('');
         alert("beleza")
         
 
@@ -82,13 +69,13 @@ export default function CancelarInscricao() {
             <Header/>
             <div class="cadastro">
                 <form class="campos-cadastro" onSubmit={handleSubmit}>
-                    <h3 class="titulo-style-1">Cadastrar Tamanho</h3><br/>
+                    <h3 class="titulo-style-1">Cancelar inscrição</h3><br/>
                     <form class="inputBox">
                         <ComboBoxInscricao inscricoes={listaB}/>
                     </form>
 
                     <br/><br/>
-                    <button class="btConfirmar" onClick={handler}>Cancelar</button>
+                    <button class="btConfirmar" onClick={handler}>Enviar</button>
                 </form>
             </div>
             

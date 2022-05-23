@@ -78,7 +78,7 @@ export default function RealizarInscricao() {
             <Header/>
             <div class="cadastro">
                 <form class="campos-cadastro" onSubmit={handleSubmit}>
-                    <h3 class="titulo-style-1">Cadastrar Tamanho</h3><br/>
+                    <h3 class="titulo-style-1">Inscrever beneficiario na campanha</h3><br/>
                     <form class="inputBox">
                         <ComboBoxBeneficiario beneficiarios={listaB}/>
                         <br></br>

@@ -7,7 +7,7 @@ const ComboBoxInscricao = (props)=>{
             <option>Selecione a inscricao</option>
             {
             props.inscricoes.map(inscricao => (
-                <option value={inscricao.beneficiario.id,props.campanha.id}>{inscricao.beneficiario.nome} - {props.campanha.nome}</option>
+                <option value={[inscricao.beneficiario.id,inscricao.campanha.cod]}>{inscricao.beneficiario.nome} - {inscricao.campanha.nome}</option>
             
 
             ))

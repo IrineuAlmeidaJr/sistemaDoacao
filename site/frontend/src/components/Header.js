@@ -41,6 +41,7 @@ const Header = () => {
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="agendarDoacao">Agendar</Link></li>
                     <li><Link to="/realizarinscricao">Inscrever</Link></li>
+                    <li><Link to="/cancelarinscricao">Cancelar inscrição</Link></li>
                     <li><a href="">Cadastrar</a>
                         <ul> {/*ul com visibility: hidden, aparece apenas em hover*/}
                             <li><Link to="/cadUsuario">Usuario</Link></li>

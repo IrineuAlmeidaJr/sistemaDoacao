@@ -1,6 +1,7 @@
 
 const Beneficiario = require('../model/beneficiario')
 const DAOInscricao = require('../dao/DAOinscricao')
+const CampanhaDoacao = require('./CampanhaDoacao')
 class Inscricao {
    constructor(beneficiario,campanha, dataInscricao) {
         this.beneficiario = beneficiario
@@ -37,6 +38,7 @@ class Inscricao {
     }
 
     async excluir(db){
+        console.log(this)
         await new DAOInscricao().deletar(this,db)
     }
 
@@ -66,6 +68,7 @@ class Inscricao {
         const result = await new DAOInscricao().buscaCancela(id,db)
         let lista = []
         let beneficiario
+        let obj
         for(let i = 0;i<result.data.length;i++){
             beneficiario = new Beneficiario(
                 result.data[i].bene_id,
@@ -74,7 +77,8 @@ class Inscricao {
                 result.data[i].bene_datanascimento,
                 result.data[i].usuario_id_usu
             )
-            lista.push(new Inscricao(beneficiario, result.data[i].campanhaDoacao_id,result.data[i].ins_data))   
+            obj = new CampanhaDoacao(result.data[i].campanha_id,result.data[i].campanha_nome,result.data[i].campanha_dataInicio,result.data[i].campanha_dataFim)
+            lista.push(new Inscricao(beneficiario, obj,result.data[i].ins_data))   
 
         }
         return lista

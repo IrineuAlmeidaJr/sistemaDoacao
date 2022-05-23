@@ -55,8 +55,8 @@ class CampanhaDoacao
     }
 
     async buscarId(id,db){
+        console.log(id)
         const result = await new DAOCampanhaDoacao().listarId(id,db)
-        console.log(result)
         let obj = new CampanhaDoacao(result.data[0].campanha_id,result.data[0].campanha_nome,result.data[0].campanha_dataInicio,result.data[0].campanha_dataFim)
         return obj
 

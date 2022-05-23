@@ -7,6 +7,7 @@ module.exports = class DAOCampanhaDoacao{
         return p;
     }
     async listarId(id,db){
+        console.log(id)
         const sql = "SELECT * from campanhadoacao where campanha_id = ?"
         const valor = [id]
         const p = await db.consulta(sql,valor);

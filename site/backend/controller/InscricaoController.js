@@ -22,15 +22,17 @@ module.exports = {
     },
     async excluir(req,res){
         const ins = { ...req.body }
+        console.log(ins)
         const con = await db.conecta()
-        let novo = new Inscricao(new B().getid(ins.bene_id), new C().getCod(ins.campanha_id),null)
+        let novo = new Inscricao(await new B().procurarId(parseInt(ins.bene_id),db), await new C().buscarId(parseInt(ins.campanha_id),db),null)
+        console.log(novo)
         await novo.excluir(db)
         return res.json(novo)
     },
     async buscarId(req,res){
         const ins = {...req.body}
         const con = await db.conecta()
-        let novo = new Inscricao(new B().getid(ins.bene_id), new C().getCod(ins.campanha_id),null)
+        let novo = new Inscricao(new B().procurarId(ins.bene_id,db), new C().buscarId(ins.campanha_id,db),null)
         await novo.buscarId(db)
         return res.json(novo)
     },

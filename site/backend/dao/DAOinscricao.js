@@ -27,7 +27,7 @@ module.exports = class DAOInscricao{
         return p
     }
     async buscaCancela(id,db){
-        let sql = "select * from inscricao as i inner join beneficiario as b on i.beneficiario_id = b.bene_id and b.usuario_id_usu = ?"
+        let sql = "select * from inscricao as i inner join beneficiario as b on i.beneficiario_id = b.bene_id inner join campanhadoacao as c on i.campanhaDoacao_id = c.campanha_id  and b.usuario_id_usu = ?"
         const valor = [id]
         const p = await db.consulta(sql,valor);
         return p;
