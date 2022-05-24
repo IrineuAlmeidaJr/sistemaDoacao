@@ -3,7 +3,7 @@ import Routes from "./routes";
 //import 'bootstrap/dist/css/bootstrap.min.css'
 export default function App() {
     const usu = JSON.parse(localStorage.getItem("usuInfo"));
-    if(usu.id == undefined)
+    if(usu == undefined)
     {
         localStorage.setItem("usuInfo", JSON.stringify({
         "id": -1,
