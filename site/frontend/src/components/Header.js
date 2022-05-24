@@ -19,7 +19,7 @@ const Header = () => {
         if(usu.id >= 0 )
         {
             user.innerHTML = `logout`;
-            /*if(id != 2 && id != 0 )
+            /*if(usu.tipo == 1 || usu.tipo == 3 ) // 1 = colaborador, 3 = responsavel
             {
                 menu.innerHTML = `  <li><Link to="/">Home</Link></li>
 

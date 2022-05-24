@@ -6,7 +6,7 @@ import Header from "../components/Header.js";
 import Footer from "../components/Footer.js";
 
 
-const localRecursos = 'http://localhost:4000/usuario'
+//const localRecursos = 'http://localhost:4000/usuario'
 
 const Login = ()=>{
     //alert("Login provisório criado com o usuário 29")
