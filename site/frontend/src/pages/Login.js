@@ -37,7 +37,7 @@ const Login = ()=>{
                     localStorage.setItem("usuInfo", JSON.stringify(response.data));
                     //<Redirect to="/"/>
                     alert.innerHTML = "";
-                    //window.location = "/";
+                    window.location = "/";
                     //alert('sucesso:');
 
                 }
