@@ -52,7 +52,7 @@ export default function FormCadCampanhaDoacao (campanhaPass){
             .catch(e=>alert(e))
 
 
-            swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
+            swal("Finalizado!", "Cadastro efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
             }); 
         }

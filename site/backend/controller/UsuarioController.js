@@ -121,5 +121,12 @@ module.exports = {
         return response.json(usu);
     },
 
+    async buscaEmail (request, response) {
+        const {usu_email} = request.params;
+        const con = await db.conecta();
+        let usu = await new Usuario().buscarEmail(usu_email, db);
+        console.log(usu);
+        return response.json(usu);
+    },
 
 }

@@ -26,6 +26,7 @@ routes.put('/usuario', usuarioCtrl.alterar);
 routes.delete('/usuario/:usu_id',usuarioCtrl.excluir);
 routes.get('/usuId/:usu_id', usuarioCtrl.listarPorId);
 routes.get('/usuario/:usu_nome', usuarioCtrl.listarPorNome);
+routes.get('/usuarioLogin/:usu_email', usuarioCtrl.buscaEmail);
 // Tem usar usu_nome ou o nome do campo que está no banco se não da erro
 routes.get('/usuario', usuarioCtrl.listar);    
 

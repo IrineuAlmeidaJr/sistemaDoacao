@@ -60,4 +60,11 @@ module.exports = class DAOUsuario {
         return usu;
     }
 
+    async buscarEmail(email, db) {
+        const sql = 'SELECT * FROM usuario WHERE usu_email = ?';
+        const valor = [email];
+        const usu = await db.consulta(sql, valor);
+        return usu;
+    }
+
 }

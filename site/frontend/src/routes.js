@@ -19,6 +19,7 @@ import ListaLocalDoacao from "./pages/ListaLocalDoacao";
 import ListaCampanhaDoacao from "./pages/ListaCampanhaDoacao"
 import RealizarInscricao from "./pages/RealizarInscricao";
 import Login from './pages/Login'
+import Logout from './pages/Logout'
 import CancelarInscricao from "./pages/CancelarInscricao";
 import EsqueciSenha from "./pages/EsqueciSenha";
 
@@ -45,8 +46,10 @@ const Routes = () => {
             <Route component={ListaLocalDoacao} path="/listaLocalDoacao"/>
             <Route component={RealizarInscricao} path="/realizarinscricao"/>
             <Route component={Login} path='/login'/>
+            <Route component={Logout} path='/logout'></Route>
             <Route component={EsqueciSenha} path='/esqueciSenha'></Route>
-            <Route component={CancelarInscricao} path='/cancelarinscricao'></Route>
+            
+
 
        </BrowserRouter>
    )

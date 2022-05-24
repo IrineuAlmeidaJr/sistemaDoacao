@@ -173,4 +173,51 @@ module.exports = class Usuario {
         return usuario;
     }
 
+    async buscarEmail(usu_email, db) {
+        const resp=await new DAOUsuario().buscarEmail(usu_email, db);
+        //console.log(resp.data[0].usu_id);
+        let usuario;
+        if(resp.data.length > 0)
+        {
+            usuario = new Usuario(  resp.data[0].usu_id,
+                                    resp.data[0].usu_cpf,
+                                    resp.data[0].usu_senha,
+                                    resp.data[0].usu_nome,
+                                    resp.data[0].usu_dataNasc,
+                                    resp.data[0].usu_endereco,
+                                    resp.data[0].usu_telefone,
+                                    resp.data[0].usu_email,
+                                    resp.data[0].usu_tipoUsuario);
+        }
+        else
+        {
+            usuario = new Usuario(  undefined,
+                                    undefined,
+                                    undefined,
+                                    undefined,
+                                    undefined,
+                                    undefined,
+                                    undefined,
+                                    undefined,
+                                    undefined);
+        }
+        
+        /*let usuario = []; 
+
+        if(resp.data.length > 0) {
+            usuario.push(new Usuario(
+                resp.data[0].usu_id,
+                resp.data[0].usu_cpf,
+                resp.data[0].usu_senha,
+                resp.data[0].usu_nome,
+                resp.data[0].usu_dataNasc,
+                resp.data[0].usu_endereco,
+                resp.data[0].usu_telefone,
+                resp.data[0].usu_email,
+                resp.data[0].usu_tipoUsuario
+            ))
+        }*/
+        //console.log(usuario);
+        return usuario;
+    }
 }
