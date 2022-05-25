@@ -1,9 +1,27 @@
 import React from 'react';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
+import swal from 'sweetalert';
 import '../css/Formularios.css';
 
 export default function AgendarDoacao(props) {
+    function checkLogged()
+    {
+        const usu = JSON.parse(localStorage.getItem("usuInfo"));
+        //console.log(usu.id);
+        if(usu.id == -1)
+        {
+            swal("Não logado!", "Proseguir para fazer o login?", "warning", {buttons: ["Não", "Sim"]})
+            .then((sim) => {
+                if (sim) {
+                  window.location = "/login";
+                  
+                } else {
+                    window.location = "/";
+                }});
+        }
+    }
+    
     function checkTipoDoacao()
     {
         let tipo = document.getElementById("tipoDoacao").value;
@@ -76,10 +94,10 @@ export default function AgendarDoacao(props) {
     }
     
     return (
-        <div>
+        <div onLoad={checkLogged}>
             <Header/>
 
-            <div class="cadastro">
+            <div class="cadastro" >
                 <form class="campos-cadastro">
                     <h1>Agendar doação</h1>
                     <div id="nomeItemBox" class="inputBox">

@@ -82,6 +82,18 @@ module.exports = class itensDoacao {
         this.doacao_id = doacao_id;
     }
 
+    async  gravar(db) {
+        const resp = await new DAOItensDoacao().gravar(this, db); 
+    }
+
+    async alterar(db) {
+        const resp = await new DAOItensDoacao().alterar(this,db); 
+    }
+
+    async excluir(db) {
+        const resp = await new DAOItensDoacao().excluir(this,db); 
+    }
+
     async listar(db) {
         const resp=await new DAOItensDoacao().listar(db);
         let itens = []; 
