@@ -13,7 +13,6 @@ module.exports = class DAOTipoDoacao {
     } 
 
     async alterar(tipo, db) {
-        // Fazer validações aqui --> de CPF tambem
         const sql = "UPDATE tipodoacao SET tipo_nome=? WHERE tipo_id=?";
         const valor = [tipo.getNome(), tipo.getId()];      
         const result = await db.manipula(sql, valor);  
