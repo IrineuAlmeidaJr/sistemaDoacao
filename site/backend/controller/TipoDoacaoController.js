@@ -6,7 +6,7 @@ module.exports = {
         const {id, nome} = request.body; // campos do formulario
         let tipodoacao = new TipoDoacao(0, nome); // nova classe do tipo "TipoDoacao"
         const con = await db.conecta(); //  conecta ao banco        
-        // Chama a classe usuário que tem o método gravar que por sua vez chama DAO
+        
         await tipodoacao.gravar(db);
 
         return response.json(tipodoacao);
