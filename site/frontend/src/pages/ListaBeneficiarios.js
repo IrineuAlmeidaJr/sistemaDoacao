@@ -42,7 +42,7 @@ const ListaBeneficiarios = () => {
     function alterar(beneficiarioR) {
         history.push({
         pathname: '/CadBeneficiario',
-        state:{cod: beneficiarioR.id, nome: beneficiarioR.nome, cpf: beneficiarioR.cpf, datanascimento: beneficiarioR.dataNascimento, usuarioId: beneficiarioR.usuarioId},
+        state:{id: beneficiarioR.id, nome: beneficiarioR.nome, cpf: beneficiarioR.cpf, datanascimento: beneficiarioR.dataNascimento, usuarioId: beneficiarioR.usuarioId},
     });
     }
      
