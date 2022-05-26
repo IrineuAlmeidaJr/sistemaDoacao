@@ -44,6 +44,16 @@ const ListaTipoDoacao = () => {
           });
     }
 
+    async function buscarNome() {
+        const nome = document.getElementById('pesquisar').value; 
+        try {
+            const response = await api.get(`/tipoDoacao/${nome}`);
+            setListaTipos(response.data);  
+        } catch(err) {
+            console.log(err);
+        }            
+    }
+
 
     return (
         <div>
@@ -52,30 +62,18 @@ const ListaTipoDoacao = () => {
                 <div class="campo-exibicao">
                     <h1>Tipo de Doação</h1>
                     
-                    <div class="opcoes">
-                        <div class="alterar">
-                            <h3>Alterar</h3>
-                            <div class="alterarInterno">
-                                <label for="nome">ID</label>
-                                <input type="number" id="alterarTipo" placeholder="ID que deseja alterar..." />
-                                <div class="botao">
-                                    <button>Alterar</button>
-                                </div>
+                    <div class="alterar">
+                        <h3>Consultar por Nome</h3>
+                        <div class="alterarInterno">
+                            <label for="pesquisar">Nome</label>
+                            <input type="text" id="pesquisar" placeholder="Nome deseja buscar..." />
+                            <div class="botao">
+                                <button onClick={buscarNome}>Buscar</button>
                             </div>
                         </div>
-
-                        <div class="deletar">
-                            <h3>Deletar</h3>
-                            <div class="deletarInterno">
-                                <label for="nome">ID</label>
-                                <input type="number" id="deletarTipo" placeholder="ID que deseja excluir..." />
-                                <div class="botao">
-                                    <button onClick={deletar}>Deletar</button>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
+
+                    
 
                     
                     <Table

@@ -39,6 +39,7 @@ module.exports = {
 
     async listarPorNome (request, response) {
         const {tipo_nome} = request.params;
+        console.log(tipo_nome);
         const con = await db.conecta();
         let tipo = await new TipoDoacao().listarPorNome(tipo_nome, db);
         return response.json(tipo);

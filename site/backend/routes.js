@@ -63,11 +63,11 @@ routes.get('/inscricao/busca/:id',inscricaoCtrl.buscaCancela)
 
 // Rotas Tipo Doação
 routes.post('/tipoDoacao', tipoDoacao.gravar);
-routes.get('/tipoDoacao', tipoDoacao.listar);
 routes.put('/tipoDoacao', tipoDoacao.alterar);
 routes.delete('/tipoDoacao/:tipo_id', tipoDoacao.excluir);
-routes.get('/tipoDoacao/:tipo_id', tipoDoacao.listarPorId);
-routes.get('/tipoDoacaoNome/:tipo_nome', tipoDoacao.listarPorNome);
+routes.get('/tipoDoacaoId/:tipo_id', tipoDoacao.listarPorId);
+routes.get('/tipoDoacao/:tipo_nome', tipoDoacao.listarPorNome);
+routes.get('/tipoDoacao', tipoDoacao.listar);
 
 //rotas beneficiario
 routes.post('/beneficiario', beneficiarioCtrl.gravar);
