@@ -183,7 +183,7 @@ const CadUsuario = (props) => {
         }
     }
 
-    function validarCPF() {
+    function mascaraCPF() {
         // *OBS - ARRUMAR
         var cpf = document.getElementById("cpf")
         console.log(cpf)
@@ -191,6 +191,16 @@ const CadUsuario = (props) => {
             cpf.value += "."
         } else if (cpf.value.length == 11){
             cpf.value += "-"
+        }
+    }
+
+    function mascaraTelefone(){
+        var phone = document.getElementById("telefone")
+        if (phone.value.length == 2){
+            phone.value = "(" + phone.value + ") "
+        }
+        if (phone.value.length == 10) {
+            phone.value += "-"
         }
     }
 
@@ -339,7 +349,7 @@ const CadUsuario = (props) => {
                         onblur={validarCPF()}/> */}
 
                         <input type="text" name="cpf" id="cpf" placeholder="Apenas Números" 
-                         defaultValue={cpf} onblur={validarCPF}/>
+                         defaultValue={cpf} maxLength={14} onChange={mascaraCPF}/>
 
                     </div>
 
@@ -369,7 +379,7 @@ const CadUsuario = (props) => {
                     <div class="box-telefone">
                         <label for="telefone">Telefone <p>(opcional)</p></label>
                         <input type="text" name="telefone" id="telefone" placeholder="Digite o numero do seu telefone" 
-                        defaultValue={telefone}/>
+                        defaultValue={telefone} onChange={mascaraTelefone}/>
                     </div>
 
                     <div class="box-tipoUsuario">
