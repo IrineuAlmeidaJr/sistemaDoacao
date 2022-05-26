@@ -13,7 +13,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
     const [bairro, setBairro] = React.useState('');
     const [cidade, setCidade] = React.useState('');
     const [estado, setEstado] = React.useState('');
-    const [CodUsuario, setCodUsuario] = React.useState(24);
+    const [CodUsuario, setCodUsuario] = React.useState(37); // Mudar para pegar do Storage
     const[atualizando, setAtualizando] = React.useState(false);
 
 
@@ -56,13 +56,15 @@ export default function FormCadLocalDoacao (tamanhoPass){
         if(!atualizando)
         {
             const local = {
+                id: 0,
                 nomeRua: nomeRua,
                 numero: numero,
                 bairro: bairro,
                 cidade: cidade,
                 estado: estado,
-                codUsuario: CodUsuario
+                usuarioId: CodUsuario
             };
+            console.log(local);
             api.post('/localDoacao', local);
             swal("Finalizado!", "Cadastro local de doação efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
@@ -92,7 +94,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
         setEstado('');
         setNomeRua('');
         setNumero('');
-        setCodUsuario(24);
+        setCodUsuario(37); // Mudar para pegar do Storage
     }
 
     return(
