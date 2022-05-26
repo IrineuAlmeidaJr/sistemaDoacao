@@ -65,18 +65,19 @@ export default function FormCadBeneficiario (tamanhoPass){
             });*/
             } else {
                 const ben = {
-                    id: id,
+                    id: tamanhoPass.location.state.id,
                     nome: nome,
                     cpf: cpf,
                     dataNascimento: dataNascimento,
                     usuarioId: usuarioId
                 };
                 api.put('/Beneficiario', ben);
-                swal("Finalizado!", "Cadastro de beneficiário efetuado com sucesso.", "success").then(function() {
+                swal("Finalizado!", "Alteração de beneficiário efetuado com sucesso.", "success").then(function() {
                     window.location = '/';
                 });
             }
     
+            setId('');
             setNome('');
             setCpf('');
             setDataNascimento('');

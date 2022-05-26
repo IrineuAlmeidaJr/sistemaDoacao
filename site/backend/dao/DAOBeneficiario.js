@@ -13,8 +13,9 @@ module.exports = class DAOBeneficiario {
 
     async alterar(beneficiario, db) {
         // Fazer validações aqui --> de CPF tambem
+        console.log(beneficiario)
         const sql = "UPDATE beneficiario SET bene_cpf=?, bene_nome=?, bene_dataNascimento=?, usuario_id_usu=? WHERE bene_id=?";
-        const valor = [beneficiario.getNome(),beneficiario.getCpf(), beneficiario.getDataNasc(), beneficiario.getUsuarioId(), beneficiario.getId()];      
+        const valor = [beneficiario.getNome(),beneficiario.getCpf(), beneficiario.getDataNasc(), beneficiario.getUsuarioId(), beneficiario.getid()];      
         const result = await db.manipula(sql, valor);  
         console.log(result);                 
     }
