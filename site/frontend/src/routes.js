@@ -22,6 +22,7 @@ import Login from './pages/Login'
 import Logout from './pages/Logout'
 import CancelarInscricao from "./pages/CancelarInscricao";
 import EsqueciSenha from "./pages/EsqueciSenha";
+import ListaAgenda from "./pages/ListaAgenda";
 
 
 
@@ -48,6 +49,8 @@ const Routes = () => {
             <Route component={Login} path='/login'/>
             <Route component={Logout} path='/logout'></Route>
             <Route component={EsqueciSenha} path='/esqueciSenha'></Route>
+            <Route component={CancelarInscricao} path='/cancelarInscricao'></Route>
+            <Route component={ListaAgenda} path='/listaAgenda'></Route>
             
 
 

@@ -15,7 +15,8 @@ export default function FormCadBeneficiario (tamanhoPass){
     const[nome, setNome] = React.useState('');
     const[cpf, setCpf] = React.useState('');
     const[dataNascimento, setDataNascimento] = React.useState(new Date());
-    const[usuarioId, setUsuarioId] = React.useState(24);
+    const[usuarioId, setUsuarioId] = React.useState(29);
+    const usu = JSON.parse(localStorage.getItem('usuInfo'));
     const[atualizando, setAtualizando] = React.useState(false);
     
 
@@ -42,7 +43,6 @@ export default function FormCadBeneficiario (tamanhoPass){
         setNome(document.getElementById('nome').value);
         setCpf(document.getElementById('cpf').value);
         setDataNascimento(document.getElementById('dataNascimento').value);
-        setUsuarioId(24); //não tem sessão implemetada ainda
     }
 
     function handleSubmit(e) {
@@ -81,7 +81,7 @@ export default function FormCadBeneficiario (tamanhoPass){
             setNome('');
             setCpf('');
             setDataNascimento('');
-            setUsuarioId(24);
+            setUsuarioId(29);
         }
     }
     
