@@ -53,5 +53,17 @@ module.exports = class Genero{
         return genero;
     }
 
+    async listarPorNome(genero_nome, db) {
+        const resp=await new DAOGenero().listarPorNome(genero_nome, db);
+        let genero = []; 
+        for(let i=0; i < resp.data.length; i++) {
+            genero.push(new Genero(
+                resp.data[i].genero_id,
+                resp.data[i].genero_nome
+            ))
+        }
+        return genero;
+    }
+
     
 }

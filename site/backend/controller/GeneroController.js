@@ -29,6 +29,12 @@ module.exports = {
         return response.json(genero);
     },
 
+    async listarPorNome (request, response) {
+        const {genero_nome} = request.params;
+        const con = await db.conecta();
+        let gen = await new Genero().listarPorNome(genero_nome, db);
+        return response.json(gen);
+    },
 
     async listar (request, response) {
         const con = await db.conecta();

@@ -90,18 +90,20 @@ module.exports = class LocalDoacao {
 
     async listar(db) {
         const resp = await new DAOLocalDoacao().listar(db);
+        console.log(resp);
         let localdoacao = [];
-        for (let i = 0; i < resp.length; i++) {
+        for (let i = 0; i < resp.data.length; i++) {
             localdoacao.push(new LocalDoacao(
-                resp[i].local_id,
-                resp[i].local_nomeRua,
-                resp[i].local_numero,
-                resp[i].local_bairro,
-                resp[i].local_cidade,
-                resp[i].local_estado,
-                resp[i].usuario_id_usu
+                resp.data[i].local_id,
+                resp.data[i].local_nomeRua,
+                resp.data[i].local_numero,
+                resp.data[i].local_bairro,
+                resp.data[i].local_cidade,
+                resp.data[i].local_estado,
+                resp.data[i].usuario_id_usu
             ));
         }
+        console.log(localdoacao);
         return localdoacao;
     }
         

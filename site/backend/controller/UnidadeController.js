@@ -33,6 +33,13 @@ module.exports = {
         return res.json(novo)
     },
 
+    async listarPorNome (request, response) {
+        const {uni_nome} = request.params;
+        const con = await db.conecta();
+        let uni = await new Unidade().listarPorNome(uni_nome, db);
+        return response.json(uni);
+    },
+
     async buscarTodos(req,res){
         const con = await db.conecta()
         let lista = []
@@ -40,4 +47,5 @@ module.exports = {
         lista = await novo.listar(db)
         return res.json(lista)
     }
+    
 }

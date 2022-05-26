@@ -57,4 +57,16 @@ module.exports = class TipoDoacao {
         }
         return tipodoacao;
     }
+
+    async listarPorNome(tipo_nome, db) {
+        const resp=await new DAOTipoDoacao().listarPorNome(tipo_nome, db);
+        let tipo = []; 
+        for(let i=0; i < resp.data.length; i++) {
+            tipo.push(new TipoDoacao(
+                resp.data[i].tipo_id,
+                resp.data[i].tipo_nome
+            ))
+        }
+        return tipo;
+    }
 }

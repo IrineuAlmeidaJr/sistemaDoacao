@@ -38,7 +38,7 @@ export default function FormCadTipoDoacao (tipodoacao) {
         e.preventDefault();
         if(!estaAtualizando){ 
             const td = {
-                nome: nome
+                nome: nome.nome
             };
             api.post('/tipoDoacao', td); 
             swal("Finalizado!", "Cadastro tipo de doação efetuado com sucesso.", "success").then(function() {
@@ -50,7 +50,7 @@ export default function FormCadTipoDoacao (tipodoacao) {
                 nome: nome.nome
             };
             api.put('/tipoDoacao', td); 
-            swal("Finalizado!", "Cadastro tipo de doação efetuado com sucesso.", "success").then(function() {
+            swal("Finalizado!", "Alteração efetuada com sucesso.", "success").then(function() {
                 window.location = '/';
             });
         }

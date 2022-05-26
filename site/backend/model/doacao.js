@@ -36,15 +36,15 @@ module.exports = class Doacao {
     }
 
     getCampanha_id(){
-        return this.camapanha_id;
+        return this.campanha_id;
     }
 
-    setCampanha_id(camapanha_id){
-        this.camapanha_id = camapanha_id;
+    setCampanha_id(campanha_id){
+        this.campanha_id = campanha_id;
     }
 
     getUsu_id(){
-        return this.codUsuario;
+        return this.usu_id;
     }
 
     setUsu_id(usu_id){
@@ -77,9 +77,9 @@ module.exports = class Doacao {
         if(resp.data.length > 0) {
             doacao = new Doacao(
                 resp.data[0].doacao_id,
-                resp.data[0].doacao_dataDocao,
+                resp.data[0].doacao_dataDoacao,
                 resp.data[0].doacao_localDoacao_id,
-                resp.data[0].camapanha_id,
+                resp.data[0].campanha_id,
                 resp.data[0].usu_id,
                 resp.data[0].doacao_status
             )        
@@ -92,14 +92,30 @@ module.exports = class Doacao {
         let doacao = []; 
         for(let i=0; i < resp.data.length; i++) {
             doacao.push(new Doacao(
-                resp.data[0].doacao_id,
-                resp.data[0].doacao_dataDocao,
-                resp.data[0].doacao_localDoacao_id,
-                resp.data[0].camapanha_id,
-                resp.data[0].usu_id,
-                resp.data[0].doacao_status
+                resp.data[i].doacao_id,
+                resp.data[i].doacao_dataDoacao,
+                resp.data[i].doacao_localDoacao_id,
+                resp.data[i].campanha_id,
+                resp.data[i].usu_id,
+                resp.data[i].doacao_status
             ));
         }
+        return doacao;
+    }
+
+    async ultimo(db) {
+        const resp=await new DAODoacao().ultimo(db);
+        let doacao; 
+        console.log(resp);
+        doacao = new Doacao(
+            resp.data[0].doacao_id,
+            resp.data[0].doacao_dataDoacao,
+            resp.data[0].doacao_localDoacao_id,
+            resp.data[0].campanha_id,
+            resp.data[0].usu_id,
+            resp.data[0].doacao_status
+        );
+        
         return doacao;
     }
 

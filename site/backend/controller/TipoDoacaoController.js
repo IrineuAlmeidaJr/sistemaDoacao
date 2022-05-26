@@ -37,6 +37,13 @@ module.exports = {
         return response.json(tipodoacao);
     },
 
+    async listarPorNome (request, response) {
+        const {tipo_nome} = request.params;
+        const con = await db.conecta();
+        let tipo = await new TipoDoacao().listarPorNome(tipo_nome, db);
+        return response.json(tipo);
+    },
+
     async listar (request, response) {
         const con = await db.conecta();
         let tipodoacao = await new TipoDoacao().listar(db);

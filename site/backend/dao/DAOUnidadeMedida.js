@@ -29,4 +29,11 @@ module.exports = class DAOUnidadeMedida {
         return p
     }
 
+    async listarPorNome(nome, db) {
+        const sql = 'SELECT * FROM unidadeMedida WHERE uni_nome LIKE ? ORDER BY uni_nome';
+        const valor = [nome + "%"];
+        const uni = await db.consulta(sql, valor);
+        return uni;
+    }
+
 }

@@ -35,5 +35,12 @@ module.exports = class DAOGenero {
         return gen;
     }
 
+    async listarPorNome(nome, db) {
+        const sql = 'SELECT * FROM genero WHERE genero_nome LIKE ? ORDER BY genero_nome';
+        const valor = [nome + "%"];
+        const gen = await db.consulta(sql, valor);
+        return gen;
+    }
+
 
 }

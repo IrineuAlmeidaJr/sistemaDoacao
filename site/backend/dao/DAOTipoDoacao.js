@@ -40,6 +40,13 @@ module.exports = class DAOTipoDoacao {
         return result;
     }
 
+    async listarPorNome(nome, db) {
+        const sql = 'SELECT * FROM tipodoacao WHERE tipo_nome LIKE ? ORDER BY tipo_nome';
+        const valor = [nome + "%"];
+        const tipo = await db.consulta(sql, valor);
+        return tipo;
+    }
+
     
 
 }

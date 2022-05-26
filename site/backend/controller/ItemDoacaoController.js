@@ -5,12 +5,12 @@ const ItemDoacao = require('../model/ItensDoacao');
 module.exports = {
 
     async gravar(request, response) {
-        const {id, nome, qtde, tipoDoa_id, uniMed_id, tam_id, genero_id, doa_id} = request.body; // campos do formulario
-        let itens = new ItemDoacao(0, nome, qtde, tipoDoa_id, uniMed_id, tam_id, genero_id, doa_id);
+        const {id, nome, quantidade, tipoDoacao_id, unidadeMedida_id, tamanho_id, genero_id, doacao_id} = request.body; // campos do formulario
+        let itens = new ItemDoacao(0, nome, quantidade, tipoDoacao_id, unidadeMedida_id, tamanho_id, genero_id, doacao_id);
         const con = await db.conecta(); //  conecta ao banco        
-        
+        console.log(itens);
         await itens.gravar(db);
-
+        console.log(itens);
         return response.json(itens);
     },
 
@@ -23,9 +23,9 @@ module.exports = {
     },
 
     async excluir(request, response) {
-        const {id} = request.params; // parametro de url
+        const {itens_id} = request.params; // parametro de url
         const con = await db.conecta(); 
-        let itens = await new ItemDoacao().procurarId(id, db);
+        let itens = await new ItemDoacao().procurarId(itens_id, db);
         if(Object.keys(itens).length !== 0) {
             await itens.excluir(db);
         }

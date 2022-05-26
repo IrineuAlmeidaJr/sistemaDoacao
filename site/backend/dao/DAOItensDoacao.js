@@ -1,8 +1,8 @@
 module.exports = class DAOItensDoacao {
 
     async gravar(item, db) {
-
-        const sql = "INSERT INTO tipodoacao (itens_nome," +
+        console.log(item);
+        const sql = "INSERT INTO itensdoacao (itens_nome," +
                     "itens_quantidade," +
                     "tipoDoacao_id," +
                     "unidadeMedida_id," +
@@ -11,7 +11,7 @@ module.exports = class DAOItensDoacao {
                     "doacao_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         const valor = [item.getNome(),
                     item.getQuantidade(),
-                    item.TipoDoacao_id(),
+                    item.getTipoDoacao_id(),
                     item.getUnidadeMedida_id(),
                     item.getTamanho_id(),
                     item.getGenero_id(),

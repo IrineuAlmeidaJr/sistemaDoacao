@@ -41,6 +41,13 @@ module.exports = class DAOTamanho {
         return p
     }
 
+    async listarPorNome(nome, db) {
+        const sql = 'SELECT * FROM tamanho WHERE tamanho_tam LIKE ? ORDER BY tamanho_tam';
+        const valor = [nome + "%"];
+        const tam = await db.consulta(sql, valor);
+        return tam;
+    }
+
 
     
 

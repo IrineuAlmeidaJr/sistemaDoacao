@@ -34,6 +34,7 @@ module.exports = class DAOLocalDoacao{
     async listar(db) {
         const sql = "SELECT * FROM localdoacao";
         const result = await db.consulta(sql);
+        console.log(result);
         return result;
     }
     

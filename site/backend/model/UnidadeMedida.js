@@ -51,4 +51,16 @@ module.exports = class Unidade {
         }
         return lista
     }
+
+    async listarPorNome(uni_nome, db) {
+        const resp=await new DAOUnidadeMedida().listarPorNome(uni_nome, db);
+        let unidade = []; 
+        for(let i=0; i < resp.data.length; i++) {
+            unidade.push(new Unidade(
+                resp.data[i].uni_id,
+                resp.data[i].uni_nome
+            ))
+        }
+        return unidade;
+    }
 }

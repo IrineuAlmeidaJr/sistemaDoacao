@@ -10,7 +10,7 @@ const generoCtrl = require('./controller/GeneroController')
 const beneficiarioCtrl = require('./controller/BeneficiarioController')
 const unidadeCtrl = require('./controller/UnidadeController')
 const localDoacaoCtrl = require('./controller/LocalDoacaoController')
-const itensDoacaoCtrl = require('./controller/ItemDoacaoController')
+const itensDoacaoCtrl = require('./controller/itemDoacaoController')
 const doacaoCtrl = require('./controller/DoacaoController')
 
 // Tem colocar porque cai no CORS, o navegador impede a conexão
@@ -37,12 +37,14 @@ routes.post('/tamanho',tamanhoCtrl.gravar)
 routes.put('/tamanho',tamanhoCtrl.alterar)
 routes.delete('/tamanho',tamanhoCtrl.excluir)
 routes.get('/tamanhoi',tamanhoCtrl.buscarId)
+routes.get('/tamanhoNome/:tam_nome',tamanhoCtrl.listarPorNome)
 
 // Rotas Genero
 routes.post('/genero', generoCtrl.gravar);
 routes.put('/genero', generoCtrl.alterar);
 routes.delete('/genero/:genero_id',generoCtrl.excluir)
-routes.get('/genero', generoCtrl.listar); 
+routes.get('/genero', generoCtrl.listar);
+routes.get('/generoNome/:genero_nome', generoCtrl.listarPorNome); 
 
 
 //Rotas campanha doação
@@ -65,6 +67,7 @@ routes.get('/tipoDoacao', tipoDoacao.listar);
 routes.put('/tipoDoacao', tipoDoacao.alterar);
 routes.delete('/tipoDoacao/:tipo_id', tipoDoacao.excluir);
 routes.get('/tipoDoacao/:tipo_id', tipoDoacao.listarPorId);
+routes.get('/tipoDoacaoNome/:tipo_nome', tipoDoacao.listarPorNome);
 
 //rotas beneficiario
 routes.post('/beneficiario', beneficiarioCtrl.gravar);
@@ -80,6 +83,7 @@ routes.post('/unidade',unidadeCtrl.gravar)
 routes.put('/unidade',unidadeCtrl.alterar)
 routes.delete('/unidade', unidadeCtrl.excluir)
 routes.get('/unidadei',unidadeCtrl.buscarId)
+routes.get('/unidadeNome/:uni_nome',unidadeCtrl.listarPorNome)
 
 //Rotas LocalDoacao
 routes.post('/localDoacao', localDoacaoCtrl.gravar);
@@ -101,6 +105,7 @@ routes.get('/doacao', doacaoCtrl.listar);
 routes.put('/doacao', doacaoCtrl.alterar);
 routes.delete('/doacao/:doacao_id', doacaoCtrl.excluir);
 routes.get('/doacao/:doacao_id', doacaoCtrl.listarPorId);
+routes.get('/doacaoUltimo', doacaoCtrl.ultimo);
 
 // module.exports = {routes}; 
 module.exports = routes; // Estava dando erro de rota, tem exportar sem ser objeto

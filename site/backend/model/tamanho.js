@@ -51,6 +51,18 @@ class Tamanho {
         }
         return lista
     }
+
+    async listarPorNome(tam_nome, db) {
+        const resp=await new DAOTamanho().listarPorNome(tam_nome, db);
+        let tamanho = []; 
+        for(let i=0; i < resp.data.length; i++) {
+            tamanho.push(new Tamanho(
+                resp.data[i].tamanho_id,
+                resp.data[i].tamanho_tam
+            ))
+        }
+        return tamanho;
+    }
 }
 
 module.exports = Tamanho;

@@ -33,6 +33,13 @@ module.exports = {
         return res.json(novo)
     },
 
+    async listarPorNome (request, response) {
+        const {tam_nome} = request.params;
+        const con = await db.conecta();
+        let tam = await new Tamanho().listarPorNome(tam_nome, db);
+        return response.json(tam);
+    },
+
     async buscarTodos(req,res){
         const con = await db.conecta()
         let lista = []
