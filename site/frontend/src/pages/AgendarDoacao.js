@@ -83,12 +83,12 @@ export default function AgendarDoacao(doa) {
 
     async function getLastIncludedDonation()
     {
-        //let id;
+        let id;
         let resp = await api.get('/doacaoUltimo');
-        //console.log(resp.data.id);
-        //id = resp.data.id;
-        //console.log(id);
-        return resp.data;
+        console.log(resp.data.id);
+        id = resp.data.id;
+        console.log(id);
+        return id;
     }
 
     function handler() {
@@ -130,7 +130,7 @@ export default function AgendarDoacao(doa) {
         }        
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         if(!estaAtualizando){ 
             const doacaoObj = {
@@ -141,10 +141,10 @@ export default function AgendarDoacao(doa) {
                 status: doacao.status
             };
             console.log(doacaoObj);
-            api.post('/doacao', doacaoObj);
+            await api.post('/doacao', doacaoObj);
 
             //console.log(itens);
-            let res = getLastIncludedDonation();//await api.get('/doacaoUltimo');
+            //let res = await getLastIncludedDonation();
             //console.log(doaId.data);
             const itensObj = {
                 id: itens.id,
@@ -154,10 +154,10 @@ export default function AgendarDoacao(doa) {
                 unidadeMedida_id: itens.uniMedida,
                 tamanho_id: itens.tamanho,
                 genero_id: itens.genero,
-                doacao_id: res.data.id
+                doacao_id: await getLastIncludedDonation()
             };
             console.log(itensObj);
-            api.post('/itensDoacao', itensObj);
+            await api.post('/itensDoacao', itensObj);
 
             swal("Finalizado!", "Agendamento efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
