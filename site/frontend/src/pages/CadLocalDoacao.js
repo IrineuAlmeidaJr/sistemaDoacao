@@ -28,7 +28,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
         else
             {
                 setAtualizando(true)
-                setNomeRua(tamanhoPass.location.state.nomeRua);
+                setNomeRua(tamanhoPass.location.state.nomerua);
                 setNumero(tamanhoPass.location.state.numero);
                 setBairro(tamanhoPass.location.state.bairro);
                 setCidade(tamanhoPass.location.state.cidade);

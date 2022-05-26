@@ -3,15 +3,16 @@ import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
 import swal from 'sweetalert';
-
-
+import opt from '../components/ComboBoxLocalDoacao'
 const localRecursos = 'http://localhost:4000/campanhaDoacao'
 
 
 export default function FormCadCampanhaDoacao (campanhaPass){
 
+
     const [campanha,setCampanha] = React.useState('')
     const [estaAtualizando, setEstaAtualizando] = React.useState(false);
+    const [listaL, setlistaL]=React.useState([])
     React.useEffect(()=>{
         if(!estaAtualizando)
             atualiza()
@@ -37,6 +38,17 @@ export default function FormCadCampanhaDoacao (campanhaPass){
             setCampanha({cod: campanhaPass.location.state.cod, nome: document.getElementById('nome').value,dataInicio: document.getElementById('dataInicio').value,dataFim: document.getElementById('dataFim').value})
         }
         
+    }
+
+    async function fetchCampanhas() {
+        await fetch('http://localhost:4000/',{method:"GET"})
+        .then(resposta=>resposta.json())
+        .then(dados=>{
+            setlistaL(dados);
+        }, 
+        error =>{
+            alert(error)
+        });
     }
 
     async function handleSubmit(e) {
@@ -95,7 +107,12 @@ export default function FormCadCampanhaDoacao (campanhaPass){
                         <label for="dataFim">Data de termino</label>
                         <input type="date" name="dataFim" id="dataFim" defaultValue={campanha.dataFim}/>
                     </div>
-                    
+                    <div class="box-local">
+                        <label for="local">Selecione o local</label>
+                        <select name="local" id="local">
+                            <opt></opt>
+                        </select>
+                    </div>
                     <button class="bt-cadUsuario" type="submit" onClick={handler}>Confirmar</button>
                 </form>
             </div>

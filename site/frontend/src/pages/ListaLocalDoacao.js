@@ -25,6 +25,7 @@ const ListaLocalDoacao = () => {
         } catch(err) {
                 console.log(err);
             }
+        
     }
 
     function deletar(LocalDoacaoR) {

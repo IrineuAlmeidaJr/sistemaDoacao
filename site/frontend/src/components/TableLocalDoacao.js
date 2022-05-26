@@ -23,6 +23,7 @@ const Table = (props) => {
                 </tr>
                 {
                     props.locais.map(Local => (
+                        
                         <tr>
                             <td>{Local.id}</td>
                             <td>{Local.nomeRua}</td>
