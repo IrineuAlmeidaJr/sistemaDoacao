@@ -197,3 +197,17 @@
 .bt-cadUsuario:active {
     transform: translateY(4px);
 }
+
+.box-local {
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    margin-bottom: 20px;
+    
+}
+
+.box-local input {
+    margin: 0px 10px 5px 0;
+    height: 15px ;
+    width: 25px;
+}

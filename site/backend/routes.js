@@ -78,12 +78,12 @@ routes.get('/beneficiario/:beneficiario_id', beneficiarioCtrl.listarPorId);
 routes.get('/beneficiario/dependente/:id',beneficiarioCtrl.listarDependente)
 
 //Rotas unidade de medida
-routes.get('/unidade',unidadeCtrl.buscarTodos)
-routes.post('/unidade',unidadeCtrl.gravar)
-routes.put('/unidade',unidadeCtrl.alterar)
-routes.delete('/unidade', unidadeCtrl.excluir)
-routes.get('/unidadei',unidadeCtrl.buscarId)
-routes.get('/unidadeNome/:uni_nome',unidadeCtrl.listarPorNome)
+routes.get('/unidade',unidadeCtrl.buscarTodos);
+routes.post('/unidade',unidadeCtrl.gravar);
+routes.put('/unidade',unidadeCtrl.alterar);
+routes.delete('/unidade', unidadeCtrl.excluir);
+routes.get('/unidadei',unidadeCtrl.buscarId);
+routes.get('/unidadeNome/:uni_nome',unidadeCtrl.listarPorNome);
 
 //Rotas LocalDoacao
 routes.post('/localDoacao', localDoacaoCtrl.gravar);

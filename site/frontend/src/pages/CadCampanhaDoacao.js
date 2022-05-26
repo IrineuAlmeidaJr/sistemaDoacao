@@ -1,9 +1,10 @@
 import React from 'react';
+import api from '../service/api'
 import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
 import swal from 'sweetalert';
-import opt from '../components/ComboBoxLocalDoacao'
+import ComboBox from '../components/ComboBoxLocalDoacao';
 const localRecursos = 'http://localhost:4000/campanhaDoacao'
 
 
@@ -16,7 +17,12 @@ export default function FormCadCampanhaDoacao (campanhaPass){
     React.useEffect(()=>{
         if(!estaAtualizando)
             atualiza()
-    });
+        fetchCampanhas()      
+    }, []);
+
+    // React.useEffect(() => {
+    //     fetchCampanhas()  
+    // }, [])
 
     function atualiza(){
         // *** OBS: depois arrumar essar parte está dando problema
@@ -41,14 +47,13 @@ export default function FormCadCampanhaDoacao (campanhaPass){
     }
 
     async function fetchCampanhas() {
-        await fetch('http://localhost:4000/',{method:"GET"})
-        .then(resposta=>resposta.json())
-        .then(dados=>{
-            setlistaL(dados);
-        }, 
-        error =>{
-            alert(error)
-        });
+        try {
+            const response = await api.get('/localDoacao');
+            setlistaL(response.data);            
+        
+        } catch(err) {
+            console.log(err);
+        }  
     }
 
     async function handleSubmit(e) {
@@ -108,10 +113,10 @@ export default function FormCadCampanhaDoacao (campanhaPass){
                         <input type="date" name="dataFim" id="dataFim" defaultValue={campanha.dataFim}/>
                     </div>
                     <div class="box-local">
-                        <label for="local">Selecione o local</label>
-                        <select name="local" id="local">
-                            <opt></opt>
-                        </select>
+                        <p for="local">Selecione o local</p>
+                       
+                        <ComboBox locais={listaL}/>
+                        
                     </div>
                     <button class="bt-cadUsuario" type="submit" onClick={handler}>Confirmar</button>
                 </form>
