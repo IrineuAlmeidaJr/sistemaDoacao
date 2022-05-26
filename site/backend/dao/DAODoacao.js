@@ -1,7 +1,7 @@
 module.exports = class DAOItensDoacao {
 
     async gravar(doa, db) {
-        console.log(doa);
+        //console.log(doa);
         const sql = "INSERT INTO doacao (doacao_dataDoacao, doacao_localDoacao_id, campanha_id, usu_id, doacao_status) VALUES (?,?,?,?,?)";
         const valor = [doa.getDataDoacao(), doa.getLocalDoacao_id(), doa.getCampanha_id(), doa.getUsu_id(), doa.getStatus()]; 
         

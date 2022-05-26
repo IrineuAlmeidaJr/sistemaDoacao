@@ -14,12 +14,13 @@ module.exports = class DAOLocalDoacao{
         const sql = "UPDATE localdoacao SET local_nomeRua=?, local_numero=?, local_bairro=?, local_cidade=?, local_estado=?, usuario_id_usu=? WHERE local_id=?";
         const valor = [local.getNomeRua(),local.getNumero(),local.getBairro(),local.getCidade(),local.getEstado(),local.getUsuarioId(),local.getId()];      
         const result = await db.manipula(sql, valor);  
-        console.log(result);                 
+        //console.log(result);                 
     }
 
     async excluir(local, db){
         const sql = "DELETE FROM localdoacao WHERE local_id=?"
         const valor = [local.getId()];
+        console.log("dao exlcuir: "+valor)
         const result = await db.manipula(sql,valor);
         return result;
     }

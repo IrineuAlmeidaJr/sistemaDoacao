@@ -22,7 +22,7 @@ module.exports = class DAOBeneficiario {
 
     async excluir(beneficiario, db){
         const sql = "DELETE FROM beneficiario WHERE bene_id=?"
-        const valor = [beneficiario.getId()];
+        const valor = [beneficiario.getid()];
         const result = await db.manipula(sql,valor);
         return result;
     }
@@ -38,6 +38,14 @@ module.exports = class DAOBeneficiario {
             const sql = "SELECT * FROM beneficiario";
             const result = await db.consulta(sql);
             return result;
+    }
+
+    async listarPorNome(nome, db) {
+
+        const sql = 'SELECT * FROM beneficiario WHERE bene_nome LIKE ? ORDER BY bene_nome';
+        const valor = [nome + "%"];
+        const usu = await db.consulta(sql, valor);
+        return usu;
     }
 
     async listarPorDependente(id,db){

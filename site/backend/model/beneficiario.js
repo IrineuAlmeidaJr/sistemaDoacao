@@ -93,6 +93,24 @@ module.exports = class beneficiaro{
         return beneficiario;
     }
 
+    async listarPorNome(bene_nome, db) {
+        const resp=await new DAOBeneficiario().listarPorNome(bene_nome, db);
+        console.log(bene_nome)
+        let beneficiario = []; 
+        for(let i=0; i < resp.data.length; i++) {
+            beneficiario.push(new beneficiaro(
+                resp.data[i].bene_id,
+                resp.data[i].bene_cpf,
+                resp.data[i].bene_nome,
+                resp.data[i].bene_dataNascimento,
+                resp.data[i].usuario_id_usu
+            ))
+        }
+        return beneficiario;
+    }
+
+    
+
     async listarPorDependente(id,db){
         const resp=await new DAOBeneficiario().listarPorDependente(id, db);
         let beneficiario = [];

@@ -115,7 +115,7 @@ export default function AgendarDoacao(doa) {
                 doacaoId: 0
             });
             
-            console.log(itens);
+            //console.log(itens);
         }
         else{
             console.log('entrou');
@@ -126,7 +126,7 @@ export default function AgendarDoacao(doa) {
                 usuario: localStorage.getItem("usuInfo").id,
                 status: document.getElementById('tipoDoacao').value});
             
-            console.log(doacao);
+            //console.log(doacao);
         }        
     }
 
@@ -140,7 +140,7 @@ export default function AgendarDoacao(doa) {
                 usu_id: doacao.usuario,
                 status: doacao.status
             };
-            console.log(doacaoObj);
+            //console.log(doacaoObj);
             await api.post('/doacao', doacaoObj);
 
             //console.log(itens);

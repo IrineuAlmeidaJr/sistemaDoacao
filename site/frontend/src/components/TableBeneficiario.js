@@ -28,7 +28,7 @@ const Table = (props) => {
                             <td>{beneficiario.dataNasc.substr(0, 10)}</td>
                             <td>{beneficiario.usuarioId}</td>
                             <td><Button variant="outline-primary" onClick={()=>{props.alterar(beneficiario)}}><img src={editar} alt="Botao editar"/></Button>{' '}</td>
-                            <td><Button variant='outline-danger' onClick={()=>{props.deletar(beneficiario)}}><img src={deletar} alt="Botao deletar"/></Button></td>               
+                            <td><Button variant="outline-danger" onClick={()=>{props.deletar(beneficiario)}}><img src={deletar} alt="Botao deletar"/></Button></td>               
                         </tr>
                     ))
                 }

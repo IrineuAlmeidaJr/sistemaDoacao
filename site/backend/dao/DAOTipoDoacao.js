@@ -16,7 +16,7 @@ module.exports = class DAOTipoDoacao {
         const sql = "UPDATE tipodoacao SET tipo_nome=? WHERE tipo_id=?";
         const valor = [tipo.getNome(), tipo.getId()];      
         const result = await db.manipula(sql, valor);  
-        console.log(result);                 
+        //console.log(result);                 
     }
 
     async excluir(tipo, db){
@@ -41,7 +41,7 @@ module.exports = class DAOTipoDoacao {
     }
 
     async listarPorNome(nome, db) {
-        console.log(nome);
+        //console.log(nome);
         const sql = 'SELECT * FROM tipodoacao WHERE tipo_nome LIKE ? ORDER BY tipo_nome';
         const valor = [nome + "%"];
         const tipo = await db.consulta(sql, valor);

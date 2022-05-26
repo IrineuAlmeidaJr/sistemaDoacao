@@ -44,6 +44,14 @@ module.exports = {
         return response.json(beneficiario);
     },
 
+    async listarPorNome (request, response) {
+        const {bene_nome} = request.params;
+        console.log("listarCtrl: " + bene_nome);
+        const con = await db.conecta();
+        let bene = await new B().listarPorNome(bene_nome, db);
+        return response.json(bene);
+    },
+
     async listarDependente(request,response){
         console.log("entra aqui?")
         const {id} = request.params; // parametro de url

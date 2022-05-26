@@ -29,10 +29,22 @@ const ListaBeneficiarios = () => {
     }
     
 
+    async function buscarNome() {
+        const nome = document.getElementById('pesquisarUsu').value;
+        console.log("buscarNome: " + nome);
+        try {
+            const response = await api.get(`/beneficiario/${nome}`);
+            setListaBeneficiarios(response.data);  
+        } catch(err) {
+            console.log(err);
+        }            
+    }
+
     async function deletar(beneficiarioR) {
-       const id = beneficiarioR.bene_id;
+       const id = beneficiarioR.id;
+       //console.log("deletar: " + id);
        try {
-        await api.delete(`/Beneficiario/${id}`);
+        await api.delete(`/beneficiario/${id}`);
            fetchBeneficiarios();
        } catch(err) {
               swal("Erro", "Erro ao deletar", "error");           
@@ -40,6 +52,7 @@ const ListaBeneficiarios = () => {
     }
     
     function alterar(beneficiarioR) {
+        //console.log("alterar:"+beneficiarioR.id)
         history.push({
         pathname: '/CadBeneficiario',
         state:{id: beneficiarioR.id, nome: beneficiarioR.nome, cpf: beneficiarioR.cpf, datanascimento: beneficiarioR.dataNascimento, usuarioId: beneficiarioR.usuarioId},
@@ -53,10 +66,16 @@ const ListaBeneficiarios = () => {
             
                 <div class="campo-exibicao">
                     <h1>Gerenciar Beneficiarios</h1>
-                    <div class="box-senha">
-                            <label for="Busca">Buscar por nome</label>
-                            <input type="input" name="busca" id="busca"/>
-                    </div>
+                    <div class="alterar">
+                            <h3>Consultar por Nome</h3>
+                            <div class="alterarInterno">
+                                <label for="pesquisarUsu">Nome</label>
+                                <input type="text" id="pesquisarUsu" placeholder="Nome deseja buscar..." />
+                                <div class="botao">
+                                    <button onClick={buscarNome}>Buscar</button>
+                                </div>
+                            </div>
+                        </div>
                     <Table
                         beneficiarios={ListaBeneficiarios} 
                         deletar={deletar} 

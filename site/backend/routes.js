@@ -74,8 +74,10 @@ routes.post('/beneficiario', beneficiarioCtrl.gravar);
 routes.get('/beneficiario', beneficiarioCtrl.listar);
 routes.put('/beneficiario', beneficiarioCtrl.alterar);
 routes.delete('/beneficiario/:beneficiario_id', beneficiarioCtrl.excluir);
+routes.get('/beneficiario/:bene_nome', beneficiarioCtrl.listarPorNome);
 routes.get('/beneficiario/:beneficiario_id', beneficiarioCtrl.listarPorId);
-routes.get('/beneficiario/dependente/:id',beneficiarioCtrl.listarDependente)
+routes.get('/beneficiario/dependente/:id',beneficiarioCtrl.listarDependente);
+
 
 //Rotas unidade de medida
 routes.get('/unidade',unidadeCtrl.buscarTodos);

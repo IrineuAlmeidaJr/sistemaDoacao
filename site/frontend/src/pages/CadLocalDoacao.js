@@ -44,7 +44,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
         setBairro(document.getElementById('bairro').value);
         setCidade(document.getElementById('cidade').value);
         setEstado(document.getElementById('estado').value);
-        setCodUsuario(24); //não tem sessão implemetada ainda
+        setCodUsuario(37); //não tem sessão implemetada ainda
         
     }
 
@@ -80,7 +80,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
                 bairro: bairro,
                 cidade: cidade,
                 estado: estado,
-                codUsuario: CodUsuario
+                usuarioId: CodUsuario
             };
             api.put('/localDoacao', local);
             swal("Finalizado!", "Alteração local de doação efetuado com sucesso.", "success").then(function() {
@@ -89,6 +89,7 @@ export default function FormCadLocalDoacao (tamanhoPass){
             );
         }
 
+        setId('');
         setBairro('');
         setCidade('');
         setEstado('');

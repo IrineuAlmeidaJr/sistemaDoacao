@@ -30,8 +30,9 @@ const ListaLocalDoacao = () => {
 
     function deletar(LocalDoacaoR) {
         const id = LocalDoacaoR.id;
+        console.log("deletar: " + id);
         try {
-            api.delete(`/LocalDoacao/${id}`);
+            api.delete(`/localDoacao/${id}`);
             fetchBeneficiarios();
         } catch(err) {
                //console.log(err);
@@ -42,7 +43,7 @@ const ListaLocalDoacao = () => {
     function alterar(LocalDoacaoR) {
         history.push({
         pathname: '/CadLocalDoacao',
-        state:{cod: LocalDoacaoR.id, nomerua: LocalDoacaoR.nomeRua, numero: LocalDoacaoR.numero, bairro: LocalDoacaoR.bairro, cidade: LocalDoacaoR.cidade, estado: LocalDoacaoR.estado, usuarioId: LocalDoacaoR.usuarioId},
+        state:{id: LocalDoacaoR.id, nomerua: LocalDoacaoR.nomeRua, numero: LocalDoacaoR.numero, bairro: LocalDoacaoR.bairro, cidade: LocalDoacaoR.cidade, estado: LocalDoacaoR.estado, usuarioId: LocalDoacaoR.usuarioId},
     });
     }
      

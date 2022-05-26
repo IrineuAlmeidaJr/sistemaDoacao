@@ -21,13 +21,14 @@ module.exports={
     },
 
     async excluir(req,res){
-    const {id} =req.params;
-    const con = await db.conecta();
-    let local = await new LD().procurarId(id,db);
-    if(Object.keys(local).length !==0){
-        await local.excluir(db);
-    }
-    return res.json(local);
+        const {id} =req.params;
+        console.log("controler id excluir: "+id);
+        const con = await db.conecta();
+        let local = await new LD().procurarId(id,db);
+        if(Object.keys(local).length !==0){
+            await local.excluir(db);
+        }
+        return res.json(local);
     },
 
     async listar(req,res){

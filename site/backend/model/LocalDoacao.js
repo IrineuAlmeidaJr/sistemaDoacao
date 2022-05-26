@@ -103,7 +103,7 @@ module.exports = class LocalDoacao {
                 resp.data[i].usuario_id_usu
             ));
         }
-        console.log(localdoacao);
+        //console.log(localdoacao);
         return localdoacao;
     }
         
