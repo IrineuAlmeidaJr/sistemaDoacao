@@ -74,6 +74,8 @@ module.exports = class Doacao {
     async procurarId(id, db) {
         const resp=await new DAODoacao().procurarId(id, db);
         let doacao = {};
+        console.log("PROCURAR ID-----------------")
+        console.log(resp.data)
         if(resp.data.length > 0) {
             doacao = new Doacao(
                 resp.data[0].doacao_id,

@@ -143,12 +143,12 @@ export default function AgendarDoacao(doa) {
         }
         else{
             console.log('entrou');
-            setDoacao({ id: 0,
+            setDoacao({ id: doa.location.state.doacao_id,
                 dataDoacao: document.getElementById('dtDoacao').value,
                 localDoacao: document.getElementById('localDoacao').value,
                 campanha: document.getElementById('campanhaDoacao').value,
                 usuario: localStorage.getItem("usuInfo").id,
-                status: document.getElementById('tipoDoacao').value});
+                status: "A"});
             
                 setItens({
                     id: 0,
@@ -197,28 +197,30 @@ export default function AgendarDoacao(doa) {
                 window.location = '/';
             });  
         } else {
+            console.log("ANTES DO ELSE")
+            console.log(doacao)
             const doacaoObj = {
-                id: doacao.campanha, 
+                id: doacao.id, 
                 dataDoacao: doacao.dataDoacao,
-                localDoacao: doacao.localDoacao,
-                campanha: doacao.id,
+                localDoacao: parseInt(doacao.localDoacao),
+                campanha: parseInt(doacao.campanha),
                 usuario: usu.id,
                 status: doacao.status
             };
-            //console.log(doacaoObj);
+            console.log("-------MACACO ALA-------")
+            console.log(doacaoObj);
             api.put('/doacao', doacaoObj); 
 
             const itensObj = {
                 id: doa.location.state.itens_id,
                 nome: document.getElementById('nomeItem').value,
-                quantidade: document.getElementById("qtde").value,
-                tipoDoacao: document.getElementById('tipoDoacao').value,
-                uniMedida: document.getElementById('uniMedida').value,
-                tamanho: document.getElementById('tamanho').value,
-                genero: document.getElementById('genero').value,
+                quantidade: parseInt(document.getElementById("qtde").value),
+                tipoDoacao: parseInt(document.getElementById('tipoDoacao').value),
+                uniMedida: parseInt(document.getElementById('uniMedida').value),
+                tamanho: parseInt(document.getElementById('tamanho').value),
+                genero: parseInt(document.getElementById('genero').value),
                 doacao_id: await getLastIncludedDonation()
             };
-            //console.log(itensObj);
             api.put('/itensDoacao', itensObj);
             swal("Finalizado!", "Alteração do agendamento efetuado com sucesso.", "success").then(function() {
                 window.location = '/';

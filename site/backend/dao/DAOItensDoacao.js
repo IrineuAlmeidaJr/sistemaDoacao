@@ -25,7 +25,7 @@ module.exports = class DAOItensDoacao {
 
     async alterar(item, db) {
         const sql = "UPDATE itensdoacao SET itens_nome=? ,itens_quantidade=?, tipoDoacao_id=?,"+
-                    "unidadeMedida_id=?,tamanho_id=?, genero_id=?, doacao_id=?"+
+                    "unidadeMedida_id=?,tamanho_id=?, genero_id=?, doacao_id=? "+
                     "WHERE itens_id=?";
         const valor = [ item.getNome(),
                         item.getQuantidade(),
@@ -37,7 +37,7 @@ module.exports = class DAOItensDoacao {
                         item.getId()];
              
         const result = await db.manipula(sql, valor);  
-        console.log(result);                 
+        //console.log(result);                 
     }
 
     async excluir(item, db){
