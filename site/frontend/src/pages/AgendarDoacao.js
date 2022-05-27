@@ -197,8 +197,7 @@ export default function AgendarDoacao(doa) {
                 window.location = '/';
             });  
         } else {
-            console.log("ANTES DO ELSE")
-            console.log(doacao)
+
             const doacaoObj = {
                 id: doacao.id, 
                 dataDoacao: doacao.dataDoacao,
