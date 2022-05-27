@@ -38,6 +38,13 @@ module.exports = {
         return response.json(lis);
     },
 
+    async listarPorDoacao (request, response) { 
+        const {doacao_id} = request.params;
+        const con = await db.conecta();
+        let lis = await new ItemDoacao().listarPorDoacao(doacao_id, db);        
+        return response.json(lis);
+    },
+
     async listarDetalhado (request, response) { 
         const con = await db.conecta();
         let lis = await new ItemDoacao().listarDetalhado(db);        

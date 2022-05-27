@@ -23,21 +23,22 @@ import Logout from './pages/Logout'
 import CancelarInscricao from "./pages/CancelarInscricao";
 import EsqueciSenha from "./pages/EsqueciSenha";
 import ListaAgenda from "./pages/ListaAgenda";
+import ReceberDoaco from "./pages/ReceberDoacao";
 
 
 
 const Routes = () => {
    return(
        <BrowserRouter>
-           <Route component = { Home }  path="/" exact />
-           <Route component = { CadUsuario }  path="/cadUsuario" />
-           <Route component = { ListaUsuario }  path="/listaUsuario" />
-           <Route component = { CampanhaDoacao}  path="/CadCampanhaDoacao" />
-           {/*<Route component = { FormCadDoacao }  path="/cadDoacao" /> ------ SERÁ USADO DEPOIS - NÃO APAGAR*/}
-           <Route component = { FormCadTipoDoacao }  path="/cadTipoDoacao" />
-           <Route component = {ListaTipoDoacao} path="/listaTipoDoacao" />
-           <Route component={FormCadTamanho} path="/cadTamanho"/>
-           <Route component={ListaTamanho} path='/listaTamanho'/>
+            <Route component = { Home }  path="/" exact />
+            <Route component = { CadUsuario }  path="/cadUsuario" />
+            <Route component = { ListaUsuario }  path="/listaUsuario" />
+            <Route component = { CampanhaDoacao}  path="/CadCampanhaDoacao" />
+            {/*<Route component = { FormCadDoacao }  path="/cadDoacao" /> ------ SERÁ USADO DEPOIS - NÃO APAGAR*/}
+            <Route component = { FormCadTipoDoacao }  path="/cadTipoDoacao" />
+            <Route component = {ListaTipoDoacao} path="/listaTipoDoacao" />
+            <Route component={FormCadTamanho} path="/cadTamanho"/>
+            <Route component={ListaTamanho} path='/listaTamanho'/>
             <Route component={FormCadLocalDoacao} path="/cadLocalDoacao"/>
             <Route component={FormCadCampanhaDoacao} path="/cadCampanha"/>
             <Route component={ListaCampanhaDoacao} path="/listaCampanha"/>
@@ -51,6 +52,7 @@ const Routes = () => {
             <Route component={EsqueciSenha} path='/esqueciSenha'></Route>
             <Route component={CancelarInscricao} path='/cancelarInscricao'></Route>
             <Route component={ListaAgenda} path='/listaAgenda'></Route>
+            <Route component={ReceberDoaco} path='/receberDoacao'></Route>
             
 
 

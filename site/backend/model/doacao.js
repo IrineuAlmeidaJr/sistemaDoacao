@@ -103,6 +103,29 @@ module.exports = class Doacao {
         return doacao;
     }
 
+    async listarDetalhado(db) {
+        const resp=await new DAODoacao().listarDetalhado(db);
+        let doacao = []; 
+        // Tive que criar um objeto que retorna o que eu quero exibir no front pela busca
+        // de SQL
+        for(let i=0; i < resp.data.length; i++) {
+            doacao.push({
+                doacao_id: resp.data[i].doacao_id,
+                itens_nome: resp.data[i]. itens_nome,
+                doacao_dataDoacao: resp.data[i].doacao_dataDoacao,
+                quantidade: resp.data[i].itens_quantidade,
+                unidadeMedida_id: resp.data[i].unidadeMedida_id,
+                tipoDoacao_id: resp.data[i].tipoDoacao_id,
+                genero_id: resp.data[i].genero_id,
+                usu_nome: resp.data[i].usu_nome,
+                campanha_id: resp.data[i].campanha_id,
+                local_id: resp.data[i].doacao_localDoacao_id,
+                usu_id: resp.data[i].usu_id
+            });
+        }
+        return doacao;
+    }
+
     async ultimo(db) {
         const resp=await new DAODoacao().ultimo(db);
         let doacao; 

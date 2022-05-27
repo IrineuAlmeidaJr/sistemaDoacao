@@ -46,6 +46,12 @@ module.exports = {
         return response.json(doacao);
     },
 
+    async listarDetalhado (request, response) {
+        const con = await db.conecta();
+        let doacao = await new Doacao().listarDetalhado(db);
+        return response.json(doacao);
+    },
+
     async ultimo(request, response) {
         const con = await db.conecta();
         let doacao = await new Doacao().ultimo(db);

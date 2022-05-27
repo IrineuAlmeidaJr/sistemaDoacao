@@ -112,6 +112,24 @@ module.exports = class itensDoacao {
         return itens;
     }
 
+    async listarPorDoacao(doacao_id, db) {
+        const resp=await new DAOItensDoacao().listarPorDoacao(doacao_id, db);
+        let itens = []; 
+        if(resp.data.length > 0) {
+            itens.push(new itensDoacao(
+                resp.data[0].itens_id,
+                resp.data[0].itens_nome,
+                resp.data[0].itens_quantidade,
+                resp.data[0].tipoDoacao_id,
+                resp.data[0].unidadeMedida_id,
+                resp.data[0].tamanho_id,
+                resp.data[0].genero_id,
+                resp.data[0].doacao_id
+            ))
+        }
+        return itens;
+    }
+
     async listarDetalhado(db) {
         // ***OBS : essa é uma busca detalhada que retorna já formatado por nome o tipo de doação,
         // uniidade de medida, tamanho, genero e nome do Doador. 

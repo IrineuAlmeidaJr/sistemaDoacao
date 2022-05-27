@@ -11,6 +11,8 @@ const ListaAgenda = () => {
     const history = useHistory();
     const[ListaAgenda, setListaAgenda] = React.useState([]);
     const[ListaItens, setListaItens] = React.useState([]);
+    //
+    const[doacao, setDoacao] = React.useState([]);
 
     React.useEffect(() => {
         fetchItens()
@@ -22,7 +24,7 @@ const ListaAgenda = () => {
     async function fetchItens()
     {
         try {
-            const response = await api.get('/itensDoacao');
+            const response = await api.get('/doacaoDetalhado');
             setListaItens(response.data);
             
         } catch(err) {
@@ -54,6 +56,32 @@ const ListaAgenda = () => {
         });
     }
 
+    function confirmar(item) {
+        // console.log(item)
+        // console.log(` ${item.doacao_id}`)
+        // console.log(` ${item.itens_nome}`)
+        // console.log(` ${item.quantidade}`)
+        // console.log(` ${item.usu_nome}`)
+        // console.log(` ${item.doacao_dataDoacao}`)
+        // console.log(` ${item.campanha_id}`)
+        // console.log(` ${item.local_id}`)
+        // console.log(` ${item.usu_id}`)
+        
+        history.push({
+            pathname: '/receberDoacao',
+            state:{
+                doacao_id: item.doacao_id, 
+                item_nome: item.itens_nome,
+                quatidade: item.quantidade, 
+                doador_nome: item.usu_nome,
+                data: item.doacao_dataDoacao,
+                campanha_id: item.campanha_id,
+                local_id: item.local_id,
+                usu_id: item.usu_id
+            },
+        });
+    }
+
     return(
         <div>
             <Header />
@@ -65,8 +93,8 @@ const ListaAgenda = () => {
                         <input type="input" name="busca" id="busca"/>
                     </div>
                     <Table
-
                         agendas={ListaItens}
+                        confirmar={confirmar}
                         deletar={deletar}
                         alterar={alterar}
                     />

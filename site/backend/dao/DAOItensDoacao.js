@@ -50,6 +50,19 @@ module.exports = class DAOItensDoacao {
         const sql = "SELECT * FROM itensdoacao";
         const itens = await db.consulta(sql);
         return itens;
-    }        
+    }    
+
+    async listarPorDoacao(doacao_id, db) {
+        const sql = 'SELECT * FROM itensdoacao WHERE doacao_id = ?';
+        const valor = [doacao_id];
+        const usu = await db.consulta(sql, valor);
+        return usu;
+    }
+    
+    async listarDetalhado(db) {
+        const sql = "SELECT * FROM itensdoacao";
+        const itens = await db.consulta(sql);
+        return itens;
+    }  
 
 }

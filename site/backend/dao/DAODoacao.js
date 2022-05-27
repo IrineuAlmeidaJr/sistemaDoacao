@@ -36,7 +36,25 @@ module.exports = class DAOItensDoacao {
         const itens = await db.consulta(sql);
         console.log(itens);
         return itens;
-    }   
+    } 
+    
+    async listarDetalhado(db) {
+        const sql = "select doacao.doacao_id, itens_nome, doacao_dataDoacao, itens_quantidade, "+
+        "unidadeMedida_id, tipoDoacao_id, genero_id,usu_nome, doacao.campanha_id," + 
+        "doacao_localDoacao_id, doacao.usu_id " + 
+        "FROM campanhadoacao " +
+        "JOIN doacao " +
+        "ON campanhadoacao.campanha_id = doacao.campanha_id " + 
+        "AND doacao.campanha_id and doacao_status = 'A'" +
+        "JOIN itensdoacao "+
+        "ON doacao.doacao_id = itensdoacao.doacao_id " +
+        "JOIN usuario " + 
+        "ON doacao.usu_id = usuario.usu_id " +
+        "order by doacao_dataDoacao DESC";
+        const itens = await db.consulta(sql);
+        console.log(itens);
+        return itens;
+    } 
     
     async ultimo(db) {
         const sql = "SELECT * FROM doacao order by doacao_id desc";
