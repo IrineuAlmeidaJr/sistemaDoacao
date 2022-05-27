@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import '../css/ListaUsuario.css';
 import api from '../service/api';
+import swal from 'sweetalert';
 import Table from '../components/TableTipoDoacao';
 //const localRecursos = 'http://localhost:4000/tipoDoacao'
 
@@ -29,8 +30,15 @@ const ListaTipoDoacao = () => {
     async function deletar(td) { 
         const id = td.id;
         try {
-            await api.delete(`/tipoDoacao/${id}`);
-            fetchTypes();
+            swal("Deletar", "Deseja realmente deletar este item?", "warning", {buttons: ["Não", "Sim"]})
+            .then(async (sim) => {
+                if (sim) {
+                    await api.delete(`/tipoDoacao/${id}`);
+                    fetchTypes();
+                  
+                }});
+            //await api.delete(`/tipoDoacao/${id}`);
+            //fetchTypes();
         } catch(err) {
             console.log(err);
         }   
