@@ -21,15 +21,39 @@ export default function AgendarDoacao(doa) {
         }
         else{
             setEstaAtualizando(true);
-            setDoacao({ id: doa.location.state.doacao_id, 
+            /*setDoacao({ id: doa.location.state.doacao_id, 
                         dataDoacao: doa.location.state.doacao_dataDoacao,
                         localDoacao: doa.location.state.doacao_localDoacao_id,
                         campanha: doa.location.state.campanha_id,
                         usuario: doa.location.state.usu_id,
                         status: doa.location.state.doacao_status});
-            
+            */
+                        setItens({
+                            id: doa.location.state.itens_id,
+                            nome: doa.location.state.itens_nome,
+                            quantidade: doa.location.state.itens_quatidade,
+                            tipoDoacao: doa.location.state.tipodoacao_id,
+                            uniMedida: doa.location.state.unidadeMedida_id,
+                            tamanho: doa.location.state.tamanho_id,
+                            genero: doa.location.state.genero_id,
+                            doacaoId: doa.location.state.doacao_id
+                        });
+                        fetchDoacao(); 
+
             //setItens({});
         }
+    }
+
+    async function fetchDoacao(){
+        const doaId= doa.location.state.doacao_id;
+        try{
+            const response = await api.get(`/doacao/${doacao.id}`);
+            setDoacao(response.data);
+        }
+        catch(err){
+            console.log(err);
+        }
+
     }
 
     function getQtdeValue()
@@ -214,16 +238,24 @@ export default function AgendarDoacao(doa) {
         }
     }
 
-    async function loadTipoDoacaoBox(){
+    async function loadTipoDoacaoBox(id){
         let tp = document.getElementById('tipoDoacao');
         let opt = "";
+        let flag=0;
         try{
             const response = await api.get('/tipoDoacao');
             //console.log(response.data);
-            opt = '<option value="0" selected disabled>Selecione o tipo de doação</option>';
+            if(id === undefined)
+             opt = '<option value="0" selected disabled>Selecione o tipo de doação</option>';
             for(let i=0; i<response.data.length; i++)
             {
                 //console.log(response.data[i].id +" "+ response.data[i].nome);
+                if(id === response.data[i].id && flag ==0)
+                    {
+                        flag =1;
+                        opt += `<option value="${response.data[i].id}" selected>${response.data[i].nome}</option>`;
+                        i++;
+                    }
                 opt += `<option value="${response.data[i].id}">${response.data[i].nome}</option>`;
             }
             tp.innerHTML = opt;
@@ -409,14 +441,14 @@ export default function AgendarDoacao(doa) {
                     <h1>Agendar doação</h1>
                     <div id="nomeItemBox" class="inputBox">
                         <label class="label-bold" for="nomeItem">Nome do item:</label>
-                        <input type="text" id="nomeItem" name="nomeItem" placeholder="Informe um nome para a doação"/>
+                        <input type="text" id="nomeItem" name="nomeItem" placeholder="Informe um nome para a doação" defaultValue={itens.nome}/>
                     </div>
                     <br/>
 
                     
                     <div id="tipoDoacaoBox" class="comboBox">
                         <label class="label-bold" for="tipoDoacao">Tipo da doação:</label>
-                        <select id="tipoDoacao" onLoad={loadTipoDoacaoBox} /*onChange={checkTipoDoacao}*/>
+                        <select id="tipoDoacao" onLoad={loadTipoDoacaoBox(itens.tipoDoacao)} /*onChange={checkTipoDoacao}*/>
                             {/*<option value="">Selecione o tipo de doação</option>
                             <option value="Brinquedo">Brinquedo</option>
                             <option value="Roupas">Roupas</option>
@@ -426,7 +458,7 @@ export default function AgendarDoacao(doa) {
                     
                     <div id="quantidadeBox" class="inputBox">
                         <label class="label-bold" for="qtde">Quantidade:</label>
-                        <input type="text" id="qtde" name="qtde"/>
+                        <input type="text" id="qtde" defaultValue={itens.quantidade} name="qtde"/>
                     </div>
 
                     <div id="unidadeMedidaBox">
