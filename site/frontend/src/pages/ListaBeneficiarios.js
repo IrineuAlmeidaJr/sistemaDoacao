@@ -44,11 +44,18 @@ const ListaBeneficiarios = () => {
        const id = beneficiarioR.id;
        //console.log("deletar: " + id);
        try {
-        await api.delete(`/beneficiario/${id}`);
-           fetchBeneficiarios();
-       } catch(err) {
-              swal("Erro", "Erro ao deletar", "error");           
-         }
+        swal("Deletar", "Deseja realmente deletar este item?", "warning", {buttons: ["Não", "Sim"]})
+        .then(async (sim) => {
+            if(sim) {
+                await api.delete(`/beneficiario/${id}`);
+                fetchBeneficiarios();
+            }
+        }
+        );
+         } catch(err) {
+            swal("Erro", "Erro ao deletar", "error");
+        }
+        
     }
     
     function alterar(beneficiarioR) {
