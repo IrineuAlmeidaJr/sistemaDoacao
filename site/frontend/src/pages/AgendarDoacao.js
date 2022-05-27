@@ -150,6 +150,16 @@ export default function AgendarDoacao(doa) {
                 usuario: localStorage.getItem("usuInfo").id,
                 status: document.getElementById('tipoDoacao').value});
             
+                setItens({
+                    id: 0,
+                    nome: document.getElementById('nomeItem').value,
+                    quantidade: document.getElementById("qtde").value,
+                    tipoDoacao: document.getElementById('tipoDoacao').value,
+                    uniMedida: document.getElementById('uniMedida').value,
+                    tamanho: document.getElementById('tamanho').value,
+                    genero: document.getElementById('genero').value,
+                    doacaoId: 0
+                });
             //console.log(doacao);
         }        
     }
@@ -180,7 +190,7 @@ export default function AgendarDoacao(doa) {
                 genero_id: itens.genero,
                 doacao_id: await getLastIncludedDonation()
             };
-            console.log(itensObj);
+            //console.log(itensObj);
             await api.post('/itensDoacao', itensObj);
 
             swal("Finalizado!", "Agendamento efetuado com sucesso.", "success").then(function() {
@@ -188,14 +198,28 @@ export default function AgendarDoacao(doa) {
             });  
         } else {
             const doacaoObj = {
-                id: doa.location.state.doacao_id, 
+                id: doacao.campanha, 
                 dataDoacao: doacao.dataDoacao,
                 localDoacao: doacao.localDoacao,
-                campanha: doacao.campanha,
-                usuario: doacao.usuario,
+                campanha: doacao.id,
+                usuario: usu.id,
                 status: doacao.status
             };
+            //console.log(doacaoObj);
             api.put('/doacao', doacaoObj); 
+
+            const itensObj = {
+                id: doa.location.state.itens_id,
+                nome: document.getElementById('nomeItem').value,
+                quantidade: document.getElementById("qtde").value,
+                tipoDoacao: document.getElementById('tipoDoacao').value,
+                uniMedida: document.getElementById('uniMedida').value,
+                tamanho: document.getElementById('tamanho').value,
+                genero: document.getElementById('genero').value,
+                doacao_id: await getLastIncludedDonation()
+            };
+            //console.log(itensObj);
+            api.put('/itensDoacao', itensObj);
             swal("Finalizado!", "Alteração do agendamento efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
             });
