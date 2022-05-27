@@ -1,17 +1,17 @@
 const { Router } = require('express'); 
 const routes = Router();
 
-const usuarioCtrl = require('./controller/UsuarioController');
-const tamanhoCtrl = require('./controller/TamanhoController')
-const campanhaDoacaoCtrl = require('./controller/CampanhaDoacaoController')
-const inscricaoCtrl = require('./controller/InscricaoController')
-const tipoDoacao = require('./controller/TipoDoacaoController')
-const generoCtrl = require('./controller/GeneroController')
-const beneficiarioCtrl = require('./controller/BeneficiarioController')
-const unidadeCtrl = require('./controller/UnidadeController')
-const localDoacaoCtrl = require('./controller/LocalDoacaoController')
-const itensDoacaoCtrl = require('./controller/itemDoacaoController')
-const doacaoCtrl = require('./controller/DoacaoController')
+const usuarioCtrl = require('./control/UsuarioController');
+const tamanhoCtrl = require('./control/TamanhoController')
+const campanhaDoacaoCtrl = require('./control/CampanhaDoacaoController')
+const inscricaoCtrl = require('./control/InscricaoController')
+const tipoDoacao = require('./control/TipoDoacaoController')
+const generoCtrl = require('./control/GeneroController')
+const beneficiarioCtrl = require('./control/BeneficiarioController')
+const unidadeCtrl = require('./control/UnidadeController')
+const localDoacaoCtrl = require('./control/LocalDoacaoController')
+const itensDoacaoCtrl = require('./control/itemDoacaoController')
+const doacaoCtrl = require('./control/DoacaoController')
 
 // Tem colocar porque cai no CORS, o navegador impede a conexão
 routes.all('*', function (req, res, next) {
