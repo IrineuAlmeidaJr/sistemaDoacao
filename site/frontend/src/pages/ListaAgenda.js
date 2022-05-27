@@ -13,26 +13,16 @@ const ListaAgenda = () => {
     const[ListaItens, setListaItens] = React.useState([]);
 
     React.useEffect(() => {
-        fetchAgenda()
         fetchItens()
         
     }
     , [])
 
-    async function fetchAgenda()
-    {
-        try {
-            const response = await api.get('/doacao');
-            setListaAgenda(response.data);
-        } catch(err) {
-            console.log(err);
-        }
-    }
-
+    
     async function fetchItens()
     {
         try {
-            const response = await api.get('/itensDoacaoDetalhado');
+            const response = await api.get('/itensDoacao');
             setListaItens(response.data);
             
         } catch(err) {
@@ -40,27 +30,27 @@ const ListaAgenda = () => {
         }
     }
 
-    async function juntar(){
-        setListaAgenda(ListaAgenda+ListaItens);
-    }
-    
-    
-
-
     async function deletar(agendaR) {
         const id = agendaR.id;
         try {
             await api.delete(`/doacao/${id}`);
-            fetchAgenda();
+            fetchItens();
         } catch(err) {
             swal("Erro", "Erro ao deletar", "error");
         }
     }
 
-    function alterar(agendaR, ItensR) {
+    function alterar(ItensR) {
         history.push({
             pathname: '/AgendarDoacao',
-            state:{doacao_id: agendaR.id, doacao_dataDoacao: agendaR.dataDoacao, doacao_localDoacao_id: agendaR.localDoacao_id, campanha_id: agendaR.campanha_id, usu_id: agendaR.usu_id, doacao_status: agendaR.status, nomeitem: ItensR.nomeitem, quantidade: ItensR.quantidade, unidade: ItensR.unidadeMedida_id,  tamanho: ItensR.tamanho_id, genero: ItensR.genero_id },
+            state:{itens_id: ItensR.id, 
+                itens_nome: ItensR.nome, 
+                itens_quatidade: ItensR.quantidade, 
+                tipodoacao_id: ItensR.tipoDoacao_id, 
+                unidadeMedida_id:ItensR.unidadeMedida_id, 
+                tamanho_id: ItensR.tamanho_id, 
+                genero_id: ItensR.genero_id, 
+                doacao_id: ItensR.doacao_id},
         });
     }
 
@@ -76,7 +66,7 @@ const ListaAgenda = () => {
                     </div>
                     <Table
 
-                        agendas={ListaAgenda}
+                        agendas={ListaItens}
                         deletar={deletar}
                         alterar={alterar}
                     />

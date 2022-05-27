@@ -21,14 +21,15 @@ module.exports={
     },
 
     async excluir(req,res){
-        const {id} =req.params;
-        console.log("controler id excluir: "+id);
+        const {local_id} =req.params;
         const con = await db.conecta();
-        let local = await new LD().procurarId(id,db);
+        let local = await new LD().procurarId(local_id,db);
+        console.log(db)
         if(Object.keys(local).length !==0){
             await local.excluir(db);
         }
         return res.json(local);
+       
     },
 
     async listar(req,res){

@@ -103,7 +103,7 @@ module.exports = class LocalDoacao {
                 resp.data[i].usuario_id_usu
             ));
         }
-        //console.log(localdoacao);
+        //console.log("achou o:"+localdoacao);
         return localdoacao;
     }
         
@@ -121,6 +121,7 @@ module.exports = class LocalDoacao {
                 resp.data[0].usuario_id_usu
             );
         }
+        //console.log("achou o:"+localdoacao);
         return localdoacao;
     }
 

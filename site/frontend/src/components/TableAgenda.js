@@ -14,8 +14,9 @@ const Table = (props) => {
                     <td>ID</td>
                     <td>Item</td>
                     <td>Quantidade</td>
-                    <td>Data</td>
-                    <td>Local</td>
+                    <td>Tamanho</td>
+                    <td>Tipo de doação</td>
+                    <td>Doador</td>
                     <td>Editar</td>
                     <td>Deletar</td>
                 </tr>
@@ -24,10 +25,11 @@ const Table = (props) => {
                 props.agendas.map(agenda => (
                     <tr>
                         <td>{agenda.id}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{agenda.dataDoacao.substr(0,10)}</td>
-                        <td></td>
+                        <td>{agenda.nome}</td>
+                        <td>{agenda.quantidade}</td>
+                        <td>{agenda.tamanho_id}</td>
+                        <td>{agenda.tipoDoacao_id}</td>
+                        <td>{agenda.doacao_id}</td>
                         <td><Button variant="outline-primary" onClick={()=>{props.alterar(agenda)}}><img src={editar} alt="Botao editar"/></Button>{' '}</td>
                         <td><Button variant='outline-danger' onClick={()=>{props.deletar(agenda)}}><img src={deletar} alt="Botao deletar"/></Button></td>
                     </tr>

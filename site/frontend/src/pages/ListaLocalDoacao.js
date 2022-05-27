@@ -28,11 +28,11 @@ const ListaLocalDoacao = () => {
         
     }
 
-    function deletar(LocalDoacaoR) {
+    async function deletar(LocalDoacaoR) {
         const id = LocalDoacaoR.id;
         console.log("deletar: " + id);
         try {
-            api.delete(`/localDoacao/${id}`);
+            await api.delete(`/localDoacao/${id}`);
             fetchBeneficiarios();
         } catch(err) {
                //console.log(err);

@@ -1,26 +1,26 @@
-const local = require ('../model/LocalDoacao');
+const lc = require ('../model/LocalDoacao');
 
 module.exports = class DAOLocalDoacao{
 
-    async gravar(local, db) {
+    async gravar(lc, db) {
         const sql = "INSERT INTO localdoacao(local_nomeRua,local_numero,local_bairro,local_cidade,local_estado,usuario_id_usu) VALUES (?,?,?,?,?,?)";
-        const valor = [local.getNomeRua(),local.getNumero(),local.getBairro(),local.getCidade(),local.getEstado(),local.getUsuarioId()];
+        const valor = [lc.getNomeRua(),lc.getNumero(),lc.getBairro(),lc.getCidade(),lc.getEstado(),lc.getUsuarioId()];
         const result = await db.manipula(sql,valor);
         return result;
     }
 
-    async alterar(local, db) {
+    async alterar(lc, db) {
         // Fazer validações aqui --> de CPF tambem
         const sql = "UPDATE localdoacao SET local_nomeRua=?, local_numero=?, local_bairro=?, local_cidade=?, local_estado=?, usuario_id_usu=? WHERE local_id=?";
-        const valor = [local.getNomeRua(),local.getNumero(),local.getBairro(),local.getCidade(),local.getEstado(),local.getUsuarioId(),local.getId()];      
+        const valor = [lc.getNomeRua(),lc.getNumero(),lc.getBairro(),lc.getCidade(),lc.getEstado(),lc.getUsuarioId(),lc.getId()];      
         const result = await db.manipula(sql, valor);  
         //console.log(result);                 
     }
 
-    async excluir(local, db){
+    async excluir(lc, db){
         const sql = "DELETE FROM localdoacao WHERE local_id=?"
-        const valor = [local.getId()];
-        console.log("dao exlcuir: "+valor)
+        const valor = [lc.getId()];
+        //console.log("dao exlcuir: "+valor)
         const result = await db.manipula(sql,valor);
         return result;
     }

@@ -95,7 +95,6 @@ module.exports = class beneficiaro{
 
     async listarPorNome(bene_nome, db) {
         const resp=await new DAOBeneficiario().listarPorNome(bene_nome, db);
-        console.log(bene_nome)
         let beneficiario = []; 
         for(let i=0; i < resp.data.length; i++) {
             beneficiario.push(new beneficiaro(
