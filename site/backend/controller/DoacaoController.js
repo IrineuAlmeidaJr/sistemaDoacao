@@ -14,8 +14,8 @@ module.exports = {
     },
 
     async alterar(request, response) {
-        const {id, dataDoacao, localDoacao_id, campanha_id, usu_id, status} = request.body;
-        let doacao = new Doacao(id, dataDoacao, localDoacao_id, campanha_id, usu_id, status);
+        const {id, dataDoacao, localDoacao, campanha, usuario, status} = request.body;
+        let doacao = new Doacao(id, dataDoacao, localDoacao, campanha, usuario, status);
         const con = await db.conecta();      
         await doacao.alterar(db);
         return response.json(doacao);

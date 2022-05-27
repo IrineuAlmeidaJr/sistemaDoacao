@@ -24,8 +24,6 @@ module.exports = class DAOItensDoacao {
     }
 
     async alterar(item, db) {
-        console.log("---------------%%%%%%%%-----------")
-        console.log(item)
         const sql = "UPDATE itensdoacao SET itens_nome=? ,itens_quantidade=?, tipoDoacao_id=?,"+
                     "unidadeMedida_id=?,tamanho_id=?, genero_id=?, doacao_id=?"+
                     "WHERE itens_id=?";

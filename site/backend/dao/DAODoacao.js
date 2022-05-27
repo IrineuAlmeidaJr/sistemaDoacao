@@ -11,6 +11,8 @@ module.exports = class DAOItensDoacao {
     } 
 
     async alterar(doa, db) {
+        console.log(">>>>>>>ALTERAR<<<<<<<<<")
+        console.log(doa)
         const sql = "UPDATE doacao SET doacao_dataDoacao=?, doacao_localDoacao_id=?, campanha_id=?, usu_id=?, doacao_status=? WHERE doacao_id=?";
         const valor = [doa.getDataDoacao(), doa.getLocalDoacao_id(), doa.getCampanha_id(), doa.getUsu_id(), doa.getStatus(), doa.getId()];      
         const result = await db.manipula(sql, valor);  
