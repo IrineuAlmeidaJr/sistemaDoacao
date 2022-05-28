@@ -26,7 +26,7 @@ module.exports = class DAOLocalDoacao{
     }
 
     async procurarId(id, db){
-        const sql = "SELECT * FROM localdoacao WHERE local_id=?";        
+        const sql = "SELECT * FROM localdoacao WHERE local_id=?"; 
         const valor = [id];
         const result = await db.consulta(sql,valor);
         return result;

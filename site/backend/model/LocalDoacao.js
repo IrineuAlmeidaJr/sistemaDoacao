@@ -121,8 +121,6 @@ module.exports = class LocalDoacao {
                 resp.data[0].usuario_id_usu
             );
         }
-        //console.log("achou o:"+localdoacao);
         return localdoacao;
     }
-
 }

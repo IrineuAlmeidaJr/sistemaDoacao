@@ -46,6 +46,20 @@ module.exports = class DAOItensDoacao {
         return result;
     }
 
+    async procurarId(id, db) {
+        const sql = 'SELECT * FROM itensdoacao WHERE itens_id = ?';
+        const valor = [id];
+        const item = await db.consulta(sql, valor);
+        return item;
+    }
+
+    async procurarDoacaoId(id, db) {
+        const sql = 'SELECT * FROM itensdoacao WHERE doacao_id = ?';
+        const valor = [id];
+        const item = await db.consulta(sql, valor);
+        return item;
+    }
+
     async listar(db) {
         const sql = "SELECT * FROM itensdoacao";
         const itens = await db.consulta(sql);

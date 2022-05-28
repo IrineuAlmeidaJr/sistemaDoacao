@@ -31,6 +31,13 @@ module.exports = {
         }
         return response.json(itens);
     },
+
+    async listarPorId (request, response) {
+        const {item_id} = request.params; // parametro de url
+        const con = await db.conecta();
+        let item = await new ItemDoacao().procurarId(item_id, db);
+        return response.json(item);
+    },
     
     async listar (request, response) { 
         const con = await db.conecta();

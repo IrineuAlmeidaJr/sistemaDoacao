@@ -89,28 +89,28 @@ routes.get('/unidadeNome/:uni_nome',unidadeCtrl.listarPorNome);
 
 //Rotas LocalDoacao
 routes.post('/localDoacao', localDoacaoCtrl.gravar);
-routes.get('/localDoacao', localDoacaoCtrl.listar);
 routes.put('/localDoacao', localDoacaoCtrl.alterar);
 routes.delete('/localDoacao/:local_id', localDoacaoCtrl.excluir);
 routes.get('/localDoacao/:local_id', localDoacaoCtrl.listarPorId);
+routes.get('/localDoacao', localDoacaoCtrl.listar);
 
 // Rotas ItensDoacao
 routes.post('/itensDoacao', itensDoacaoCtrl.gravar);
 routes.put('/itensDoacao', itensDoacaoCtrl.alterar);
 routes.delete('/itensDoacao/:itens_id', itensDoacaoCtrl.excluir);
 routes.get('/itensID/:doacao_id', itensDoacaoCtrl.listarPorDoacao);
+routes.get('/itensDoacao/:itens_id', itensDoacaoCtrl.listarPorId);
 routes.get('/itensDoacao', itensDoacaoCtrl.listar); 
 routes.get('/itensDoacaoDetalhado', itensDoacaoCtrl.listarDetalhado);
 
 // Rotas Doacao
 routes.post('/doacao', doacaoCtrl.gravar);
-routes.get('/doacao', doacaoCtrl.listar);
 routes.put('/doacao', doacaoCtrl.alterar);
 routes.delete('/doacao/:doacao_id', doacaoCtrl.excluir);
 routes.get('/doacaoDetalhado', doacaoCtrl.listarDetalhado);
-routes.get('/doacao/:doacao_id', doacaoCtrl.listarPorId);
 routes.get('/doacaoUltimo', doacaoCtrl.ultimo);
-
+routes.get('/doacao/:doacao_id', doacaoCtrl.listarPorId);
+routes.get('/doacao', doacaoCtrl.listar);
 
 // module.exports = {routes}; 
 module.exports = routes; // Estava dando erro de rota, tem exportar sem ser objeto

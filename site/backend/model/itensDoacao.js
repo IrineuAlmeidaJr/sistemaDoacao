@@ -94,6 +94,42 @@ module.exports = class itensDoacao {
         const resp = await new DAOItensDoacao().excluir(this,db); 
     }
 
+    async procurarId(id, db) {
+        const resp=await new DAOItensDoacao().procurarId(id, db);
+        let itens = {};
+        if(resp.data.length > 0) {
+            itens.push(new itensDoacao(
+                resp.data[0].itens_id,
+                resp.data[0].itens_nome,
+                resp.data[0].itens_quantidade,
+                resp.data[0].tipoDoacao_id,
+                resp.data[0].unidadeMedida_id,
+                resp.data[0].tamanho_id,
+                resp.data[0].genero_id,
+                resp.data[0].doacao_id
+            ))        
+        }        
+        return itens;
+    }
+
+    async procurarPorUsuId(doacao_id, db) {
+        const resp=await new DAOItensDoacao().procurarDoacaoId(doacao_id, db);
+        let itens = [];
+        for(let i=0; i < resp.data.length; i++) {
+            itens.push(new itensDoacao(
+                resp.data[i].itens_id,
+                resp.data[i].itens_nome,
+                resp.data[i].itens_quantidade,
+                resp.data[i].tipoDoacao_id,
+                resp.data[i].unidadeMedida_id,
+                resp.data[i].tamanho_id,
+                resp.data[i].genero_id,
+                resp.data[i].doacao_id
+            ))
+        }       
+        return itens;
+    }
+
     async listar(db) {
         const resp=await new DAOItensDoacao().listar(db);
         let itens = []; 

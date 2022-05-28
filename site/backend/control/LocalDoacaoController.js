@@ -39,9 +39,9 @@ module.exports={
     },
 
     async listarPorId (req,res){
-        const {id} = req.params;
+        const {local_id} = req.params;
         const con = await db.conecta();
-        let local = await new LD().procurarId(id,db);
+        let local = await new LD().procurarId(local_id,db);
         return res.json(local);
     }
 
