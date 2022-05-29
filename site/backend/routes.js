@@ -106,10 +106,12 @@ routes.get('/itensDoacaoDetalhado', itensDoacaoCtrl.listarDetalhado);
 // Rotas Doacao
 routes.post('/doacao', doacaoCtrl.gravar);
 routes.put('/doacao', doacaoCtrl.alterar);
+routes.put('/receberDoacao/:doacao_id', doacaoCtrl.receberDoacao);
 routes.delete('/doacao/:doacao_id', doacaoCtrl.excluir);
 routes.get('/doacaoDetalhado', doacaoCtrl.listarDetalhado);
 routes.get('/doacaoUltimo', doacaoCtrl.ultimo);
 routes.get('/doacao/:doacao_id', doacaoCtrl.listarPorId);
+routes.get('/doacaoDetalhadoTodos', doacaoCtrl.listarDetalhadoTodos);
 routes.get('/doacao', doacaoCtrl.listar);
 
 // module.exports = {routes}; 

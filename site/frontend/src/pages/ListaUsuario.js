@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import api from '../service/api'
 import Header from '../components/Header';
 import '../css/ListaUsuario.css'
+import swal from 'sweetalert';
 
 import Table from '../components/Table';
 
@@ -26,6 +27,41 @@ const ListaUsuario = () => {
     }
     
     async function deletar(usu) {
+        swal("Atenção","Deseja Excluir?", {
+            closeOnClickOutside: false, //não fecha o swal se clicar fora
+            dangerMode: true, //danger mode pra chamar atenção
+            closeOnEsc: false, // não deixa fechar no esc
+            buttons: {
+                cancelar: {  // Posso mudar o nome aqui
+                    text: "Cancelar", // texto do botão
+                    value: "cancelar", // valor pra gente testar la em baixo
+                    className: "swal-button--danger", // classe do botão css
+                },
+                confirmar: { // botao confirmar
+                    text: "Confirmar", // texto do botão
+                    value: "confirmar", // valor pra gente testar la em baixo
+                    className: "swal-button--confirm", // classe do botão css
+                },
+
+            },
+            icon: "info", // icone do swal
+        })
+        .then(async (value) => { // aqui é a ação !
+            if(value == "confirmar"){ // se clicou em "confirmar" chama o ajax que faz a exclusão.
+                const id = usu.id;
+                try {
+                    await api.delete(`/usuario/${id}`);
+                    swal("Excluido!", "Exclusão efetuada com sucesso.", "success").then(function() {
+                        window.location = '/listaUsuario';
+                    });
+                    // fetchItens();
+                } catch(err) {
+                    swal("Erro", "Erro ao deletar", "error");
+                }
+            }
+        });
+
+
         const id = usu.id;
         try {
             await api.delete(`/usuario/${id}`);

@@ -24,6 +24,7 @@ import CancelarInscricao from "./pages/CancelarInscricao";
 import EsqueciSenha from "./pages/EsqueciSenha";
 import ListaAgenda from "./pages/ListaAgenda";
 import ReceberDoaco from "./pages/ReceberDoacao";
+import ListaDoacao from "./pages/ListaDoacao";
 
 
 
@@ -53,9 +54,8 @@ const Routes = () => {
             <Route component={CancelarInscricao} path='/cancelarInscricao'></Route>
             <Route component={ListaAgenda} path='/listaAgenda'></Route>
             <Route component={ReceberDoaco} path='/receberDoacao'></Route>
+            <Route component={ListaDoacao} path='/listaDoacao'></Route>
             
-
-
        </BrowserRouter>
    )
 }

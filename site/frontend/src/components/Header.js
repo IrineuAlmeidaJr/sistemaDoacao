@@ -50,11 +50,12 @@ const Header = () => {
                                     <li><a href="">Listar</a>
                                         <ul> 
                                             <li><a href="http://localhost:3000/listaUsuario">Usuario</a></li>
+                                            <li><a href="http://localhost:3000/listaDoacao">Doação</a></li>
                                             <li><a href="http://localhost:3000/listaTipoDoacao">TipoDoação</a></li>
                                             <li><a href="http://localhost:3000/listaTamanho">Tamanho</a></li>
                                             <li><a href="http://localhost:3000/listaBeneficiarios">Beneficiário</a></li>
                                             <li><a href="http://localhost:3000/listaLocalDoacao">LocalDoação</a></li>
-                                            <li><a href="http://localhost:3000/listaCampanha">CampanhaDoação</a></li>
+                                            <li><a href="http://localhost:3000/listaCampanha">CampanhaDoação</a></li>                                            
                                         </ul>
                                     </li>`;
                                     

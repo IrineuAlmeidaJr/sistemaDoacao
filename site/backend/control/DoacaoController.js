@@ -38,6 +38,15 @@ module.exports = {
         return response.json(doacao);
     },
 
+    async receberDoacao(request, response) {
+        const {doacao_id} = request.params;
+        const con = await db.conecta();
+        let  doacao =  await new Doacao().procurarId(doacao_id, db);
+        doacao.setStatus('R');    
+        await doacao.alterar(db);
+        return response.json(doacao);
+    },
+
     async listarPorUsuId (request, response) {
         const {doacao_id} = request.params; // parametro de url
         const con = await db.conecta();
@@ -62,6 +71,11 @@ module.exports = {
     async listarDetalhado (request, response) {
         const con = await db.conecta();
         let doacao = await new Doacao().listarDetalhado(db);
+        return response.json(doacao);
+    },
+    async listarDetalhadoTodos (request, response) {
+        const con = await db.conecta();
+        let doacao = await new Doacao().listarDetalhadoTodos(db);
         return response.json(doacao);
     },
 

@@ -28,65 +28,13 @@ export default function ReceberDoacao(props) {
                 quatidade: dados.quatidade,                        
                 doador_nome: dados.doador_nome
             });
-            setDoacao_Id(dados.doacao_id);
-            setDoacao_Data(dados.data);
-            setDoacao_Local_Id(dados.local_id);
-            setCampanha_Id(dados.campanha_id);
-            setUsu_Id(dados.usu_id)
-
-
-            // carregaItens();
-            // carregaDoacao();
             setCarregar(true);            
         }
     });
 
-    // async function carregaItens()
-    // {
-    //     const resp = await api.get(`/itensID/${campos.id}`);
-    //     setItem(resp.data)
-    //     console.log(resp.data)        
-    // }
-
-    // async function alterarItens()
-    // {
-    //     const resp = await api.put(`/itensDoacao`);
-    //     setItem(resp.data)
-    //     console.log(resp.data)        
-    // }
-
-    // async function carregaDoacao()
-    // {
-    //     try {
-    //         const resp = await api.get(`/doacao/${campos.id}`);            
-    //         setDoacao_Id(resp.data.id);  
-    //         setDoacao_Data(resp.data.dataDoacao);
-    //         setDoacao_Local_Id(resp.data.localDoacao_id);   
-    //         setCampanha_Id(resp.data.campanha_id);
-    //         setUsu_Id(resp.data.usu_id);
-    //         setStatus(resp.data.status);;
-           
-            
-    //     } catch(err) {
-    //         console.log("ERRO " + err);
-    //     }            
-    // }
-
     function handleSubmit(e) {
-        // carregaDoacao();
         e.preventDefault();
-        const doacao = {
-            id: doacao_id,
-            dataDoacao: doacao_data,
-            localDoacao_id: doacao_local_id,
-            campanha_id: campanha_id,
-            usu_id: usu_id,
-            status: 'R'
-        }
-        console.log(doacao)
-        api.put('/doacao', doacao);
-    
-        
+        api.put(`/receberDoacao/${campos.id}`);
 
         swal("Finalizado!", "Doação registrada com sucesso.", "success").then(function() {
             window.location = '/listaAgenda';
