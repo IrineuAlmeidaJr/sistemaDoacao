@@ -7,7 +7,8 @@ import '../css/Formularios.css';
 
 export default function AgendarDoacao(doa) {
     const [doacao, setDoacao] = React.useState('');
-    const [itens, setItens] = React.useState('');
+    const [itens, setItens] = React.useState([]);
+    const itensV = [];
     const [estaAtualizando, setEstaAtualizando] = React.useState(false);
     const usu = JSON.parse(localStorage.getItem('usuInfo'));
     React.useEffect(()=>{
@@ -91,6 +92,34 @@ export default function AgendarDoacao(doa) {
         return id;
     }
 
+    function submit()
+    {
+        handler();
+        handleSubmit();
+    }
+
+    function insereItem()
+    {
+        itensV.push({
+            id: 0,
+            nome: document.getElementById('nomeItem').value,
+            quantidade: document.getElementById("qtde").value,
+            tipoDoacao: document.getElementById('tipoDoacao').value,
+            uniMedida: document.getElementById('uniMedida').value,
+            tamanho: document.getElementById('tamanho').value,
+            genero: document.getElementById('genero').value,
+            doacaoId: 0
+        });
+        document.getElementById('nomeItem').value = '';
+        document.getElementById("qtde").value = '';
+        document.getElementById('tipoDoacao').value = 0;
+        document.getElementById('uniMedida').value = 0;
+        document.getElementById('tamanho').value = 0;
+        document.getElementById('genero').value = 0;
+
+        
+    }
+
     function handler() {
         if(!estaAtualizando){
             //setNome({nome:document.getElementById('tipoDoacao').value});
@@ -104,16 +133,7 @@ export default function AgendarDoacao(doa) {
             
             
             
-            setItens({
-                id: 0,
-                nome: document.getElementById('nomeItem').value,
-                quantidade: document.getElementById("qtde").value,
-                tipoDoacao: document.getElementById('tipoDoacao').value,
-                uniMedida: document.getElementById('uniMedida').value,
-                tamanho: document.getElementById('tamanho').value,
-                genero: document.getElementById('genero').value,
-                doacaoId: 0
-            });
+            setItens(itensV);
             
             //console.log(itens);
         }
@@ -130,8 +150,8 @@ export default function AgendarDoacao(doa) {
         }        
     }
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+    async function handleSubmit() {
+        //e.preventDefault();
         if(!estaAtualizando){ 
             const doacaoObj = {
                 dataDoacao: doacao.dataDoacao,
@@ -144,20 +164,25 @@ export default function AgendarDoacao(doa) {
             await api.post('/doacao', doacaoObj);
 
             //console.log(itens);
-            //let res = await getLastIncludedDonation();
+            let res = await getLastIncludedDonation();
             //console.log(doaId.data);
-            const itensObj = {
-                id: itens.id,
-                nome: itens.nome,
-                quantidade: itens.quantidade,
-                tipoDoacao_id: itens.tipoDoacao,
-                unidadeMedida_id: itens.uniMedida,
-                tamanho_id: itens.tamanho,
-                genero_id: itens.genero,
-                doacao_id: await getLastIncludedDonation()
-            };
-            console.log(itensObj);
-            await api.post('/itensDoacao', itensObj);
+            itensV.forEach(async itens => {
+                const itensObj = {
+                    id: itens.id,
+                    nome: itens.nome,
+                    quantidade: itens.quantidade,
+                    tipoDoacao_id: itens.tipoDoacao,
+                    unidadeMedida_id: itens.uniMedida,
+                    tamanho_id: itens.tamanho,
+                    genero_id: itens.genero,
+                    doacao_id: res
+                };
+
+                await api.post('/itensDoacao', itensObj);
+            })
+            
+            //console.log(itensObj);
+            //await api.post('/itensDoacao', itensObj);
 
             swal("Finalizado!", "Agendamento efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
@@ -405,7 +430,7 @@ export default function AgendarDoacao(doa) {
             <Header/>
 
             <div class="cadastro" >
-                <form class="campos-cadastro" onSubmit={handleSubmit}>
+                <form class="campos-cadastro">
                     <h1>Agendar doação</h1>
                     <div id="nomeItemBox" class="inputBox">
                         <label class="label-bold" for="nomeItem">Nome do item:</label>
@@ -484,8 +509,11 @@ export default function AgendarDoacao(doa) {
                     </div>
                     <br/>
 
-                    <button class="btConfirmar" onClick={handler}>Confirmar</button>
+                    {/*<button class="btConfirmar" type="reset" onClick={insereItem}>Confirmar item</button>
+                    <button class="btConfirmar" type="submit"onClick={handler}>Confirmar doação</button>*/}
                 </form>
+                <button class="btConfirmar"  onClick={insereItem}>Confirmar item</button>
+                <button class="btConfirmar" onClick={submit}>Confirmar doação</button>
             </div>
 
             <Footer/>
