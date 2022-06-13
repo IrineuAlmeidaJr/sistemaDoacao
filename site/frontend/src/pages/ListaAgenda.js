@@ -43,19 +43,23 @@ const ListaAgenda = () => {
     }
 
     function alterar(ItensR) {
-        /*
+        
         history.push({
             pathname: '/AgendarDoacao',
-            state:{itens_id: ItensR.id, 
-                itens_nome: ItensR.nome, 
-                itens_quatidade: ItensR.quantidade, 
-                tipodoacao_id: ItensR.tipoDoacao_id, 
-                unidadeMedida_id:ItensR.unidadeMedida_id, 
-                tamanho_id: ItensR.tamanho_id, 
-                genero_id: ItensR.genero_id, 
-                doacao_id: ItensR.doacao_id},
-        });*/
-        console.log(ItensR);
+         state:{    campanha_id: ItensR.campanha_id,
+                    doacao_dataDoacao: ItensR.doacao_dataDoacao,
+                    doacao_id: ItensR.doacao_id,
+                    genero_id: ItensR.genero_id,
+                    itens_nome: ItensR.itens_nome,
+                    local_id: ItensR.local_id,
+                    quantidade: ItensR.quantidade,
+                    tipoDoacao_id: ItensR.tipoDoacao_id,
+                    unidadeMedida_id: ItensR.unidadeMedida_id,
+                    usu_id: ItensR.usu_id,
+                    usu_nome: ItensR.usu_nome,
+                },
+        });
+        //console.log(ItensR);
     }
 
     function confirmar(item) {
