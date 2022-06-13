@@ -43,6 +43,7 @@ const ListaAgenda = () => {
     }
 
     function alterar(ItensR) {
+        /*
         history.push({
             pathname: '/AgendarDoacao',
             state:{itens_id: ItensR.id, 
@@ -53,7 +54,8 @@ const ListaAgenda = () => {
                 tamanho_id: ItensR.tamanho_id, 
                 genero_id: ItensR.genero_id, 
                 doacao_id: ItensR.doacao_id},
-        });
+        });*/
+        console.log(ItensR);
     }
 
     function confirmar(item) {
