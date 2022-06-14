@@ -14,6 +14,19 @@ module.exports = {
         return response.json(doacao);
     },
 
+    async gravarCompleto(request, response) {
+        console.log('entrou');
+        console.log(request);
+        const {dataDoacao, localDoacao_id, campanha_id, usu_id, status} = request.body; // campos do formulario
+        console.log(dataDoacao);
+        //let doacao = new Doacao(0, dataDoacao, localDoacao_id, campanha_id, usu_id, status);
+        //const con = await db.conecta(); //  conecta ao banco        
+        //console.log(doacao);
+        //await doacao.gravar(db);
+
+        //return response.json(doacao);
+    },
+
     async alterar(request, response) {
         const {id, dataDoacao, localDoacao_id, campanha_id, usu_id, status} = request.body;
         let doacao = new Doacao(id, dataDoacao, localDoacao_id, campanha_id, usu_id, status);

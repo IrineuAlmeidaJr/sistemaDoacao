@@ -96,31 +96,42 @@ export default function AgendarDoacao(doa) {
     {
         handler();
         handleSubmit();
+        //console.log(doacao);
     }
 
     function insereItem()
     {
-        itensV.push({
-            id: 0,
-            nome: document.getElementById('nomeItem').value,
-            quantidade: document.getElementById("qtde").value,
-            tipoDoacao: document.getElementById('tipoDoacao').value,
-            uniMedida: document.getElementById('uniMedida').value,
-            tamanho: document.getElementById('tamanho').value,
-            genero: document.getElementById('genero').value,
-            doacaoId: 0
-        });
-        document.getElementById('nomeItem').value = '';
-        document.getElementById("qtde").value = '';
-        document.getElementById('tipoDoacao').value = 0;
-        document.getElementById('uniMedida').value = 0;
-        document.getElementById('tamanho').value = 0;
-        document.getElementById('genero').value = 0;
+        swal("Confirmar", "Confimar item?", "warning", {buttons: ["Não", "Sim"]})
+            .then( (sim) => {
+                if (sim) {
+                    itensV.push({
+                        id: 0,
+                        nome: document.getElementById('nomeItem').value,
+                        quantidade: document.getElementById("qtde").value,
+                        tipoDoacao: document.getElementById('tipoDoacao').value,
+                        uniMedida: document.getElementById('uniMedida').value,
+                        tamanho: document.getElementById('tamanho').value,
+                        genero: document.getElementById('genero').value,
+                        doacaoId: 0
+                    });
 
+            
+                    document.getElementById('nomeItem').value = '';
+                    document.getElementById("qtde").value = '';
+                    document.getElementById('tipoDoacao').value = 0;
+                    document.getElementById('uniMedida').value = 0;
+                    document.getElementById('tamanho').value = 0;
+                    document.getElementById('genero').value = 0;
+
+                    console.log(itensV);
+                    console.log(itensV.length);
+                  
+                }});
         
     }
 
     function handler() {
+        //event.preventDefault();
         if(!estaAtualizando){
             //setNome({nome:document.getElementById('tipoDoacao').value});
             //console.log('entrou');
@@ -135,7 +146,11 @@ export default function AgendarDoacao(doa) {
             
             setItens(itensV);
             
-            //console.log(itens);
+            //console.log(doacao.dataDoacao);
+
+            /*swal("Finalizado!", "asdasda", "success").then(function() {
+                window.location = '/';
+            });*/
         }
         else{
             console.log('entrou');
@@ -150,8 +165,8 @@ export default function AgendarDoacao(doa) {
         }        
     }
 
-    async function handleSubmit() {
-        //e.preventDefault();
+    async function handleSubmit(e) {
+        e.preventDefault();
         if(!estaAtualizando){ 
             const doacaoObj = {
                 dataDoacao: doacao.dataDoacao,
@@ -160,33 +175,40 @@ export default function AgendarDoacao(doa) {
                 usu_id: doacao.usuario,
                 status: doacao.status
             };
-            //console.log(doacaoObj);
+            console.log(doacaoObj);
             await api.post('/doacao', doacaoObj);
 
             //console.log(itens);
             let res = await getLastIncludedDonation();
-            //console.log(doaId.data);
-            itensV.forEach(async itens => {
+            console.log('chegou, proximo loop');
+            console.log(itensV.length);
+            console.log(itens.length);
+            itens.forEach(async item => {
+                //console.log('entrouuuu');
                 const itensObj = {
-                    id: itens.id,
-                    nome: itens.nome,
-                    quantidade: itens.quantidade,
-                    tipoDoacao_id: itens.tipoDoacao,
-                    unidadeMedida_id: itens.uniMedida,
-                    tamanho_id: itens.tamanho,
-                    genero_id: itens.genero,
+                    id: item.id,
+                    nome: item.nome,
+                    quantidade: item.quantidade,
+                    tipoDoacao_id: item.tipoDoacao,
+                    unidadeMedida_id: item.uniMedida,
+                    tamanho_id: item.tamanho,
+                    genero_id: item.genero,
                     doacao_id: res
                 };
-
+                console.log(itensObj);
                 await api.post('/itensDoacao', itensObj);
-            })
+            });
+
+        
+
+            //await api.post('/doacaoItens', doacaoObj);
             
             //console.log(itensObj);
             //await api.post('/itensDoacao', itensObj);
 
             swal("Finalizado!", "Agendamento efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
-            });  
+            });
         } else {
             const doacaoObj = {
                 id: doa.location.state.doacao_id, 
@@ -430,90 +452,102 @@ export default function AgendarDoacao(doa) {
             <Header/>
 
             <div class="cadastro" >
-                <form class="campos-cadastro">
-                    <h1>Agendar doação</h1>
-                    <div id="nomeItemBox" class="inputBox">
-                        <label class="label-bold" for="nomeItem">Nome do item:</label>
-                        <input type="text" id="nomeItem" name="nomeItem" placeholder="Informe um nome para a doação"/>
-                    </div>
-                    <br/>
+                <div class="campos-cadastro">
+                    <form id="doacaoForm" onSubmit={handleSubmit}>
+                        <h1>Agendar doação</h1>
 
-                    
-                    <div id="tipoDoacaoBox" class="comboBox">
-                        <label class="label-bold" for="tipoDoacao">Tipo da doação:</label>
-                        <select id="tipoDoacao" onLoad={loadTipoDoacaoBox} /*onChange={checkTipoDoacao}*/>
-                            {/*<option value="">Selecione o tipo de doação</option>
-                            <option value="Brinquedo">Brinquedo</option>
-                            <option value="Roupas">Roupas</option>
-                            <option value="Alimento">Alimento</option>*/}
-                        </select>
-                    </div>
-                    
-                    <div id="quantidadeBox" class="inputBox">
-                        <label class="label-bold" for="qtde">Quantidade:</label>
-                        <input type="text" id="qtde" name="qtde"/>
-                    </div>
+                        <div id="campanhaDoacaoBox" class="comboBox">
+                            <label class="label-bold" for="campanhaDoacao">Campanha de doação:</label>
+                            <select  id="campanhaDoacao">
+                                {/*<option value="">Selecione uma campanha de doação</option>
+                                <option value="Brinquedo">St. jordan, 345 - New York</option>
+                                <option value="Roupas">Passion avenue - 789 - PR</option>*/}
+                            </select>
+                        </div>
+                        <br/>
 
-                    <div id="unidadeMedidaBox">
-                        {/*<label class="label-bold" for="uniMedida">Unidade de medida:</label><br/>
-                        <select class="cb-tipoDoacao" id="uniMedida">
-                            <option value="Gramas">Gramas</option>
-                            <option value="Kilogramas">Kilogramas</option>
-                            <option value="Outros">Outros</option>
-                        </select>*/}
-                    </div>
-                    
+                        <div id="localDoacaoBox" class="comboBox">
+                            <label class="label-bold" for="localDoacao">Local de doação:</label>
+                            <select  id="localDoacao">
+                                {/*<option value="">Selecione um local de doação</option>
+                                <option value="Brinquedo">St. jordan, 345 - New York</option>
+                                <option value="Roupas">Passion avenue - 789 - PR</option>*/}
+                            </select>
+                        </div>
+                        <br/>
 
-                    <div id="tamanhoBox">
-                        {/*<label class="label-bold" for="tamanho">Tamanho:</label><br/>
-                        <select class="cb-tipoDoacao" id="tamanho">
-                            <option value="P">P</option>
-                            <option value="M">M</option>
-                            <option value="G">G</option>
-                        </select>*/}
-                    </div>
-                    
+                        <div id="dtDoacaobBox" class="inputBox">
+                            <label class="label-bold" for="dtDoacao">Data da doação:</label>
+                            <input type="date" name="dtDoacao" id="dtDoacao" />
+                        </div>
+                        <br/>
 
-                    <div id="generoBox">
-                        {/*<label class="label-bold" for="genero">Genero:</label><br/>
-                        <select class="cb-tipoDoacao" id="genero">
-                            <option value="Masculino">Masculino</option>
-                            <option value="Feminino">Feminino</option>
-                        </select>*/}
-                    </div>
-                    
 
-                    <div id="campanhaDoacaoBox" class="comboBox">
-                        <label class="label-bold" for="campanhaDoacao">Campanha de doação:</label>
-                        <select  id="campanhaDoacao">
-                            {/*<option value="">Selecione uma campanha de doação</option>
-                            <option value="Brinquedo">St. jordan, 345 - New York</option>
-                            <option value="Roupas">Passion avenue - 789 - PR</option>*/}
-                        </select>
-                    </div>
-                    <br/>
+                        <h1>Itens</h1>
 
-                    <div id="localDoacaoBox" class="comboBox">
-                        <label class="label-bold" for="localDoacao">Local de doação:</label>
-                        <select  id="localDoacao">
-                            {/*<option value="">Selecione um local de doação</option>
-                            <option value="Brinquedo">St. jordan, 345 - New York</option>
-                            <option value="Roupas">Passion avenue - 789 - PR</option>*/}
-                        </select>
-                    </div>
-                    <br/>
+                        <div id="nomeItemBox" class="inputBox">
+                            <label class="label-bold" for="nomeItem">Nome do item:</label>
+                            <input type="text" id="nomeItem" name="nomeItem" placeholder="Informe um nome para a doação"/>
+                        </div>
+                        <br/>
 
-                    <div id="dtDoacaobBox" class="inputBox">
-                        <label class="label-bold" for="dtDoacao">Data da doação:</label>
-                        <input type="date" name="dtDoacao" id="dtDoacao" />
-                    </div>
-                    <br/>
+                        
+                        <div id="tipoDoacaoBox" class="comboBox">
+                            <label class="label-bold" for="tipoDoacao">Tipo da doação:</label>
+                            <select id="tipoDoacao" onLoad={loadTipoDoacaoBox} /*onChange={checkTipoDoacao}*/>
+                                {/*<option value="">Selecione o tipo de doação</option>
+                                <option value="Brinquedo">Brinquedo</option>
+                                <option value="Roupas">Roupas</option>
+                                <option value="Alimento">Alimento</option>*/}
+                            </select>
+                        </div>
+                        
+                        <div id="quantidadeBox" class="inputBox">
+                            <label class="label-bold" for="qtde">Quantidade:</label>
+                            <input type="text" id="qtde" name="qtde"/>
+                        </div>
 
-                    {/*<button class="btConfirmar" type="reset" onClick={insereItem}>Confirmar item</button>
-                    <button class="btConfirmar" type="submit"onClick={handler}>Confirmar doação</button>*/}
-                </form>
-                <button class="btConfirmar"  onClick={insereItem}>Confirmar item</button>
-                <button class="btConfirmar" onClick={submit}>Confirmar doação</button>
+                        <div id="unidadeMedidaBox">
+                            {/*<label class="label-bold" for="uniMedida">Unidade de medida:</label><br/>
+                            <select class="cb-tipoDoacao" id="uniMedida">
+                                <option value="Gramas">Gramas</option>
+                                <option value="Kilogramas">Kilogramas</option>
+                                <option value="Outros">Outros</option>
+                            </select>*/}
+                        </div>
+                        
+
+                        <div id="tamanhoBox">
+                            {/*<label class="label-bold" for="tamanho">Tamanho:</label><br/>
+                            <select class="cb-tipoDoacao" id="tamanho">
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                            </select>*/}
+                        </div>
+                        
+
+                        <div id="generoBox">
+                            {/*<label class="label-bold" for="genero">Genero:</label><br/>
+                            <select class="cb-tipoDoacao" id="genero">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                            </select>*/}
+                        </div>
+                        
+
+                        
+
+                        {/*<button type="button" class="btConfirmar"  onClick={insereItem}>Confirmar item</button>
+                        <br/><br/><br/><br/><br/><br/>
+                        <button type="submit" class="btConfirmar" onClick={handler}>Confirmar doação</button>*/}
+                    </form>
+                    <button class="btConfirmar"  onClick={insereItem}>Confirmar item</button>
+                    <br/><br/><br/><br/><br/><br/>
+                    <button form="doacaoForm" type="submit" class="btConfirmar" onClick={handler}>Confirmar doação</button>
+
+                </div>
+                
             </div>
 
             <Footer/>

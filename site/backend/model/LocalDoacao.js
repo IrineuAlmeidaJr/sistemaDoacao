@@ -90,7 +90,7 @@ module.exports = class LocalDoacao {
 
     async listar(db) {
         const resp = await new DAOLocalDoacao().listar(db);
-        console.log(resp);
+        //console.log(resp);
         let localdoacao = [];
         for (let i = 0; i < resp.data.length; i++) {
             localdoacao.push(new LocalDoacao(

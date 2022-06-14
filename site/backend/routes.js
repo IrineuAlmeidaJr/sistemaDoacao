@@ -113,6 +113,7 @@ routes.get('/doacaoUltimo', doacaoCtrl.ultimo);
 routes.get('/doacao/:doacao_id', doacaoCtrl.listarPorId);
 routes.get('/doacaoDetalhadoTodos', doacaoCtrl.listarDetalhadoTodos);
 routes.get('/doacao', doacaoCtrl.listar);
+routes.post('/doacaoItens', doacaoCtrl.gravarCompleto);
 
 // module.exports = {routes}; 
 module.exports = routes; // Estava dando erro de rota, tem exportar sem ser objeto

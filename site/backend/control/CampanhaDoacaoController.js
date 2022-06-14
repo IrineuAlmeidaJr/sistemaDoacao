@@ -39,7 +39,7 @@ module.exports = {
         let lista = []
         let novo = new CampanhaDoacao(null,null,null,null)
         lista = await novo.listar(db)
-        console.log(lista)
+        //console.log(lista)
         return res.json(lista)
     }
 }
