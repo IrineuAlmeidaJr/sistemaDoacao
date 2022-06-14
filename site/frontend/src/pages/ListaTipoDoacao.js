@@ -74,7 +74,7 @@ const ListaTipoDoacao = () => {
                         <h3>Consultar por Nome</h3>
                         <div class="alterarInterno">
                             <label for="pesquisar">Nome</label>
-                            <input type="text" id="pesquisar" placeholder="Nome deseja buscar..." />
+                            <input type="text" id="pesquisar" placeholder="Nome que deseja buscar..." />
                             <div class="botao">
                                 <button onClick={buscarNome}>Buscar</button>
                             </div>

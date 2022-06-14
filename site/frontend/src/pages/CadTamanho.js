@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import "../css/Formularios.css";
 import "../css/Gerais.css";
+import api from '../service/api';
 import swal from 'sweetalert';
 
 const localRecursos = 'http://localhost:4000/tamanho'
@@ -37,7 +38,7 @@ export default function FormCadTamanho (tamanhoPass) {
     async function handleSubmit(e) {
         e.preventDefault();
         if(!estaAtualizando){
-            await fetch(localRecursos,{method:"POST",
+            /*await fetch(localRecursos,{method:"POST",
                                 headers:{'Content-Type':'application/json'},
                                 body:JSON.stringify(tamanho)
             })
@@ -45,10 +46,18 @@ export default function FormCadTamanho (tamanhoPass) {
 
             swal("Finalizado!", "Cadastrado efetuado com sucesso.", "success").then(function() {
                 window.location = '/';
-            }); 
+            }); */
+
+            const t = {
+                nome: tamanho.nome
+            };
+            api.post('/tamanho', t); 
+            swal("Finalizado!", "Cadastro de tamanho efetuado com sucesso.", "success").then(function() {
+                window.location = '/';
+            });
         }
         else{
-            await fetch(localRecursos,{method:"PUT",
+            /*await fetch(localRecursos,{method:"PUT",
                                  headers:{'Content-Type':'application/json'},
                                  body:JSON.stringify(tamanho)
             })
@@ -57,7 +66,15 @@ export default function FormCadTamanho (tamanhoPass) {
  
             swal("Finalizado!", "tamanho alterado com sucesso.", "success").then(function() {
                 window.location = '/';
-            }); 
+            }); */
+            const t = {
+                cod: tamanhoPass.location.state.cod,
+                nome: tamanho.nome
+            };
+            api.put('/tamanho', t); 
+            swal("Finalizado!", "Alteração efetuada com sucesso.", "success").then(function() {
+                window.location = '/';
+            });
         }
         setTamanho('');
         
