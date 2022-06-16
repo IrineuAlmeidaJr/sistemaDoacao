@@ -9,6 +9,7 @@ module.exports = class Doacao {
         this.campanha_id = campanha_id;
         this.usu_id = usu_id;
         this.status = status;
+        // Colocar um Array de ItensDoacao e tirar a Controller de ItensDoacao
     }
 
     getId(){
